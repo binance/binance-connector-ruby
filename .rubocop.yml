@@ -1,0 +1,29 @@
+AllCops:
+    TargetRubyVersion: 2.5
+
+Metrics/LineLength:
+  Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - binance-connector.gemspec
+
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Naming/VariableName:
+  Exclude:
+    - 'lib/binance/spot/*.rb'
+
+Naming/MethodParameterName:
+  Exclude:
+    - 'lib/binance/spot/*.rb'
+
+Metrics/ParameterLists:
+  Max: 10
+
+Metrics/ModuleLength:
+  Max: 200
