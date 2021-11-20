@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 1.0.2 - 2021-11-21
+
+### Update
+- Change README description and package settings
+
 ## 1.0.1 - 2021-11-21
 
 ### Update

@@ -40,7 +40,7 @@ def stub_binance_request(verb, path, status, body)
     status: status,
     headers: {
       'Content-Type' => 'application/json',
-      'User-Agent' => "binance-connector/#{Binance::VERSION}"
+      'User-Agent' => "binance-connector-ruby/#{Binance::VERSION}"
     }
   )
 end
@@ -57,7 +57,7 @@ def stub_binance_sign_request(verb, path, status, body, params = {})
     status: status,
     headers: {
       'Content-Type' => 'application/json',
-      'User-Agent' => "binance-connector/#{Binance::VERSION}",
+      'User-Agent' => "binance-connector-ruby/#{Binance::VERSION}",
       'X-Mbx-Apikey' => ''
     }
   )

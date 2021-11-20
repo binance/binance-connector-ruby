@@ -18,6 +18,6 @@ Provide steps to let us know how we can reproduce this issue.
 
 ### Environment
 Provide any relevant information about your setup, such as:
-* Version of binance-connector
+* Version of binance-connector-ruby
 * Ruby version
 * Operating system
