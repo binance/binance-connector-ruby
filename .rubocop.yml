@@ -7,7 +7,7 @@ Metrics/LineLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
-    - binance-connector.gemspec
+    - binance-connector-ruby.gemspec
 
 Metrics/MethodLength:
   Max: 15

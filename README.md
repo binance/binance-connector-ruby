@@ -1,6 +1,6 @@
 # Binance Connector Ruby
 
-[![Gem Version](https://badge.fury.io/rb/binance-connector.svg)](https://badge.fury.io/rb/binance-connector)
+[![Gem Version](https://badge.fury.io/rb/binance-connector-ruby.svg)](https://badge.fury.io/rb/binance-connector-ruby)
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -23,7 +23,7 @@ This is a lightweight library that works as a connector to [Binance public API](
 	Add this line in the Gemfile.
 
 	```ruby
-	gem 'binance-connector'
+	gem 'binance-connector-ruby'
 	```
 
 	And then execute the bundler via CLI:
@@ -33,11 +33,11 @@ This is a lightweight library that works as a connector to [Binance public API](
   ```
 2. Install it with CLI:
   ```shell
-  gem install binance-connector
+  gem install binance-connector-ruby
   ```
 ## Documentation
 
-[https://www.rubydoc.info/gems/binance-connector](https://www.rubydoc.info/gems/binance-connector)
+[https://www.rubydoc.info/gems/binance-connector-ruby](https://www.rubydoc.info/gems/binance-connector-ruby)
 ## Restful APIs
 
 ```ruby
