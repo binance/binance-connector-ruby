@@ -11,18 +11,19 @@ module Binance
       #
       # Execute transfer between spot account and cross margin account.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param amount [Float]
       # @param type [Integer]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#cross-margin-account-transfer-margin
-      def margin_transfer(asset:, amount:, type:, **kwargs)
+      def margin_transfer(timestamp = present_timestamp, asset:, amount:, type:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
         Binance::Utils::Validation.require_param('type', type)
 
-        @session.sign_request(:post, '/sapi/v1/margin/transfer', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/margin/transfer', timestamp, params: kwargs.merge(
           asset: asset,
           amount: amount,
           type: type
@@ -35,6 +36,7 @@ module Binance
       #
       # Apply for a loan.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param amount [Float]
       # @param kwargs [Hash]
@@ -42,11 +44,11 @@ module Binance
       # @option kwargs [String] :symbol isolated symbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-borrow-margin
-      def margin_borrow(asset:, amount:, **kwargs)
+      def margin_borrow(timestamp = present_timestamp, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/margin/loan', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/margin/loan', timestamp, params: kwargs.merge(
           asset: asset,
           amount: amount
         ))
@@ -58,6 +60,7 @@ module Binance
       #
       # Repay loan for margin account.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param amount [Float]
       # @param kwargs [Hash]
@@ -65,11 +68,11 @@ module Binance
       # @option kwargs [String] :symbol isolated symbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-repay-margin
-      def margin_repay(asset:, amount:, **kwargs)
+      def margin_repay(timestamp = present_timestamp, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/margin/repay', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/margin/repay', timestamp, params: kwargs.merge(
           asset: asset,
           amount: amount
         ))
@@ -131,6 +134,7 @@ module Binance
       #
       # POST /sapi/v1/margin/order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param side [String]
       # @param type [String]
@@ -147,12 +151,12 @@ module Binance
       # @option kwargs [String] :timeInForce GTC,IOC,FOK
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-new-order-trade
-      def margin_new_order(symbol:, side:, type:, **kwargs)
+      def margin_new_order(timestamp = present_timestamp, symbol:, side:, type:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
         Binance::Utils::Validation.require_param('type', type)
 
-        @session.sign_request(:post, '/sapi/v1/margin/order', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/margin/order', timestamp, params: kwargs.merge(
           symbol: symbol,
           side: side,
           type: type
@@ -163,6 +167,7 @@ module Binance
       #
       # DELETE /sapi/v1/margin/order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isIsolated for isolated margin or not, "TRUE", "FALSE", default "FALSE"
@@ -171,10 +176,10 @@ module Binance
       # @option kwargs [String] :newClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-new-order-trade
-      def margin_cancel_order(symbol:, **kwargs)
+      def margin_cancel_order(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/sapi/v1/margin/order', params: kwargs.merge(
+        @session.sign_request(:delete, '/sapi/v1/margin/order', timestamp, params: kwargs.merge(
           symbol: symbol
         ))
       end
@@ -183,15 +188,16 @@ module Binance
       #
       # DELETE /sapi/v1/margin/openOrders
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isIsolated for isolated margin or not, "TRUE", "FALSE", default "FALSE"
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-cancel-all-open-orders-on-a-symbol-trade
-      def margin_cancel_all_order(symbol:, **kwargs)
+      def margin_cancel_all_order(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/sapi/v1/margin/openOrders', params: kwargs.merge(
+        @session.sign_request(:delete, '/sapi/v1/margin/openOrders', timestamp, params: kwargs.merge(
           symbol: symbol
         ))
       end
@@ -200,6 +206,7 @@ module Binance
       #
       # GET /sapi/v1/margin/transfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :asset
       # @option kwargs [String] :type
@@ -210,14 +217,15 @@ module Binance
       # @option kwargs [String] :archived Default: false. Set to true for archived data from 6 months ago
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-cross-margin-transfer-history-user_data
-      def margin_transfer_history(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/transfer', params: kwargs)
+      def margin_transfer_history(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/transfer', timestamp, params: kwargs)
       end
 
       # Query Loan Record (USER_DATA)
       #
       # GET /sapi/v1/margin/loan
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isolatedSymbol
@@ -229,16 +237,17 @@ module Binance
       # @option kwargs [String] :archived Default: false. Set to true for archived data from 6 months ago
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-loan-record-user_data
-      def margin_load_record(asset:, **kwargs)
+      def margin_load_record(timestamp = present_timestamp, asset:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
 
-        @session.sign_request(:get, '/sapi/v1/margin/loan', params: kwargs.merge(asset: asset))
+        @session.sign_request(:get, '/sapi/v1/margin/loan', timestamp, params: kwargs.merge(asset: asset))
       end
 
       # Query Repay Record (USER_DATA)
       #
       # GET /sapi/v1/margin/repay
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isolatedSymbol
@@ -250,16 +259,17 @@ module Binance
       # @option kwargs [String] :archived Default: false. Set to true for archived data from 6 months ago
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-repay-record-user_data
-      def margin_repay_record(asset:, **kwargs)
+      def margin_repay_record(timestamp = present_timestamp, asset:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
 
-        @session.sign_request(:get, '/sapi/v1/margin/repay', params: kwargs.merge(asset: asset))
+        @session.sign_request(:get, '/sapi/v1/margin/repay', timestamp, params: kwargs.merge(asset: asset))
       end
 
       # Get Interest History (USER_DATA)
       #
       # GET /sapi/v1/margin/interestHistory
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :asset
       # @option kwargs [String] :isolatedSymbol
@@ -270,14 +280,15 @@ module Binance
       # @option kwargs [String] :archived Default: false. Set to true for archived data from 6 months ago
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-interest-history-user_data
-      def margin_interest_history(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/interestHistory', params: kwargs)
+      def margin_interest_history(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/interestHistory', timestamp, params: kwargs)
       end
 
       # Get Force Liquidation Record (USER_DATA)
       #
       # GET /sapi/v1/margin/forceLiquidationRec
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :isolatedSymbol
       # @option kwargs [Integer] :startTime
@@ -286,25 +297,27 @@ module Binance
       # @option kwargs [Integer] :size Default:10 Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-force-liquidation-record-user_data
-      def margin_force_liquidation_record(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/forceLiquidationRec', params: kwargs)
+      def margin_force_liquidation_record(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/forceLiquidationRec', timestamp, params: kwargs)
       end
 
       # Query Cross Margin Account Details (USER_DATA)
       #
       # GET /sapi/v1/margin/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-cross-margin-account-details-user_data
-      def margin_account(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/account', params: kwargs)
+      def margin_account(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/account', timestamp, params: kwargs)
       end
 
       # Query Margin Account's Order (USER_DATA)
       #
       # GET /sapi/v1/margin/order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isIsolated for isolated margin or not, "TRUE", "FALSE", default "FALSE"
@@ -312,29 +325,31 @@ module Binance
       # @option kwargs [String] :origClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-order-user_data
-      def margin_order(symbol:, **kwargs)
+      def margin_order(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/sapi/v1/margin/order', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/sapi/v1/margin/order', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query Margin Account's Open Order (USER_DATA)
       #
       # GET /sapi/v1/margin/openOrders
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol
       # @option kwargs [String] :isIsolated for isolated margin or not, "TRUE", "FALSE", default "FALSE"
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-open-orders-user_data
-      def margin_open_orders(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/openOrders', params: kwargs)
+      def margin_open_orders(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/openOrders', timestamp, params: kwargs)
       end
 
       # Query Margin Account's All Order (USER_DATA)
       #
       # GET /sapi/v1/margin/allOrders
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isIsolated for isolated margin or not, "TRUE", "FALSE", default "FALSE"
@@ -344,16 +359,17 @@ module Binance
       # @option kwargs [Integer] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-all-orders-user_data
-      def margin_all_orders(symbol:, **kwargs)
+      def margin_all_orders(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/sapi/v1/margin/allOrders', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/sapi/v1/margin/allOrders', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Margin Account New OCO (TRADE)
       #
       # POST /sapi/v1/margin/order/oco
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param side [String]
       # @param quantity [Float]
@@ -372,14 +388,14 @@ module Binance
       # @option kwargs [String] :sideEffectType NO_SIDE_EFFECT, MARGIN_BUY, AUTO_REPAY; default NO_SIDE_EFFECT.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-new-oco-trade
-      def margin_oco_order(symbol:, side:, quantity:, price:, stopPrice:, **kwargs)
+      def margin_oco_order(timestamp = present_timestamp, symbol:, side:, quantity:, price:, stopPrice:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
         Binance::Utils::Validation.require_param('quantity', quantity)
         Binance::Utils::Validation.require_param('price', price)
         Binance::Utils::Validation.require_param('stopPrice', stopPrice)
 
-        @session.sign_request(:post, '/sapi/v1/margin/order/oco', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/margin/order/oco', timestamp, params: kwargs.merge(
           symbol: symbol,
           side: side,
           quantity: quantity,
@@ -394,6 +410,7 @@ module Binance
       #
       # Canceling an individual leg will cancel the entire OCO
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isIsolated
@@ -402,10 +419,10 @@ module Binance
       # @option kwargs [String] :newClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-account-cancel-oco-trade
-      def margin_cancel_oco(symbol:, **kwargs)
+      def margin_cancel_oco(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/sapi/v1/margin/orderList', params: kwargs.merge(
+        @session.sign_request(:delete, '/sapi/v1/margin/orderList', timestamp, params: kwargs.merge(
           symbol: symbol
         ))
       end
@@ -414,6 +431,7 @@ module Binance
       #
       # GET /sapi/v1/margin/orderList
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol
       # @option kwargs [String] :isIsolated
@@ -421,14 +439,15 @@ module Binance
       # @option kwargs [String] :origClientOrderId Either orderListId or origClientOrderId must be provided
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-oco-user_data
-      def margin_get_oco(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/orderList', params: kwargs)
+      def margin_get_oco(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/orderList', timestamp, params: kwargs)
       end
 
       # Query Margin Account's all OCO (USER_DATA)
       #
       # GET /sapi/v1/margin/allOrderList
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol
       # @option kwargs [String] :isIsolated
@@ -438,27 +457,29 @@ module Binance
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-all-oco-user_data
-      def margin_get_all_oco(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/allOrderList', params: kwargs)
+      def margin_get_all_oco(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/allOrderList', timestamp, params: kwargs)
       end
 
       # Query Margin Account's Open OCO (USER_DATA)
       #
       # GET /sapi/v1/margin/openOrderList
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol
       # @option kwargs [String] :isIsolated
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-open-oco-user_data
-      def margin_get_open_oco(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/openOrderList', params: kwargs)
+      def margin_get_open_oco(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/openOrderList', timestamp, params: kwargs)
       end
 
       # Query Margin Account's Trade List (USER_DATA)
       #
       # GET /sapi/v1/margin/myTrades
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :startTime
@@ -467,46 +488,49 @@ module Binance
       # @option kwargs [Integer] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-account-39-s-trade-list-user_data
-      def margin_my_trades(symbol:, **kwargs)
+      def margin_my_trades(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/sapi/v1/margin/myTrades', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/sapi/v1/margin/myTrades', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query Max Borrow (USER_DATA)
       #
       # GET /sapi/v1/margin/maxBorrowable
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isolatedSymbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-max-borrow-user_data
-      def margin_max_borrowable(asset:, **kwargs)
+      def margin_max_borrowable(timestamp = present_timestamp, asset:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
 
-        @session.sign_request(:get, '/sapi/v1/margin/maxBorrowable', params: kwargs.merge(asset: asset))
+        @session.sign_request(:get, '/sapi/v1/margin/maxBorrowable', timestamp, params: kwargs.merge(asset: asset))
       end
 
       # Query Max Transfer-Out Amount (USER_DATA)
       #
       # GET /sapi/v1/margin/maxTransferable
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :isolatedSymbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-max-transfer-out-amount-user_data
-      def margin_max_transferable(asset:, **kwargs)
+      def margin_max_transferable(timestamp = present_timestamp, asset:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
 
-        @session.sign_request(:get, '/sapi/v1/margin/maxTransferable', params: kwargs.merge(asset: asset))
+        @session.sign_request(:get, '/sapi/v1/margin/maxTransferable', timestamp, params: kwargs.merge(asset: asset))
       end
 
       # Isolated Margin Account Transfer (MARGIN)
       #
       # POST /sapi/v1/margin/isolated/transfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param symbol [String]
       # @param transFrom [String] "SPOT", "ISOLATED_MARGIN"
@@ -515,14 +539,14 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#isolated-margin-account-transfer-margin
-      def isolated_margin_transfer(asset:, symbol:, transFrom:, transTo:, amount:, **kwargs)
+      def isolated_margin_transfer(timestamp = present_timestamp, asset:, symbol:, transFrom:, transTo:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('transFrom', transFrom)
         Binance::Utils::Validation.require_param('transTo', transTo)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/margin/isolated/transfer', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/margin/isolated/transfer', timestamp, params: kwargs.merge(
           asset: asset,
           symbol: symbol,
           transFrom: transFrom,
@@ -535,6 +559,7 @@ module Binance
       #
       # GET /sapi/v1/margin/isolated/transfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :asset
@@ -546,86 +571,92 @@ module Binance
       # @option kwargs [Integer] :size Default 10, max 100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-isolated-margin-transfer-history-user_data
-      def get_isolated_margin_transfer(symbol:, **kwargs)
+      def get_isolated_margin_transfer(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/sapi/v1/margin/isolated/transfer', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/sapi/v1/margin/isolated/transfer', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query Isolated Margin Account Info (USER_DATA)
       #
       # GET /sapi/v1/margin/isolated/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :symbols Max 5 symbols can be sent; separated by ",". e.g. "BTCUSDT,BNBUSDT,ADAUSDT"
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-isolated-margin-account-info-user_data
-      def get_isolated_margin_account(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/isolated/account', params: kwargs)
+      def get_isolated_margin_account(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/isolated/account', timestamp, params: kwargs)
       end
 
       # Disable Isolated Margin Account (TRADE)
       #
       # DELETE /sapi/v1/margin/isolated/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#disable-isolated-margin-account-trade
-      def disable_isolated_margin_account(symbol:, **kwargs)
+      def disable_isolated_margin_account(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/sapi/v1/margin/isolated/account', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:delete, '/sapi/v1/margin/isolated/account', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Enable Isolated Margin Account (TRADE)
       #
       # POST /sapi/v1/margin/isolated/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#enable-isolated-margin-account-trade
-      def enable_isolated_margin_account(symbol:, **kwargs)
+      def enable_isolated_margin_account(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:post, '/sapi/v1/margin/isolated/account', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:post, '/sapi/v1/margin/isolated/account', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query Enabled Isolated Margin Account Limit (USER_DATA)
       #
       # GET /sapi/v1/margin/isolated/accountLimit
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-enabled-isolated-margin-account-limit-user_data
-      def get_isolated_margin_account_limit(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/isolated/accountLimit', params: kwargs)
+      def get_isolated_margin_account_limit(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/isolated/accountLimit', timestamp, params: kwargs)
       end
 
       # Query Isolated Margin Symbol (USER_DATA)
       #
       # GET /sapi/v1/margin/isolated/pair
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-isolated-margin-symbol-user_data
-      def get_isolated_margin_pair(symbol:, **kwargs)
+      def get_isolated_margin_pair(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/sapi/v1/margin/isolated/pair', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/sapi/v1/margin/isolated/pair', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Get All Isolated Margin Symbol(USER_DATA)
       #
       # GET /sapi/v1/margin/isolated/allPairs
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-all-isolated-margin-symbol-user_data
-      def get_all_isolated_margin_pairs(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/margin/isolated/allPairs', params: kwargs)
+      def get_all_isolated_margin_pairs(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/isolated/allPairs', timestamp, params: kwargs)
       end
 
       # Toggle BNB Burn On Spot Trade And Margin Interest (USER_DATA)
@@ -634,30 +665,33 @@ module Binance
       #
       # "spotBNBBurn" and "interestBNBBurn" should be sent at least one.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :spotBNBBurn "true" or "false"; Determines whether to use BNB to pay for trading fees on SPOT
       # @option kwargs [String] :interestBNBBurn "true" or "false"; Determines whether to use BNB to pay for margin loan's interest
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#toggle-bnb-burn-on-spot-trade-and-margin-interest-user_data
-      def toggle_bnb_burn(**kwargs)
-        @session.sign_request(:post, '/sapi/v1/bnbBurn', params: kwargs)
+      def toggle_bnb_burn(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:post, '/sapi/v1/bnbBurn', timestamp, params: kwargs)
       end
 
       # Get BNB Burn Status (USER_DATA)
       #
       # GET /sapi/v1/bnbBurn
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-bnb-burn-status-user_data
-      def get_bnb_burn(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/bnbBurn', params: kwargs)
+      def get_bnb_burn(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/bnbBurn', timestamp, params: kwargs)
       end
 
       # Query Margin Interest Rate History (USER_DATA)
       #
       # GET /sapi/v1/margin/interestRateHistory
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param kwargs [Hash]
       # @option vipLevel [Integer] Default: user's vip level
@@ -666,10 +700,10 @@ module Binance
       # @option limit [Integer] Default: 20. Maximum: 100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-margin-interest-rate-history-user_data
-      def get_margin_interest_rate_history(asset:, **kwargs)
+      def get_margin_interest_rate_history(timestamp = present_timestamp, asset:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
 
-        @session.sign_request(:get, '/sapi/v1/margin/interestRateHistory', params: kwargs.merge(asset: asset))
+        @session.sign_request(:get, '/sapi/v1/margin/interestRateHistory', timestamp, params: kwargs.merge(asset: asset))
       end
     end
   end

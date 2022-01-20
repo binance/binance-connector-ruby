@@ -8,11 +8,6 @@ RSpec.describe Binance::Spot::Wallet, '#account_snapshot' do
   let(:status) { 200 }
   let(:params) { {} }
 
-  before do
-    mocking_signature_and_ts(**params)
-    stub_binance_sign_request(:get, path, status, body, params)
-  end
-
   context 'validation' do
     it 'should raise validation error without type' do
       expect { spot_client_signed.account_snapshot(type: '') }.to raise_error(Binance::RequiredParameterError)
@@ -20,6 +15,10 @@ RSpec.describe Binance::Spot::Wallet, '#account_snapshot' do
   end
 
   context 'with parameters' do
+    before do
+      stub_binance_sign_request(:get, path, status, body, params)
+    end
+
     let(:params) do
       {
         "type": 'SPOT',
@@ -29,9 +28,29 @@ RSpec.describe Binance::Spot::Wallet, '#account_snapshot' do
         "recvWindow": 1_000
       }
     end
-    it 'should return account snapshot' do
-      spot_client_signed.account_snapshot(**params)
-      expect(send_a_request_with_signature(:get, path, params)).to have_been_made
+
+    context 'with no given timestamp' do
+      before do
+        mocking_signature_and_ts(**params)
+      end
+
+      it 'should return account snapshot' do
+        spot_client_signed.account_snapshot(**params)
+        expect(send_a_request_with_signature(:get, path, params)).to have_been_made
+      end
+    end
+
+    context 'with a given timestamp' do
+      before do
+        mocking_signature(**params)
+      end
+
+      let(:timestamp) { '1642691848708' }
+
+      it 'should return account snapshot' do
+        spot_client_signed.account_snapshot(timestamp, **params)
+        expect(send_a_request_with_signature(:get, path, params)).to have_been_made
+      end
     end
   end
 end

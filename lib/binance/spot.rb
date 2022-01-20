@@ -20,6 +20,7 @@ require 'binance/spot/subaccount'
 require 'binance/spot/trade'
 require 'binance/spot/wallet'
 require 'binance/spot/websocket'
+require 'date'
 
 module Binance
   # Spot class includes the following modules:
@@ -56,6 +57,13 @@ module Binance
 
     def initialize(key: '', secret: '', **kwargs)
       @session = Session.new kwargs.merge(key: key, secret: secret)
+    end
+
+    private
+
+    # @return [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
+    def present_timestamp
+      ::DateTime.now.strftime('%Q')
     end
   end
 end

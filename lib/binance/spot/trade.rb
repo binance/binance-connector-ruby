@@ -16,6 +16,7 @@ module Binance
       #
       # send in a new order to test the request, no order is really generated.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param side [String]
       # @param type [String]
@@ -30,12 +31,12 @@ module Binance
       # @option kwargs [String] :newOrderRespType Set the response JSON. ACK, RESULT, or FULL.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#test-new-order-trade
-      def new_order_test(symbol:, side:, type:, **kwargs)
+      def new_order_test(timestamp = present_timestamp, symbol:, side:, type:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
         Binance::Utils::Validation.require_param('type', type)
 
-        @session.sign_request(:post, '/api/v3/order/test', params: kwargs.merge(
+        @session.sign_request(:post, '/api/v3/order/test', timestamp, params: kwargs.merge(
           symbol: symbol,
           side: side,
           type: type
@@ -48,6 +49,7 @@ module Binance
       #
       # send in a new order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param side [String]
       # @param type [String]
@@ -62,12 +64,12 @@ module Binance
       # @option kwargs [String] :newOrderRespType Set the response JSON. ACK, RESULT, or FULL.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#new-order-trade
-      def new_order(symbol:, side:, type:, **kwargs)
+      def new_order(timestamp = present_timestamp, symbol:, side:, type:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
         Binance::Utils::Validation.require_param('type', type)
 
-        @session.sign_request(:post, '/api/v3/order', params: kwargs.merge(
+        @session.sign_request(:post, '/api/v3/order', timestamp, params: kwargs.merge(
           symbol: symbol,
           side: side,
           type: type
@@ -78,6 +80,7 @@ module Binance
       #
       # DELETE /api/v3/order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :orderId
@@ -85,52 +88,55 @@ module Binance
       # @option kwargs [String] :newClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-order-trade
-      def cancel_order(symbol:, **kwargs)
+      def cancel_order(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/api/v3/order', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:delete, '/api/v3/order', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Cancel all Open Orders on a Symbol (TRADE)
       #
       # DELETE /api/v3/openOrders
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-all-open-orders-on-a-symbol-trade
-      def cancel_open_orders(symbol:, **kwargs)
+      def cancel_open_orders(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/api/v3/openOrders', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:delete, '/api/v3/openOrders', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query Order (USER_DATA)
       #
       # GET /api/v3/order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :orderId
       # @option kwargs [String] :origClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-order-user_data
-      def get_order(symbol:, **kwargs)
+      def get_order(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/api/v3/order', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/api/v3/order', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Current Open Orders (USER_DATA)
       #
       # GET /api/v3/openOrders
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol the symbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#current-open-orders-user_data
-      def open_orders(**kwargs)
-        @session.sign_request(:get, '/api/v3/openOrders', params: kwargs)
+      def open_orders(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/api/v3/openOrders', timestamp, params: kwargs)
       end
 
       # All Orders (USER_DATA)
@@ -139,6 +145,7 @@ module Binance
       #
       # Get all account orders; active, canceled, or filled.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [String] :orderId
@@ -147,10 +154,10 @@ module Binance
       # @option kwargs [String] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#all-orders-user_data
-      def all_orders(symbol:, **kwargs)
+      def all_orders(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:get, '/api/v3/allOrders', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:get, '/api/v3/allOrders', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # New OCO (TRADE)
@@ -159,6 +166,7 @@ module Binance
       #
       # Send in a new OCO
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param side [String]
       # @param quantity [Float]
@@ -175,14 +183,14 @@ module Binance
       # @option kwargs [String] :newOrderRespType
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#new-oco-trade
-      def new_oco_order(symbol:, side:, quantity:, price:, stopPrice:, **kwargs)
+      def new_oco_order(timestamp = present_timestamp, symbol:, side:, quantity:, price:, stopPrice:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
         Binance::Utils::Validation.require_param('quantity', quantity)
         Binance::Utils::Validation.require_param('price', price)
         Binance::Utils::Validation.require_param('stopPrice', stopPrice)
 
-        @session.sign_request(:post, '/api/v3/order/oco', params: kwargs.merge(
+        @session.sign_request(:post, '/api/v3/order/oco', timestamp, params: kwargs.merge(
           symbol: symbol,
           side: side,
           quantity: quantity,
@@ -195,6 +203,7 @@ module Binance
       #
       # DELETE /api/v3/orderList
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :orderListId
@@ -202,10 +211,10 @@ module Binance
       # @option kwargs [String] :newClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-oco-trade
-      def cancel_order_list(symbol:, **kwargs)
+      def cancel_order_list(timestamp = present_timestamp, symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
-        @session.sign_request(:delete, '/api/v3/orderList', params: kwargs.merge(symbol: symbol))
+        @session.sign_request(:delete, '/api/v3/orderList', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query OCO (USER_DATA)
@@ -214,13 +223,14 @@ module Binance
       #
       # Retrieves a specific OCO based on provided optional parameters
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :orderListId
       # @option kwargs [String] :orgClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-oco-user_data
-      def order_list(**kwargs)
-        @session.sign_request(:get, '/api/v3/orderList', params: kwargs)
+      def order_list(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/api/v3/orderList', timestamp, params: kwargs)
       end
 
       # Query all OCO (USER_DATA)
@@ -229,6 +239,7 @@ module Binance
       #
       # Retrieves all OCO based on provided optional parameters
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :fromId
       # @option kwargs [String] :startTime
@@ -236,36 +247,39 @@ module Binance
       # @option kwargs [String] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-all-oco-user_data
-      def all_order_list(**kwargs)
-        @session.sign_request(:get, '/api/v3/allOrderList', params: kwargs)
+      def all_order_list(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/api/v3/allOrderList', timestamp, params: kwargs)
       end
 
       # Query Open OCO (USER_DATA)
       #
       # GET /api/v3/openOrderList
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-open-oco-user_data
-      def open_order_list(**kwargs)
-        @session.sign_request(:get, '/api/v3/openOrderList', params: kwargs)
+      def open_order_list(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/api/v3/openOrderList', timestamp, params: kwargs)
       end
 
       # Account Information (USER_DATA)
       #
       # GET /api/v3/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#account-information-user_data
-      def account(**kwargs)
-        @session.sign_request(:get, '/api/v3/account', params: kwargs)
+      def account(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/api/v3/account', timestamp, params: kwargs)
       end
 
       # Account Trade List (USER_DATA)
       #
       # GET /api/v3/myTrades
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :orderId
@@ -275,19 +289,20 @@ module Binance
       # @option kwargs [Integer] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#account-trade-list-user_data
-      def my_trades(symbol:, **kwargs)
-        @session.sign_request(:get, '/api/v3/myTrades', params: kwargs.merge(symbol: symbol))
+      def my_trades(timestamp = present_timestamp, symbol:, **kwargs)
+        @session.sign_request(:get, '/api/v3/myTrades', timestamp, params: kwargs.merge(symbol: symbol))
       end
 
       # Query Current Order Count Usage (TRADE)
       #
       # GET /api/v3/rateLimit/order
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-current-order-count-usage-trade
-      def get_order_rate_limit(**kwargs)
-        @session.sign_request(:get, '/api/v3/rateLimit/order', params: kwargs)
+      def get_order_rate_limit(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/api/v3/rateLimit/order', timestamp, params: kwargs)
       end
     end
   end
