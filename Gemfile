@@ -7,7 +7,10 @@ gemspec
 gem 'faraday'
 gem 'websocket-eventmachine-client'
 
-gem 'yard', group: :dev
+group :dev do
+  gem 'rake', '>= 13.0.0'
+  gem 'yard'
+end
 
 group :test do
   gem 'rspec'
