@@ -8,6 +8,7 @@ require 'binance/error'
 require 'binance/spot/blvt'
 require 'binance/spot/bswap'
 require 'binance/spot/c2c'
+require 'binance/spot/convert'
 require 'binance/spot/fiat'
 require 'binance/spot/futures'
 require 'binance/spot/loan'
@@ -26,6 +27,7 @@ module Binance
   # - Blvt
   # - Bswap
   # - C2C
+  # - Convert
   # - Fiat
   # - Futures
   # - Loan
@@ -42,6 +44,7 @@ module Binance
     include Binance::Spot::Blvt
     include Binance::Spot::Bswap
     include Binance::Spot::C2C
+    include Binance::Spot::Convert
     include Binance::Spot::Fiat
     include Binance::Spot::Futures
     include Binance::Spot::Loan
