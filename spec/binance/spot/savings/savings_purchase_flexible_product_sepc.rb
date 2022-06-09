@@ -8,8 +8,8 @@ RSpec.describe Binance::Spot::Savings, '#savings_purchase_flexible_product' do
   let(:status) { 200 }
   let(:params) do
     {
-      "productId": 'product_id',
-      "amount": 10
+      productId: 'product_id',
+      amount: 10
     }
   end
 

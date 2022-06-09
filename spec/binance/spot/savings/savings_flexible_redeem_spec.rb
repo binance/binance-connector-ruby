@@ -8,9 +8,9 @@ RSpec.describe Binance::Spot::Savings, '#savings_flexible_redeem' do
   let(:status) { 200 }
   let(:params) do
     {
-      "productId": 'product_id',
-      "amount": 1,
-      "type": 'FAST'
+      productId: 'product_id',
+      amount: 1,
+      type: 'FAST'
     }
   end
 

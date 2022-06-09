@@ -49,7 +49,7 @@ def stub_binance_sign_request(verb, path, status, body, params = {})
   stub_encoder(params)
   query_string = build_query(
     params.merge(
-      "signature": FAKE_SIGNATURE
+      signature: FAKE_SIGNATURE
     )
   )
   stub_send_binance_request(verb, "#{path}?#{query_string}").to_return(
@@ -97,7 +97,7 @@ def sorted_encode(params)
 end
 
 def build_query(params = {})
-  Binance::Utils::Url.build_query(params.sort.to_h.merge("timestamp": timestamp))
+  Binance::Utils::Url.build_query(params.sort.to_h.merge(timestamp: timestamp))
 end
 
 def mock_time
@@ -119,7 +119,7 @@ end
 def send_a_request_with_signature(verb, path, params = {})
   query_string = build_query(
     params.merge(
-      "signature": FAKE_SIGNATURE
+      signature: FAKE_SIGNATURE
     )
   )
   a_request(verb, "#{BASE_URL}#{path}?#{query_string}")

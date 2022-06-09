@@ -15,11 +15,11 @@ RSpec.describe Binance::Spot::Margin, '#margin_interest_history' do
   context 'with parameters' do
     let(:params) do
       {
-        "asset": 'BNB',
-        "startTime": '1581783387615',
-        "endTime": '1581783387616',
-        "current": 2,
-        "size": 100
+        asset: 'BNB',
+        startTime: '1581783387615',
+        endTime: '1581783387616',
+        current: 2,
+        size: 100
       }
     end
     it 'should query load record' do

@@ -14,12 +14,12 @@ RSpec.describe Binance::Spot::Mining, '#mining_resale_request' do
   let(:hashRate) { 100_000_000 }
   let(:params) do
     {
-      "userName": userName,
-      "algo": algo,
-      "startDate": startDate,
-      "endDate": endDate,
-      "toPoolUser": toPoolUser,
-      "hashRate": hashRate
+      userName: userName,
+      algo: algo,
+      startDate: startDate,
+      endDate: endDate,
+      toPoolUser: toPoolUser,
+      hashRate: hashRate
     }
   end
 

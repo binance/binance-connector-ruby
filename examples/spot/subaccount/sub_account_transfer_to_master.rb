@@ -10,7 +10,7 @@ logger = Common.setup_logger
 
 client = Binance::Spot.new(key: '', secret: '')
 params = {
-  "asset": '',
-  "amount": 1
+  asset: '',
+  amount: 1
 }
 logger.info(client.sub_account_transfer_to_master(**params))

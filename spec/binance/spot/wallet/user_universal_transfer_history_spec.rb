@@ -22,8 +22,8 @@ RSpec.describe Binance::Spot::Wallet, '#user_universal_transfer_history' do
   context 'with parameters' do
     let(:params) do
       {
-        "type": 1,
-        "recvWindow": 1_000
+        type: 1,
+        recvWindow: 1_000
       }
     end
     it 'should return universal transfer history' do

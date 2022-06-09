@@ -21,7 +21,7 @@ RSpec.describe Binance::Spot::Margin, '#toggle_bnb_burn' do
   end
 
   context 'with symbol' do
-    let(:params) { { "recvWindow": 5_000 } }
+    let(:params) { { recvWindow: 5_000 } }
     it 'should return oco' do
       spot_client_signed.toggle_bnb_burn(**params)
       expect(send_a_request_with_signature(:post, path, params)).to have_been_made

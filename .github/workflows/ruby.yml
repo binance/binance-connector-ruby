@@ -1,10 +1,16 @@
 name: Ruby
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+      - rc-**
 
 jobs:
   build:
-
     strategy:
       fail-fast: false
       matrix:

@@ -10,8 +10,8 @@ RSpec.describe Binance::Spot::Blvt, '#subscribe' do
   let(:status) { 200 }
   let(:params) do
     {
-      "tokenName": tokenName,
-      "cost": cost
+      tokenName: tokenName,
+      cost: cost
     }
   end
 
@@ -21,14 +21,14 @@ RSpec.describe Binance::Spot::Blvt, '#subscribe' do
   end
 
   context 'validation tokenName' do
-    let(:params) { { "tokenName": '', "cost": cost } }
+    let(:params) { { tokenName: '', cost: cost } }
     it 'should raise validation error without tokenName' do
       expect { spot_client_signed.subscribe(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation cost' do
-    let(:params) { { "tokenName": tokenName, "cost": '' } }
+    let(:params) { { tokenName: tokenName, cost: '' } }
     it 'should raise validation error without cost' do
       expect { spot_client_signed.subscribe(**params) }.to raise_error(Binance::RequiredParameterError)
     end

@@ -10,6 +10,6 @@ logger = Common.setup_logger
 
 client = Binance::Spot.new(key: '', secret: '')
 param = {
-  "asset": 'BNB'
+  asset: 'BNB'
 }
 logger.info(client.asset_devidend_record(param))

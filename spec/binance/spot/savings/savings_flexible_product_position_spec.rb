@@ -8,7 +8,7 @@ RSpec.describe Binance::Spot::Savings, '#savings_flexible_product_position' do
   let(:status) { 200 }
   let(:params) do
     {
-      "asset": 'BNB'
+      asset: 'BNB'
     }
   end
 

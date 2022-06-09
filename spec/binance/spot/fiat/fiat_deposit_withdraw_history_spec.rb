@@ -13,14 +13,14 @@ RSpec.describe Binance::Spot::Fiat, '#fiat_deposit_withdraw_history' do
   end
 
   context 'validation' do
-    let(:params) { { "transactionType": '' } }
+    let(:params) { { transactionType: '' } }
     it 'should raise validation error without mandatory params' do
       expect { spot_client_signed.fiat_deposit_withdraw_history(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'with params' do
-    let(:params) { { "transactionType": 0 } }
+    let(:params) { { transactionType: 0 } }
     it 'should return deposit withdrawal history' do
       spot_client_signed.fiat_deposit_withdraw_history(**params)
       expect(send_a_request_with_signature(:get, path, params)).to have_been_made

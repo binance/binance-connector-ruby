@@ -11,9 +11,9 @@ logger = Common.setup_logger
 client = Binance::Spot.new(key: '', secret: '')
 
 params = {
-  "asset": 'BNB',
-  "amount": 0.01,
-  "recvWindow": 1_000
+  asset: 'BNB',
+  amount: 0.01,
+  recvWindow: 1_000
 }
 
 logger.info(client.margin_borrow(**params))

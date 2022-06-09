@@ -8,8 +8,8 @@ RSpec.describe Binance::Spot::Savings, '#savings_flexible_user_redemption_quota'
   let(:status) { 200 }
   let(:params) do
     {
-      "productId": 'product_id',
-      "type": 'FAST'
+      productId: 'product_id',
+      type: 'FAST'
     }
   end
 

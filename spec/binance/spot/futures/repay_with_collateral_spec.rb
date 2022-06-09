@@ -13,14 +13,14 @@ RSpec.describe Binance::Spot::Futures, '#repay_with_collateral' do
   end
 
   context 'validation' do
-    let(:params) { { "quoteId": '' } }
+    let(:params) { { quoteId: '' } }
     it 'should raise validation error without mandatory params' do
       expect { spot_client_signed.repay_with_collateral(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'with params' do
-    let(:params) { { "quoteId": 'quote_id' } }
+    let(:params) { { quoteId: 'quote_id' } }
     it 'should repay' do
       spot_client_signed.repay_with_collateral(**params)
       expect(send_a_request_with_signature(:post, path, params)).to have_been_made

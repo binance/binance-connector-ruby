@@ -8,12 +8,12 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_transfer_sub_account_his
   let(:status) { 200 }
   let(:params) do
     {
-      "asset": 'BNB',
-      "type": 1,
-      "startTime": 1_559_941_980_000,
-      "endTime": 1_559_941_980_000,
-      "limit": 100,
-      "recvWindow": 1_000
+      asset: 'BNB',
+      type: 1,
+      startTime: 1_559_941_980_000,
+      endTime: 1_559_941_980_000,
+      limit: 100,
+      recvWindow: 1_000
     }
   end
 

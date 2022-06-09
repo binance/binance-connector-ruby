@@ -11,9 +11,9 @@ RSpec.describe Binance::Spot::Mining, '#mining_extra_bonus' do
   let(:coin) { 'BNB' }
   let(:params) do
     {
-      "algo": algo,
-      "userName": userName,
-      "coin": coin
+      algo: algo,
+      userName: userName,
+      coin: coin
     }
   end
 

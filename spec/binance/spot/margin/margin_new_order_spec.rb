@@ -13,21 +13,21 @@ RSpec.describe Binance::Spot::Margin, '#margin_new_order' do
   end
 
   context 'validation symbol' do
-    let(:params) { { "symbol": '', "side": 'BUY', "type": 'LIMIT', "quantity": 1, "recvWindow": 1_000 } }
+    let(:params) { { symbol: '', side: 'BUY', type: 'LIMIT', quantity: 1, recvWindow: 1_000 } }
     it 'should raise validation error without symbol' do
       expect { spot_client_signed.margin_new_order(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation side' do
-    let(:params) { { "symbol": 'BNBUSDT', "side": '', "type": 'LIMIT', "quantity": 1, "recvWindow": 1_000 } }
+    let(:params) { { symbol: 'BNBUSDT', side: '', type: 'LIMIT', quantity: 1, recvWindow: 1_000 } }
     it 'should raise validation error without side' do
       expect { spot_client_signed.margin_new_order(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation type' do
-    let(:params) { { "symbol": 'BNBUSDT', "side": 'BUY', "type": '', "quantity": 1, "recvWindow": 1_000 } }
+    let(:params) { { symbol: 'BNBUSDT', side: 'BUY', type: '', quantity: 1, recvWindow: 1_000 } }
     it 'should raise validation error without type' do
       expect { spot_client_signed.margin_new_order(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -37,11 +37,11 @@ RSpec.describe Binance::Spot::Margin, '#margin_new_order' do
     # it should add parameters together to place an order, but we are testing if the parameters can be add to url
     let(:params) do
       {
-        "symbol": 'BNBUSDT',
-        "side": 'BUY',
-        "type": 'LIMIT',
-        "quantity": 1,
-        "recvWindow": 1_000
+        symbol: 'BNBUSDT',
+        side: 'BUY',
+        type: 'LIMIT',
+        quantity: 1,
+        recvWindow: 1_000
       }
     end
 

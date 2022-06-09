@@ -8,8 +8,8 @@ RSpec.describe Binance::Spot::Savings, '#savings_flexible_products' do
   let(:status) { 200 }
   let(:params) do
     {
-      "status": 'ALL',
-      "featured": 'ALL'
+      status: 'ALL',
+      featured: 'ALL'
     }
   end
 

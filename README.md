@@ -35,9 +35,11 @@ This is a lightweight library that works as a connector to [Binance public API](
   ```shell
   gem install binance-connector-ruby
   ```
+
 ## Documentation
 
 [https://www.rubydoc.info/gems/binance-connector-ruby](https://www.rubydoc.info/gems/binance-connector-ruby)
+
 ## Restful APIs
 
 ```ruby

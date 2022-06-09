@@ -9,7 +9,7 @@ RSpec.describe Binance::Spot::Blvt, '#user_limit' do
   let(:status) { 200 }
   let(:params) do
     {
-      "tokenName": 'BTCDOWN'
+      tokenName: 'BTCDOWN'
     }
   end
 

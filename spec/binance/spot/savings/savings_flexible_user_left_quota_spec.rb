@@ -8,7 +8,7 @@ RSpec.describe Binance::Spot::Savings, '#savings_flexible_user_left_quota' do
   let(:status) { 200 }
   let(:params) do
     {
-      "productId": 'product_id'
+      productId: 'product_id'
     }
   end
 

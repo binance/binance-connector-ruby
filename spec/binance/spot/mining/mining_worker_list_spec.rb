@@ -8,12 +8,12 @@ RSpec.describe Binance::Spot::Mining, '#mining_worker_list' do
   let(:status) { 200 }
   let(:params) do
     {
-      "algo": 'sha256',
-      "userName": 'user1',
-      "pageIndex": 1,
-      "sort": 1,
-      "sortColumn": 1,
-      "workerStatus": 1
+      algo: 'sha256',
+      userName: 'user1',
+      pageIndex: 1,
+      sort: 1,
+      sortColumn: 1,
+      workerStatus: 1
     }
   end
 

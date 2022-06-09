@@ -16,15 +16,15 @@ secret = ''
 client = Binance::Spot.new(key: key, secret: secret, base_url: 'https://testnet.binance.vision')
 
 params = {
-  "price": '20',
-  "side": 'BUY',
-  "symbol": 'BNBUSDT',
-  "timeInForce": 'GTC',
-  "type": 'LIMIT',
-  "quantity": 1,
-  "newClientOrderId": 'my_order_1',
-  "newOrderRespType": 'RESULT',
-  "recvWindow": 2_000
+  price: '20',
+  side: 'BUY',
+  symbol: 'BNBUSDT',
+  timeInForce: 'GTC',
+  type: 'LIMIT',
+  quantity: 1,
+  newClientOrderId: 'my_order_1',
+  newOrderRespType: 'RESULT',
+  recvWindow: 2_000
 }
 
 # if the request is not valid, will return error

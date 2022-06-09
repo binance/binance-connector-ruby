@@ -10,8 +10,8 @@ RSpec.describe Binance::Spot::Blvt, '#redeem' do
   let(:status) { 200 }
   let(:params) do
     {
-      "tokenName": tokenName,
-      "amount": amount
+      tokenName: tokenName,
+      amount: amount
     }
   end
 
@@ -21,14 +21,14 @@ RSpec.describe Binance::Spot::Blvt, '#redeem' do
   end
 
   context 'validation tokenName' do
-    let(:params) { { "tokenName": '', "amount": amount } }
+    let(:params) { { tokenName: '', amount: amount } }
     it 'should raise validation error without tokenName' do
       expect { spot_client_signed.redeem(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation amount' do
-    let(:params) { { "tokenName": tokenName, "amount": '' } }
+    let(:params) { { tokenName: tokenName, amount: '' } }
     it 'should raise validation error without amount' do
       expect { spot_client_signed.redeem(**params) }.to raise_error(Binance::RequiredParameterError)
     end

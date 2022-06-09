@@ -8,9 +8,9 @@ RSpec.describe Binance::Spot::Savings, '#savings_customized_position' do
   let(:status) { 200 }
   let(:params) do
     {
-      "asset": 'BNB',
-      "projectId": '123456',
-      "status": 'HOLDING'
+      asset: 'BNB',
+      projectId: '123456',
+      status: 'HOLDING'
     }
   end
 

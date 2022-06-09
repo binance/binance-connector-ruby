@@ -23,8 +23,8 @@ RSpec.describe Binance::Spot::Margin, '#get_isolated_margin_account' do
   context 'with recvWindow' do
     let(:params) do
       {
-        "symbols": 'BNBUSDT',
-        "recvWindow": 5000
+        symbols: 'BNBUSDT',
+        recvWindow: 5000
       }
     end
     it 'should return isolated margin account status' do
@@ -36,7 +36,7 @@ RSpec.describe Binance::Spot::Margin, '#get_isolated_margin_account' do
   context 'with multiple symbols' do
     let(:params) do
       {
-        "symbols": %w[BNBBTC BTCUSDT]
+        symbols: %w[BNBBTC BTCUSDT]
       }
     end
     it 'should return isolated margin account status' do

@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_pair' do
   end
 
   context 'validation symbol' do
-    let(:params) { { "symbol": '' } }
+    let(:params) { { symbol: '' } }
     it 'should raise validation error without symbol' do
       expect { spot_client_signed.margin_pair(**params) }.to raise_error(Binance::RequiredParameterError)
     end

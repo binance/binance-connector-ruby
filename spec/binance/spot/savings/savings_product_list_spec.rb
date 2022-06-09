@@ -8,13 +8,13 @@ RSpec.describe Binance::Spot::Savings, '#savings_product_list' do
   let(:status) { 200 }
   let(:params) do
     {
-      "asset": 'BNB',
-      "type": 'REGULAR',
-      "status": 'ALL',
-      "isSortAsc": true,
-      "sortBy": 'START_TIME',
-      "current": 1,
-      "size": 10
+      asset: 'BNB',
+      type: 'REGULAR',
+      status: 'ALL',
+      isSortAsc: true,
+      sortBy: 'START_TIME',
+      current: 1,
+      size: 10
     }
   end
 

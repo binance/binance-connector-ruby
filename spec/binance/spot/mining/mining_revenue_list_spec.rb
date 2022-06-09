@@ -8,9 +8,9 @@ RSpec.describe Binance::Spot::Mining, '#mining_revenue_list' do
   let(:status) { 200 }
   let(:params) do
     {
-      "algo": 'sha256',
-      "userName": 'user1',
-      "coin": 'BTC'
+      algo: 'sha256',
+      userName: 'user1',
+      coin: 'BTC'
     }
   end
 

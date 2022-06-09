@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_load_record' do
   end
 
   context 'validation asset' do
-    let(:params) { { "asset": '', "recvWindow": 1_000 } }
+    let(:params) { { asset: '', recvWindow: 1_000 } }
     it 'should raise validation error without asset' do
       expect { spot_client_signed.margin_load_record(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -22,8 +22,8 @@ RSpec.describe Binance::Spot::Margin, '#margin_load_record' do
   context 'with parameters' do
     let(:params) do
       {
-        "asset": 'BNB',
-        "txId": 'tx_id'
+        asset: 'BNB',
+        txId: 'tx_id'
       }
     end
     it 'should query load record' do

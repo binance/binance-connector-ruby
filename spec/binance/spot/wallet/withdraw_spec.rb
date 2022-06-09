@@ -15,10 +15,10 @@ RSpec.describe Binance::Spot::Wallet, '#withdraw' do
   context 'validation' do
     let(:params) do
       {
-        "coin": '',
-        "address": 'bnb_address',
-        "amount": 1,
-        "limit": 30
+        coin: '',
+        address: 'bnb_address',
+        amount: 1,
+        limit: 30
       }
     end
     it 'should raise validation error without coin' do
@@ -29,13 +29,13 @@ RSpec.describe Binance::Spot::Wallet, '#withdraw' do
   context 'with parameters' do
     let(:params) do
       {
-        "coin": 'BNB',
-        "address": 'bnb_address',
-        "amount": 1,
-        "withdrawOrderId": 'withdraw_order_id',
-        "network": 'BNB',
-        "addressTag": 'myaddress',
-        "name": 'address_name'
+        coin: 'BNB',
+        address: 'bnb_address',
+        amount: 1,
+        withdrawOrderId: 'withdraw_order_id',
+        network: 'BNB',
+        addressTag: 'myaddress',
+        name: 'address_name'
       }
     end
     it 'should return account snapshot' do

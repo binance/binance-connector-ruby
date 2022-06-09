@@ -13,13 +13,13 @@ logger = Common.setup_logger
 client = Binance::Spot.new(key: '', secret: '')
 
 params = {
-  "symbol": 'BNBUSDT',
-  "side": 'BUY',
-  "quantity": 0.1,
-  "price": 410,
-  "stopPrice": 400,
-  "stopLimitPrice": 400.1,
-  "stopLimitTimeInForce": 'GTC'
+  symbol: 'BNBUSDT',
+  side: 'BUY',
+  quantity: 0.1,
+  price: 410,
+  stopPrice: 400,
+  stopLimitPrice: 400.1,
+  stopLimitTimeInForce: 'GTC'
 }
 
 logger.info(client.margin_oco_order(**params))

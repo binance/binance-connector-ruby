@@ -8,8 +8,8 @@ RSpec.describe Binance::Spot::Savings, '#savings_purchase_customized_project' do
   let(:status) { 200 }
   let(:params) do
     {
-      "projectId": 'project_id',
-      "lot": 10
+      projectId: 'project_id',
+      lot: 10
     }
   end
 

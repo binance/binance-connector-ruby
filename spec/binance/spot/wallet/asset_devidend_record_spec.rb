@@ -15,10 +15,10 @@ RSpec.describe Binance::Spot::Wallet, '#asset_devidend_record' do
   context 'with parameters' do
     let(:params) do
       {
-        "asset": 'BNB',
-        "startTime": '1591673273650',
-        "endTime": '1591673273650',
-        "limit": 1
+        asset: 'BNB',
+        startTime: '1591673273650',
+        endTime: '1591673273650',
+        limit: 1
       }
     end
     it 'should get asset dividend record' do

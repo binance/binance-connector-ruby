@@ -15,11 +15,11 @@ RSpec.describe Binance::Spot::Margin, '#isolated_margin_transfer' do
   context 'validation' do
     where(:params) do
       [
-        { "asset": '', "symbol": 'BNBUSDT', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: 10 },
-        { "asset": 'USDT', "symbol": '', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: 10 },
-        { "asset": 'USDT', "symbol": 'BNBUSDT', transFrom: '', transTo: 'ISOLATED_MARGIN', amount: 10 },
-        { "asset": 'USDT', "symbol": 'BNBUSDT', transFrom: 'SPOT', transTo: '', amount: 10 },
-        { "asset": 'USDT', "symbol": 'BNBUSDT', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: '' }
+        { asset: '', symbol: 'BNBUSDT', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: 10 },
+        { asset: 'USDT', symbol: '', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: 10 },
+        { asset: 'USDT', symbol: 'BNBUSDT', transFrom: '', transTo: 'ISOLATED_MARGIN', amount: 10 },
+        { asset: 'USDT', symbol: 'BNBUSDT', transFrom: 'SPOT', transTo: '', amount: 10 },
+        { asset: 'USDT', symbol: 'BNBUSDT', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: '' }
       ]
     end
     with_them do
@@ -30,7 +30,7 @@ RSpec.describe Binance::Spot::Margin, '#isolated_margin_transfer' do
   end
 
   context 'with complete params' do
-    let(:params) { { "asset": 'USDT', "symbol": 'BNBUSDT', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: 10 } }
+    let(:params) { { asset: 'USDT', symbol: 'BNBUSDT', transFrom: 'SPOT', transTo: 'ISOLATED_MARGIN', amount: 10 } }
     it 'should transfer to isolated margin account' do
       spot_client_signed.isolated_margin_transfer(**params)
       expect(send_a_request_with_signature(:post, path, params)).to have_been_made

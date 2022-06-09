@@ -23,7 +23,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_get_all_isolated_margin_pairs' do
   context 'with recvWindow' do
     let(:params) do
       {
-        "recvWindow": 5000
+        recvWindow: 5000
       }
     end
     it 'should return isolated margin pairs' do

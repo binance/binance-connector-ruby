@@ -9,11 +9,11 @@ RSpec.describe Binance::Spot::Blvt, '#get_subscribe_record' do
   let(:status) { 200 }
   let(:params) do
     {
-      "tokenName": 'BTCDOWN',
-      "id": 12_345,
-      "startTime": 1_631_688_673_000,
-      "endTime": 1_631_688_673_001,
-      "limit": 100
+      tokenName: 'BTCDOWN',
+      id: 12_345,
+      startTime: 1_631_688_673_000,
+      endTime: 1_631_688_673_001,
+      limit: 100
     }
   end
 

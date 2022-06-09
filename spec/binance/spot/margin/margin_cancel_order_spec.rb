@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_cancel_order' do
   end
 
   context 'validation symbol' do
-    let(:params) { { "symbol": '', "recvWindow": 1_000 } }
+    let(:params) { { symbol: '', recvWindow: 1_000 } }
     it 'should raise validation error without symbol' do
       expect { spot_client_signed.margin_cancel_order(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -23,9 +23,9 @@ RSpec.describe Binance::Spot::Margin, '#margin_cancel_order' do
     # it should add parameters together to place an order, but we are testing if the parameters can be add to url
     let(:params) do
       {
-        "symbol": 'BNBUSDT',
-        "orderId": 'order_id',
-        "recvWindow": 1_000
+        symbol: 'BNBUSDT',
+        orderId: 'order_id',
+        recvWindow: 1_000
       }
     end
 

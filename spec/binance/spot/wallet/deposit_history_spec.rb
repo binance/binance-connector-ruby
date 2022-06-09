@@ -16,13 +16,13 @@ RSpec.describe Binance::Spot::Wallet, '#deposit_history' do
   context 'with parameters' do
     let(:params) do
       {
-        "coin": 'BNB',
-        "status": 1,
-        "startTime": '1591833599000',
-        "endTime": '1591833599000',
-        "offest": 0,
-        "limit": 30,
-        "recvWindow": 1_000
+        coin: 'BNB',
+        status: 1,
+        startTime: '1591833599000',
+        endTime: '1591833599000',
+        offest: 0,
+        limit: 30,
+        recvWindow: 1_000
       }
     end
     it 'should return deposit history' do

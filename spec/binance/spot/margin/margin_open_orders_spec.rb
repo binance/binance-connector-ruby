@@ -15,8 +15,8 @@ RSpec.describe Binance::Spot::Margin, '#margin_open_orders' do
   context 'with parameters' do
     let(:params) do
       {
-        "symbol": 'BNB',
-        "recvWindow": 1_000
+        symbol: 'BNB',
+        recvWindow: 1_000
       }
     end
     it 'should query margin open orders' do

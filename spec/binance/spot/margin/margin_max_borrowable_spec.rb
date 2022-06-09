@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_max_borrowable' do
   end
 
   context 'validation asset' do
-    let(:params) { { "asset": '', "recvWindow": 1_000 } }
+    let(:params) { { asset: '', recvWindow: 1_000 } }
     it 'should raise validation error without asset' do
       expect { spot_client_signed.margin_max_borrowable(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -22,8 +22,8 @@ RSpec.describe Binance::Spot::Margin, '#margin_max_borrowable' do
   context 'with parameters' do
     let(:params) do
       {
-        "asset": 'BNBUSDT',
-        "recvWindow": 1_000
+        asset: 'BNBUSDT',
+        recvWindow: 1_000
       }
     end
     it 'should query max borrowable' do

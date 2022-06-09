@@ -13,14 +13,14 @@ RSpec.describe Binance::Spot::Margin, '#margin_transfer' do
   end
 
   context 'validation asset' do
-    let(:params) { { "asset": '', "amount": 1, "type": 1, "recvWindow": 1_000 } }
+    let(:params) { { asset: '', amount: 1, type: 1, recvWindow: 1_000 } }
     it 'should raise validation error without asset' do
       expect { spot_client_signed.margin_borrow(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation amount' do
-    let(:params) { { "asset": 'BNB', "amount": '', "type": 1, "recvWindow": 1_000 } }
+    let(:params) { { asset: 'BNB', amount: '', type: 1, recvWindow: 1_000 } }
     it 'should raise validation error without amount' do
       expect { spot_client_signed.margin_borrow(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -30,9 +30,9 @@ RSpec.describe Binance::Spot::Margin, '#margin_transfer' do
     # it should add parameters together to place an order, but we are testing if the parameters can be add to url
     let(:params) do
       {
-        "asset": 'BNB',
-        "amount": 1,
-        "recvWindow": 1_000
+        asset: 'BNB',
+        amount: 1,
+        recvWindow: 1_000
       }
     end
 
