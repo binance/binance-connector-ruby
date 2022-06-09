@@ -671,6 +671,60 @@ module Binance
 
         @session.sign_request(:get, '/sapi/v1/margin/interestRateHistory', params: kwargs.merge(asset: asset))
       end
+
+      # Query Cross Margin Fee Data (USER_DATA)
+      #
+      # GET /sapi/v1/margin/crossMarginData
+      #
+      # @param kwargs [Hash]
+      # @option vipLevel [Integer] Default: user's vip level
+      # @option coin [String]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#query-cross-margin-fee-data-user_data
+      def get_cross_margin_data(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/crossMarginData', params: kwargs)
+      end
+
+      # Query Isolated Margin Fee Data (USER_DATA)
+      #
+      # GET /sapi/v1/margin/isolatedMarginData
+      #
+      # @param kwargs [Hash]
+      # @option vipLevel [Integer] Default: user's vip level
+      # @option symbol [String]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#query-isolated-margin-fee-data-user_data
+      def get_isolated_margin_data(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/isolatedMarginData', params: kwargs)
+      end
+
+      # Query Isolated Margin Tier Data (USER_DATA)
+      #
+      # GET /sapi/v1/margin/isolatedMarginTier
+      #
+      # @param symbol [String]
+      # @param kwargs [Hash]
+      # @option tier [Integer]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#query-isolated-margin-tier-data-user_data
+      def get_isolated_margin_tier(symbol:, **kwargs)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+
+        @session.sign_request(:get, '/sapi/v1/margin/isolatedMarginTier', params: kwargs.merge(symbol: symbol))
+      end
+
+      # Query Current Margin Order Count Usage (TRADE)
+      #
+      # GET /sapi/v1/margin/rateLimit/order
+      #
+      # @param kwargs [Hash]
+      # @option isIsolated [String]
+      # @option symbol [String]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#query-isolated-margin-fee-data-user_data
+      def get_margin_order_usage(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/rateLimit/order', params: kwargs)
+      end
     end
   end
 end

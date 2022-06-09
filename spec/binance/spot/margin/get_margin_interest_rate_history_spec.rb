@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_interest_rate_history' do
   end
 
   context 'validation asset' do
-    let(:params) { { "asset": '', "recvWindow": 5000 } }
+    let(:params) { { asset: '', recvWindow: 5000 } }
     it 'should raise validation error without asset' do
       expect { spot_client_signed.get_margin_interest_rate_history(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -22,8 +22,8 @@ RSpec.describe Binance::Spot::Margin, '#margin_interest_rate_history' do
   context 'with parameters' do
     let(:params) do
       {
-        "asset": 'BNB',
-        "recvWindow": 5000
+        asset: 'BNB',
+        recvWindow: 5000
       }
     end
     it 'should return margin interest rate history' do

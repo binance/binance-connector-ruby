@@ -8,9 +8,9 @@ RSpec.describe Binance::Spot::Mining, '#mining_worker' do
   let(:status) { 200 }
   let(:params) do
     {
-      "algo": 'sha256',
-      "userName": 'user1',
-      "workerName": 'test.1'
+      algo: 'sha256',
+      userName: 'user1',
+      workerName: 'test.1'
     }
   end
 

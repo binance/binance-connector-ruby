@@ -10,8 +10,8 @@ RSpec.describe Binance::Spot::Mining, '#mining_resale_cancel' do
   let(:configId) { 168 }
   let(:params) do
     {
-      "userName": userName,
-      "configId": configId
+      userName: userName,
+      configId: configId
     }
   end
 

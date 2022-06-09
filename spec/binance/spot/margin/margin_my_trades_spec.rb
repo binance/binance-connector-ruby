@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_my_trades' do
   end
 
   context 'validation symbol' do
-    let(:params) { { "symbol": '', "recvWindow": 1_000 } }
+    let(:params) { { symbol: '', recvWindow: 1_000 } }
     it 'should raise validation error without symbol' do
       expect { spot_client_signed.margin_my_trades(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -22,11 +22,11 @@ RSpec.describe Binance::Spot::Margin, '#margin_my_trades' do
   context 'with parameters' do
     let(:params) do
       {
-        "symbol": 'BNBUSDT',
-        "startTime": '1581783387615',
-        "endTime": '1581783387616',
-        "fromId": 'from_id',
-        "limit": 100
+        symbol: 'BNBUSDT',
+        startTime: '1581783387615',
+        endTime: '1581783387616',
+        fromId: 'from_id',
+        limit: 100
       }
     end
     it 'should query my trades' do

@@ -8,7 +8,7 @@ RSpec.describe Binance::Spot::Wallet, '#dust_transfer' do
   let(:status) { 200 }
   let(:params) do
     {
-      "asset": %w[EOS ETH]
+      asset: %w[EOS ETH]
     }
   end
 

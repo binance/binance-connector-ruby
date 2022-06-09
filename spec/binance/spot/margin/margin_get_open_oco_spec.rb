@@ -21,7 +21,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_get_open_oco' do
   end
 
   context 'with symbol' do
-    let(:params) { { "symbol": 'BNBUSDT' } }
+    let(:params) { { symbol: 'BNBUSDT' } }
     it 'should return oco' do
       spot_client_signed.margin_get_open_oco(**params)
       expect(send_a_request_with_signature(:get, path, params)).to have_been_made

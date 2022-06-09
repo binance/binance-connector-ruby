@@ -23,7 +23,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_get_bnb_burn' do
   context 'with recvWindow' do
     let(:params) do
       {
-        "recvWindow": 5000
+        recvWindow: 5000
       }
     end
     it 'should return BNB burn status' do

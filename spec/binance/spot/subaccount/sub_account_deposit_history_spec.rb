@@ -8,13 +8,13 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_deposit_history' do
   let(:status) { 200 }
   let(:params) do
     {
-      "email": 'alice@test.com',
-      "coin": 'BNB',
-      "status": 1,
-      "startTime": 1_559_941_980_000,
-      "endTime": 1_559_941_980_000,
-      "limit": 1,
-      "offset": 0
+      email: 'alice@test.com',
+      coin: 'BNB',
+      status: 1,
+      startTime: 1_559_941_980_000,
+      endTime: 1_559_941_980_000,
+      limit: 1,
+      offset: 0
     }
   end
 

@@ -12,8 +12,8 @@ logger = Common.setup_logger
 # or BINANCE_PUBLIC_API_KEY in env
 client = Binance::Spot.new(key: '')
 params = {
-  "symbol": 'BNBUSDT',
-  "orderId": '554522951',
-  "recvWindow": 5_000
+  symbol: 'BNBUSDT',
+  orderId: '554522951',
+  recvWindow: 5_000
 }
 logger.info(client.margin_cancel_order(**params))

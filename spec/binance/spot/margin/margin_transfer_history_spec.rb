@@ -15,7 +15,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_transfer_history' do
 
   context 'with parameters' do
     let(:params) do
-      { "asset": asset, "type": 'ROLL_IN' }
+      { asset: asset, type: 'ROLL_IN' }
     end
     it 'should query transfer history' do
       spot_client_signed.margin_transfer_history(**params)

@@ -11,9 +11,9 @@ RSpec.describe Binance::Spot::Savings, '#savings_position_changed' do
   let(:projectId) { 'BUSD001' }
   let(:params) do
     {
-      "projectId": projectId,
-      "lot": lot,
-      "positionId": positionId
+      projectId: projectId,
+      lot: lot,
+      positionId: positionId
     }
   end
 

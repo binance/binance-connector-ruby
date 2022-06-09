@@ -8,7 +8,7 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_status' do
   let(:status) { 200 }
   let(:params) do
     {
-      "email": 'alice@test.com'
+      email: 'alice@test.com'
     }
   end
 

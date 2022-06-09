@@ -13,7 +13,7 @@ RSpec.describe Binance::Spot::Margin, '#margin_asset' do
   end
 
   context 'validation asset' do
-    let(:params) { { "asset": '' } }
+    let(:params) { { asset: '' } }
     it 'should raise validation error without asset' do
       expect { spot_client_signed.margin_asset(**params) }.to raise_error(Binance::RequiredParameterError)
     end

@@ -3,19 +3,19 @@
 RSpec.describe Binance::Utils::Url do
   context 'encode url' do
     it 'return encoded url' do
-      expect(described_class.build_query({ 'foo': 'bar' })).to eq('foo=bar')
+      expect(described_class.build_query({ foo: 'bar' })).to eq('foo=bar')
     end
   end
 
   context 'with array' do
     it 'return flat encoding' do
-      expect(described_class.build_query({ 'foo': %w[bar baz] })).to eq('foo=bar&foo=baz')
+      expect(described_class.build_query({ foo: %w[bar baz] })).to eq('foo=bar&foo=baz')
     end
   end
 
   context 'mixed with array' do
     it 'return flat encoding' do
-      expect(described_class.build_query({ 'foo': %w[bar baz], 'key': 'value' })).to eq('foo=bar&foo=baz&key=value')
+      expect(described_class.build_query({ foo: %w[bar baz], key: 'value' })).to eq('foo=bar&foo=baz&key=value')
     end
   end
 

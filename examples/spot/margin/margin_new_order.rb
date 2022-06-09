@@ -12,12 +12,12 @@ logger = Common.setup_logger
 # or BINANCE_PUBLIC_API_KEY in env
 client = Binance::Spot.new(key: '')
 params = {
-  "symbol": 'BNBUSDT',
-  "side": 'SELL',
-  "type": 'LIMIT',
-  "quantity": 1,
-  "price": '30',
-  "timeInForce": 'GTC',
-  "recvWindow": 5_000
+  symbol: 'BNBUSDT',
+  side: 'SELL',
+  type: 'LIMIT',
+  quantity: 1,
+  price: '30',
+  timeInForce: 'GTC',
+  recvWindow: 5_000
 }
 logger.info(client.margin_new_order(**params))

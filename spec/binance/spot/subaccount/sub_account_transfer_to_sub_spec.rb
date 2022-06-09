@@ -8,9 +8,9 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_transfer_to_sub' do
   let(:status) { 200 }
   let(:params) do
     {
-      "toEmail": 'alice@test.com',
-      "asset": 'BNB',
-      "amount": 1
+      toEmail: 'alice@test.com',
+      asset: 'BNB',
+      amount: 1
     }
   end
 
@@ -22,9 +22,9 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_transfer_to_sub' do
   context 'validation toEmail' do
     let(:params) do
       {
-        "toEmail": '',
-        "asset": 'BNB',
-        "amount": 1
+        toEmail: '',
+        asset: 'BNB',
+        amount: 1
       }
     end
     it 'should raise validation error without toEmail' do
@@ -35,9 +35,9 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_transfer_to_sub' do
   context 'validation asset' do
     let(:params) do
       {
-        "toEmail": 'alice@test.com',
-        "asset": '',
-        "amount": 1
+        toEmail: 'alice@test.com',
+        asset: '',
+        amount: 1
       }
     end
     it 'should raise validation error without asset' do
@@ -48,9 +48,9 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_transfer_to_sub' do
   context 'validation amount' do
     let(:params) do
       {
-        "toEmail": 'alice@test.com',
-        "asset": 'BNB',
-        "amount": ''
+        toEmail: 'alice@test.com',
+        asset: 'BNB',
+        amount: ''
       }
     end
     it 'should raise validation error without amount' do

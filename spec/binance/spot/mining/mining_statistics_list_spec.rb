@@ -8,8 +8,8 @@ RSpec.describe Binance::Spot::Mining, '#mining_statistics_list' do
   let(:status) { 200 }
   let(:params) do
     {
-      "algo": 'sha256',
-      "userName": 'user1'
+      algo: 'sha256',
+      userName: 'user1'
     }
   end
 

@@ -15,10 +15,10 @@ RSpec.describe Binance::Spot::Margin, '#margin_force_liquidation_record' do
   context 'with parameters' do
     let(:params) do
       {
-        "startTime": '1581783387615',
-        "endTime": '1581783387616',
-        "current": 2,
-        "size": 100
+        startTime: '1581783387615',
+        endTime: '1581783387616',
+        current: 2,
+        size: 100
       }
     end
     it 'should query force liquidation record' do

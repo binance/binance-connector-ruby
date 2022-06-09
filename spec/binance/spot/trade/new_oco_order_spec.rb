@@ -8,11 +8,11 @@ RSpec.describe Binance::Spot::Trade, '#new_oco_order' do
   let(:status) { 200 }
   let(:params) do
     {
-      "symbol": 'BNBUSDT',
-      "side": 'BUY',
-      "quantity": 10,
-      "price": 20,
-      "stopPrice": 30
+      symbol: 'BNBUSDT',
+      side: 'BUY',
+      quantity: 10,
+      price: 20,
+      stopPrice: 30
     }
   end
 
@@ -47,20 +47,20 @@ RSpec.describe Binance::Spot::Trade, '#new_oco_order' do
     # it should add parameters together to place an order, but we are testing if the parameters can be add to url
     let(:params) do
       {
-        "symbol": 'BNBUSDT',
-        "price": '1000',
-        "side": 'BUY',
-        "quantity": 1,
-        "stopPrice": 30,
-        "listClientOrderId": 'aaa',
-        "limitClientOrderId": 'bbbb',
-        "limitIcebergQty": 2,
-        "stopClientOrderId": 'ccc',
-        "stopLimitPrice": 35,
-        "stopIcebergQty": 3,
-        "stopLimitTimeInForce": 'GTC',
-        "newOrderRespType": 'RESULT',
-        "recvWindow": 50_000
+        symbol: 'BNBUSDT',
+        price: '1000',
+        side: 'BUY',
+        quantity: 1,
+        stopPrice: 30,
+        listClientOrderId: 'aaa',
+        limitClientOrderId: 'bbbb',
+        limitIcebergQty: 2,
+        stopClientOrderId: 'ccc',
+        stopLimitPrice: 35,
+        stopIcebergQty: 3,
+        stopLimitTimeInForce: 'GTC',
+        newOrderRespType: 'RESULT',
+        recvWindow: 50_000
       }
     end
     it 'should create a new oco order' do

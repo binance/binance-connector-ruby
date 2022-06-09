@@ -10,8 +10,8 @@ RSpec.describe Binance::Spot::Mining, '#mining_resale_list' do
   let(:pageSize) { 100 }
   let(:params) do
     {
-      "pageIndex": pageIndex,
-      "pageSize": pageSize
+      pageIndex: pageIndex,
+      pageSize: pageSize
     }
   end
 

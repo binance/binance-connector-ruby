@@ -22,9 +22,9 @@ RSpec.describe Binance::Spot::Wallet, '#deposit_address' do
   context 'with parameters' do
     let(:params) do
       {
-        "coin": 'BNB',
-        "network": 'bnb_network',
-        "recvWindow": 1_000
+        coin: 'BNB',
+        network: 'bnb_network',
+        recvWindow: 1_000
       }
     end
     it 'should return deposit address' do

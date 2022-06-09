@@ -13,14 +13,14 @@ RSpec.describe Binance::Spot::Margin, '#get_isolated_margin_pair' do
   end
 
   context 'validation symbol' do
-    let(:params) { { "symbol": '' } }
+    let(:params) { { symbol: '' } }
     it 'should raise validation error without symbol' do
       expect { spot_client_signed.get_isolated_margin_pair(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'with symbol' do
-    let(:params) { { "symbol": 'BNBUSDT' } }
+    let(:params) { { symbol: 'BNBUSDT' } }
     it 'should return isolated margin pair' do
       spot_client_signed.get_isolated_margin_pair(**params)
       expect(send_a_request_with_signature(:get, path, params)).to have_been_made

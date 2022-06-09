@@ -8,11 +8,11 @@ RSpec.describe Binance::Spot::Trade, '#new_order_test' do
   let(:status) { 200 }
   let(:params) do
     {
-      "price": '1000',
-      "side": 'BUY',
-      "symbol": 'BNBUSDT',
-      "timeInForce": 'GTC',
-      "type": 'LIMIT'
+      price: '1000',
+      side: 'BUY',
+      symbol: 'BNBUSDT',
+      timeInForce: 'GTC',
+      type: 'LIMIT'
     }
   end
 
@@ -22,21 +22,21 @@ RSpec.describe Binance::Spot::Trade, '#new_order_test' do
   end
 
   context 'validation symbol' do
-    let(:params) { { "symbol": '', "side": 'BUY', "type": 'LIMIT' } }
+    let(:params) { { symbol: '', side: 'BUY', type: 'LIMIT' } }
     it 'should raise validation error without symbol' do
       expect { spot_client_signed.new_order_test(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation side' do
-    let(:params) { { 'symbol': 'BNBUSDT', 'side': '', 'type': 'LIMIT' } }
+    let(:params) { { symbol: 'BNBUSDT', side: '', type: 'LIMIT' } }
     it 'should raise validation error without side' do
       expect { spot_client_signed.new_order_test(**params) }.to raise_error(Binance::RequiredParameterError)
     end
   end
 
   context 'validation type' do
-    let(:params) { { 'symbol': 'BNBUSDT', 'side': 'BUY', 'type': '' } }
+    let(:params) { { symbol: 'BNBUSDT', side: 'BUY', type: '' } }
     it 'should raise validation error without type' do
       expect { spot_client_signed.new_order_test(**params) }.to raise_error(Binance::RequiredParameterError)
     end
@@ -51,17 +51,17 @@ RSpec.describe Binance::Spot::Trade, '#new_order_test' do
     # it should add parameters together to place an order, but we are testing if the parameters can be add to url
     let(:params) do
       {
-        "symbol": 'BNBUSDT',
-        "price": '1000',
-        "side": 'BUY',
-        "type": 'LIMIT',
-        "quantity": 1,
-        "timeInForce": 'GTC',
-        "icebergQty": 1.5,
-        "newClientOrderId": 'my_order_1',
-        "newOrderRespType": 'RESULT',
-        "stopPrice": 21,
-        "recvWindow": 2_000
+        symbol: 'BNBUSDT',
+        price: '1000',
+        side: 'BUY',
+        type: 'LIMIT',
+        quantity: 1,
+        timeInForce: 'GTC',
+        icebergQty: 1.5,
+        newClientOrderId: 'my_order_1',
+        newOrderRespType: 'RESULT',
+        stopPrice: 21,
+        recvWindow: 2_000
       }
     end
     it 'should test a new order' do

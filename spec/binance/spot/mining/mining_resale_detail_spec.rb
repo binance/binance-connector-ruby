@@ -12,10 +12,10 @@ RSpec.describe Binance::Spot::Mining, '#mining_resale_detail' do
   let(:pageSize) { 100 }
   let(:params) do
     {
-      "configId": configId,
-      "userName": userName,
-      "pageIndex": pageIndex,
-      "pageSize": pageSize
+      configId: configId,
+      userName: userName,
+      pageIndex: pageIndex,
+      pageSize: pageSize
     }
   end
 

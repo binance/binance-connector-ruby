@@ -8,12 +8,12 @@ RSpec.describe Binance::Spot::Savings, '#savings_interest_history' do
   let(:status) { 200 }
   let(:params) do
     {
-      "lendingType": 'DAILY',
-      "asset": 'BNB',
-      "startTime": '1591673275033',
-      "endTime": '1591673275033',
-      "current": 1,
-      "size": 100
+      lendingType: 'DAILY',
+      asset: 'BNB',
+      startTime: '1591673275033',
+      endTime: '1591673275033',
+      current: 1,
+      size: 100
     }
   end
 

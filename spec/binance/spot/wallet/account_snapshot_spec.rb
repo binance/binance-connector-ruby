@@ -22,11 +22,11 @@ RSpec.describe Binance::Spot::Wallet, '#account_snapshot' do
   context 'with parameters' do
     let(:params) do
       {
-        "type": 'SPOT',
-        "startTime": '1591833599000',
-        "endTime": '1591833599000',
-        "limit": 30,
-        "recvWindow": 1_000
+        type: 'SPOT',
+        startTime: '1591833599000',
+        endTime: '1591833599000',
+        limit: 30,
+        recvWindow: 1_000
       }
     end
     it 'should return account snapshot' do

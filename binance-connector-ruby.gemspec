@@ -36,4 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_runtime_dependency 'faraday', '~> 1.8'
   spec.add_runtime_dependency 'websocket-eventmachine-client', '~> 1.3'
+  spec.metadata = {
+    'rubygems_mfa_required' => 'true'
+  }
 end
