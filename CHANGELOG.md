@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0 - TBA
+## 1.1.0 - 2022-06-09
 
 ### Add
 - Convert endpoint
