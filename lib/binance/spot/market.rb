@@ -215,6 +215,32 @@ module Binance
           params: { symbol: symbol }
         )
       end
+
+      # Symbol Order Book Ticker
+      #
+      # Best price/qty on the order book for a symbol or symbols.
+      #
+      # GET /api/v3/ticker/bookTicker
+      #
+      # @param symbol [String] the symbol
+      # @see https://binance-docs.github.io/apidocs/spot/en/#symbol-order-book-ticker
+      def ticker(symbol: nil, symbols: nil, windowSize: '1d')
+        raise Binance::DuplicatedParametersError.new('symbol', 'symbols') unless symbols.nil? || symbol.nil?
+
+        params = { symbol: symbol.upcase } if symbol
+
+        if symbols
+          symbols = symbols.map { |s| "\"#{s}\"" }.join(',')
+          params = { symbols: "\[#{symbols}\]".upcase }
+        end
+
+        params[:windowSize] = windowSize
+
+        @session.public_request(
+          path: '/api/v3/ticker',
+          params: params
+        )
+      end
     end
   end
 end

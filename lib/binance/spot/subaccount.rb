@@ -548,6 +548,87 @@ module Binance
           amount: amount
         ))
       end
+
+      # Enable or Disable IP Restriction for a Sub-account API Key (For Master Account)
+      #
+      # POST /sapi/v1/sub-account/subAccountApi/ipRestriction
+      #
+      # @param email  [String]
+      # @param subAccountApiKey [String]
+      # @param ipRestrict [Boolean]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#enable-or-disable-ip-restriction-for-a-sub-account-api-key-for-master-account
+      def sub_account_toggle_ip_restriction(email:, subAccountApiKey:, ipRestrict:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
+        Binance::Utils::Validation.require_param('ipRestrict', ipRestrict)
+
+        @session.sign_request(:post, '/sapi/v1/sub-account/subAccountApi/ipRestriction', params: kwargs.merge(
+          email: email,
+          subAccountApiKey: subAccountApiKey,
+          ipRestrict: ipRestrict
+        ))
+      end
+
+      # Add IP List for a Sub-account API Key (For Master Account)
+      #
+      # POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList
+      #
+      # @param email  [String]
+      # @param subAccountApiKey [String]
+      # @param ipAddress [String]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#add-ip-list-for-a-sub-account-api-key-for-master-account
+      def sub_account_add_ip_list(email:, subAccountApiKey:, ipAddress:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
+        Binance::Utils::Validation.require_param('ipAddress', ipAddress)
+
+        @session.sign_request(:post, '/sapi/v1/sub-account/subAccountApi/ipRestriction/ipList', params: kwargs.merge(
+          email: email,
+          subAccountApiKey: subAccountApiKey,
+          ipAddress: ipAddress
+        ))
+      end
+
+      # Get IP Restriction for a Sub-account API Key (For Master Account)
+      #
+      # GET /sapi/v1/sub-account/subAccountApi/ipRestriction
+      #
+      # @param email  [String]
+      # @param subAccountApiKey [String]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#get-ip-restriction-for-a-sub-account-api-key-for-master-account
+      def sub_account_ip_list(email:, subAccountApiKey:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
+
+        @session.sign_request(:get, '/sapi/v1/sub-account/subAccountApi/ipRestriction', params: kwargs.merge(
+          email: email,
+          subAccountApiKey: subAccountApiKey
+        ))
+      end
+
+      # Delete IP List For a Sub-account API Key (For Master Account)
+      #
+      # DELETE /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList
+      #
+      # @param email  [String]
+      # @param subAccountApiKey [String]
+      # @param ipAddress [String]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#get-ip-restriction-for-a-sub-account-api-key-for-master-account
+      def sub_account_delete_ip_list(email:, subAccountApiKey:, ipAddress:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
+        Binance::Utils::Validation.require_param('ipAddress', ipAddress)
+
+        @session.sign_request(:delete, '/sapi/v1/sub-account/subAccountApi/ipRestriction/ipList', params: kwargs.merge(
+          email: email,
+          subAccountApiKey: subAccountApiKey,
+          ipAddress: ipAddress
+        ))
+      end
     end
   end
 end

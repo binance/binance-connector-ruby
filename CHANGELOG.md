@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.2.0 - 2022-07-15
+
+### Add
+- Sub account endpoints
+  - `POST /sapi/v1/sub-account/subAccountApi/ipRestriction` to support master account enable and disable IP restriction for a sub-account API Key
+  - `POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList` to support master account add IP list for a sub-account API Key
+  - `GET /sapi/v1/account/apiRestrictions/ipRestriction` to support master account query IP restriction for a sub-account API Key
+  - `DELETE /sapi/v1/account/apiRestrictions/ipRestriction/ipList` to support master account delete IP list for a sub-account API Key
+- Market endpoint
+  - `GET /api/v3/ticker`
+- Trade endpoint
+  - `POST /api/v3/order/cancelReplace`
+- Websocket methods
+  - `<symbol>@ticker_<window_size>`
+  - `!ticker_<window-size>@arr`
+
+
 ## 1.1.0 - 2022-06-09
 
 ### Add

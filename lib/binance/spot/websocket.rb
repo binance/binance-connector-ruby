@@ -126,6 +126,30 @@ module Binance
         create_connection(url, callbacks)
       end
 
+      # Individual Symbol Rolling Window Statistics Streams
+      # Rolling window ticker statistics for a single symbol, computed over multiple windows.
+      # Stream Name: <symbol>@ticker_<window_size>
+      # Window Sizes: 1h,4h
+      # Update Speed:  1000ms
+      #
+      # @see https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-rolling-window-statistics-streams
+      def rolling_window_ticker(symbol:, windowSize:, callbacks:)
+        url = "#{@base_url}/ws/#{symbol.downcase}@ticker_#{windowSize}"
+        create_connection(url, callbacks)
+      end
+
+      # All Market Rolling Window Statistics Streams
+      # Rolling window ticker statistics for all market symbols, computed over multiple windows. Note that only tickers that have changed will be present in the array.
+      # Stream Name: !ticker_<window-size>@arr
+      # Window Sizes: 1h, 4h
+      # Update Speed:  1000ms
+      #
+      # @see https://binance-docs.github.io/apidocs/spot/en/#all-market-rolling-window-statistics-streams
+      def rolling_window_ticker_all_symbols(windowSize:, callbacks:)
+        url = "#{@base_url}/ws/!ticker_#{windowSize}@arr"
+        create_connection(url, callbacks)
+      end
+
       # Subscribe to a stream manually
       # subscribe(stream: "btcusdt@miniTicker") or
       # subscribe(stream: ["btcusdt@miniTicker", "ethusdt@miniTicker"])
