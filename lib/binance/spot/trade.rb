@@ -289,6 +289,44 @@ module Binance
       def get_order_rate_limit(**kwargs)
         @session.sign_request(:get, '/api/v3/rateLimit/order', params: kwargs)
       end
+
+      # Cancel an Existing Order and Send a New Order (TRADE)
+      #
+      # POST /api/v3/order/cancelReplace
+      #
+      # @param symbol [String] the symbol
+      # @param side [String]
+      # @param type [String]
+      # @param cancelReplaceMode [String] STOP_ON_FAILURE or ALLOW_FAILURE
+      # @param kwargs [Hash]
+      # @option kwargs [String] :timeInForce
+      # @option kwargs [Float] :quantity
+      # @option kwargs [Float] :quoteOrderQty
+      # @option kwargs [Float] :price
+      # @option kwargs [String] :cancelNewClientOrderId
+      # @option kwargs [String] :cancelOrigClientOrderId
+      # @option kwargs [Integer] :cancelOrderId
+      # @option kwargs [String] :newClientOrderId
+      # @option kwargs [Float] :stopPrice
+      # @option kwargs [Integer] :trailingDelta
+      # @option kwargs [Float] :icebergQty
+      # @option kwargs [String] :newOrderRespType
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-an-existing-order-and-send-a-new-order-trade
+      def cancel_replace(symbol:, side:, type:, cancelReplaceMode:, **kwargs)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+        Binance::Utils::Validation.require_param('side', side)
+        Binance::Utils::Validation.require_param('type', type)
+        Binance::Utils::Validation.require_param('cancelReplaceMode', cancelReplaceMode)
+
+        @session.sign_request(:post, '/api/v3/order/cancelReplace',
+                              params: kwargs.merge(
+                                symbol: symbol,
+                                side: side,
+                                type: type,
+                                cancelReplaceMode: cancelReplaceMode
+                              ))
+      end
     end
   end
 end

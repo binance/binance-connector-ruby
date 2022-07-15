@@ -25,4 +25,11 @@ module Binance
       )
     end
   end
+
+  # Error when Multi parameters are not allowed to send together
+  class DuplicatedParametersError < Error
+    def initialize(*kwargs)
+      super("Parameters #{kwargs} should not be sent to server together.")
+    end
+  end
 end
