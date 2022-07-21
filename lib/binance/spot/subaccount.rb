@@ -12,14 +12,15 @@ module Binance
       # This request will generate a virtual sub account under your master account.<br>
       # You need to enable "trade" option for the api key which requests this endpoint.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param subAccountString [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#create-a-virtual-sub-account-for-master-account
-      def create_virtual_sub_account(subAccountString:, **kwargs)
+      def create_virtual_sub_account(timestamp = present_timestamp, subAccountString:, **kwargs)
         Binance::Utils::Validation.require_param('subAccountString', subAccountString)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/virtualSubAccount', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/virtualSubAccount', timestamp, params: kwargs.merge(
           subAccountString: subAccountString
         ))
       end
@@ -28,6 +29,7 @@ module Binance
       #
       # GET /sapi/v1/sub-account/list
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :email Sub-account email
       # @option kwargs [String] :isFreeze true or false
@@ -35,8 +37,8 @@ module Binance
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-list-for-master-account
-      def get_sub_account_list(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/list', params: kwargs)
+      def get_sub_account_list(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/list', timestamp, params: kwargs)
       end
 
       # Query Sub-account Spot Asset Transfer History (For Master Account)
@@ -46,6 +48,7 @@ module Binance
       # fromEmail and toEmail cannot be sent at the same time.<br>
       # Return fromEmail equal master account email by default.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :fromEmail Sub-account email
       # @option kwargs [String] :toEmail Sub-account email
@@ -55,14 +58,15 @@ module Binance
       # @option kwargs [Integer] :limit Default value: 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-spot-asset-transfer-history-for-master-account
-      def get_sub_account_spot_transfer_history(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/sub/transfer/history', params: kwargs)
+      def get_sub_account_spot_transfer_history(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/sub/transfer/history', timestamp, params: kwargs)
       end
 
       # Query Sub-account Futures Asset Transfer History (For Master Account)
       #
       # GET /sapi/v1/sub-account/futures/internalTransfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param futuresType [Integer] 1:USDT-margined Futures, 2: Coin-margined Futures
       # @param kwargs [Hash]
@@ -72,11 +76,11 @@ module Binance
       # @option kwargs [Integer] :limit Default value: 50, Max value: 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-futures-asset-transfer-history-for-master-account
-      def get_sub_account_futures_transfer_history(email:, futuresType:, **kwargs)
+      def get_sub_account_futures_transfer_history(timestamp = present_timestamp, email:, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
 
-        @session.sign_request(:get, '/sapi/v1/sub-account/futures/internalTransfer', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v1/sub-account/futures/internalTransfer', timestamp, params: kwargs.merge(
           email: email,
           futuresType: futuresType
         ))
@@ -86,6 +90,7 @@ module Binance
       #
       # POST /sapi/v1/sub-account/futures/internalTransfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param fromEmail [String]
       # @param toEmail [String]
       # @param futuresType [Integer] 1:USDT-margined Futures, 2: Coin-margined Futures
@@ -94,14 +99,14 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#sub-account-futures-asset-transfer-for-master-account
-      def sub_account_futures_internal_transfer(fromEmail:, toEmail:, futuresType:, asset:, amount:, **kwargs)
+      def sub_account_futures_internal_transfer(timestamp = present_timestamp, fromEmail:, toEmail:, futuresType:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('fromEmail', fromEmail)
         Binance::Utils::Validation.require_param('toEmail', toEmail)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/futures/internalTransfer', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/futures/internalTransfer', timestamp, params: kwargs.merge(
           fromEmail: fromEmail,
           toEmail: toEmail,
           futuresType: futuresType,
@@ -114,14 +119,15 @@ module Binance
       #
       # GET /sapi/v3/sub-account/assets
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-assets-for-master-account
-      def get_sub_account_assets(email:, **kwargs)
+      def get_sub_account_assets(timestamp = present_timestamp, email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
-        @session.sign_request(:get, '/sapi/v3/sub-account/assets', params: kwargs.merge(email: email))
+        @session.sign_request(:get, '/sapi/v3/sub-account/assets', timestamp, params: kwargs.merge(email: email))
       end
 
       # Query Sub-account Spot Assets Summary (For Master Account)
@@ -130,14 +136,15 @@ module Binance
       #
       # Get BTC valued asset summary of subaccounts.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :email
       # @option kwargs [Integer] :page Default value: 1
       # @option kwargs [Integer] :size default 10, max 20
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-spot-assets-summary-for-master-account
-      def get_sub_account_spot_summary(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/spotSummary', params: kwargs)
+      def get_sub_account_spot_summary(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/spotSummary', timestamp, params: kwargs)
       end
 
       # Get Sub-account Deposit Address (For Master Account)
@@ -146,17 +153,18 @@ module Binance
       #
       # Fetch sub-account deposit address
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param coin [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :network
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-deposit-address-for-master-account
-      def sub_account_deposit_address(email:, coin:, **kwargs)
+      def sub_account_deposit_address(timestamp = present_timestamp, email:, coin:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('coin', coin)
 
-        @session.sign_request(:get, '/sapi/v1/capital/deposit/subAddress', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v1/capital/deposit/subAddress', timestamp, params: kwargs.merge(
           email: email,
           coin: coin
         ))
@@ -168,6 +176,7 @@ module Binance
       #
       # Fetch sub-account deposit history
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [String] :coin
@@ -178,10 +187,10 @@ module Binance
       # @option kwargs [String] :offset
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-deposit-history-for-master-account
-      def sub_account_deposit_history(email:, **kwargs)
+      def sub_account_deposit_history(timestamp = present_timestamp, email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
-        @session.sign_request(:get, '/sapi/v1/capital/deposit/subHisrec', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v1/capital/deposit/subHisrec', timestamp, params: kwargs.merge(
           email: email
         ))
       end
@@ -190,26 +199,28 @@ module Binance
       #
       # GET /sapi/v1/sub-account/status
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :email
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-39-s-status-on-margin-futures-for-master-account
-      def sub_account_status(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/status', params: kwargs)
+      def sub_account_status(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/status', timestamp, params: kwargs)
       end
 
       # Enable Margin for Sub-account (For Master Account)
       #
       # POST /sapi/v1/sub-account/margin/enable
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :email
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-39-s-status-on-margin-futures-for-master-account
-      def sub_account_enable_margin(email:, **kwargs)
+      def sub_account_enable_margin(timestamp = present_timestamp, email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/margin/enable', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/margin/enable', timestamp, params: kwargs.merge(
           email: email
         ))
       end
@@ -218,14 +229,15 @@ module Binance
       #
       # GET /sapi/v1/sub-account/margin/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-detail-on-sub-account-39-s-margin-account-for-master-account
-      def sub_account_margin_account(email:, **kwargs)
+      def sub_account_margin_account(timestamp = present_timestamp, email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
-        @session.sign_request(:get, '/sapi/v1/sub-account/margin/account', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v1/sub-account/margin/account', timestamp, params: kwargs.merge(
           email: email
         ))
       end
@@ -234,25 +246,27 @@ module Binance
       #
       # GET /sapi/v1/sub-account/margin/accountSummary
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-summary-of-sub-account-39-s-margin-account-for-master-account
-      def sub_account_margin_account_summary(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/margin/accountSummary', params: kwargs)
+      def sub_account_margin_account_summary(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/margin/accountSummary', timestamp, params: kwargs)
       end
 
       # Enable Futures for Sub-account (For Master Account)
       #
       # POST /sapi/v1/sub-account/futures/enable
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#enable-futures-for-sub-account-for-master-account
-      def sub_account_enable_futures(email:, **kwargs)
+      def sub_account_enable_futures(timestamp = present_timestamp, email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/futures/enable', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/futures/enable', timestamp, params: kwargs.merge(
           email: email
         ))
       end
@@ -261,16 +275,17 @@ module Binance
       #
       # GET /sapi/v2/sub-account/futures/account
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param futuresType [Integer] 1:USDT Margined Futures, 2:COIN Margined Futures
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-detail-on-sub-account-39-s-futures-account-v2-for-master-account
-      def sub_account_futures_account(email:, futuresType:, **kwargs)
+      def sub_account_futures_account(timestamp = present_timestamp, email:, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
 
-        @session.sign_request(:get, '/sapi/v2/sub-account/futures/account', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v2/sub-account/futures/account', timestamp, params: kwargs.merge(
           email: email,
           futuresType: futuresType
         ))
@@ -280,16 +295,17 @@ module Binance
       #
       # GET /sapi/v2/sub-account/futures/accountSummary
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param futuresType [Integer] 1:USDT Margined Futures, 2:COIN Margined Futures
       # @param kwargs [Hash]
       # @option kwargs [Integer] :page  default:1
       # @option kwargs [Integer] :limit default:10, max:20
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-summary-of-sub-account-39-s-futures-account-v2-for-master-account
-      def sub_account_futures_account_summary(futuresType:, **kwargs)
+      def sub_account_futures_account_summary(timestamp = present_timestamp, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
 
-        @session.sign_request(:get, '/sapi/v2/sub-account/futures/accountSummary', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v2/sub-account/futures/accountSummary', timestamp, params: kwargs.merge(
           futuresType: futuresType
         ))
       end
@@ -298,16 +314,17 @@ module Binance
       #
       # GET /sapi/v2/sub-account/futures/positionRisk
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param futuresType [Integer] 1:USDT Margined Futures, 2:COIN Margined Futures
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-futures-position-risk-of-sub-account-v2-for-master-account
-      def sub_account_futures_position_risk(email:, futuresType:, **kwargs)
+      def sub_account_futures_position_risk(timestamp = present_timestamp, email:, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
 
-        @session.sign_request(:get, '/sapi/v2/sub-account/futures/positionRisk', params: kwargs.merge(
+        @session.sign_request(:get, '/sapi/v2/sub-account/futures/positionRisk', timestamp, params: kwargs.merge(
           email: email,
           futuresType: futuresType
         ))
@@ -317,6 +334,7 @@ module Binance
       #
       # POST /sapi/v1/sub-account/futures/transfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param asset [String]
       # @param amount [Float]
@@ -327,13 +345,13 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#futures-transfer-for-sub-account-for-master-account
-      def sub_account_futures_transfer(email:, asset:, amount:, type:, **kwargs)
+      def sub_account_futures_transfer(timestamp = present_timestamp, email:, asset:, amount:, type:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
         Binance::Utils::Validation.require_param('type', type)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/futures/transfer', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/futures/transfer', timestamp, params: kwargs.merge(
           email: email,
           asset: asset,
           amount: amount,
@@ -345,6 +363,7 @@ module Binance
       #
       # POST /sapi/v1/sub-account/margin/transfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param asset [String]
       # @param amount [Float]
@@ -353,13 +372,13 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#margin-transfer-for-sub-account-for-master-account
-      def sub_account_margin_transfer(email:, asset:, amount:, type:, **kwargs)
+      def sub_account_margin_transfer(timestamp = present_timestamp, email:, asset:, amount:, type:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
         Binance::Utils::Validation.require_param('type', type)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/margin/transfer', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/margin/transfer', timestamp, params: kwargs.merge(
           email: email,
           asset: asset,
           amount: amount,
@@ -371,18 +390,19 @@ module Binance
       #
       # POST /sapi/v1/sub-account/transfer/subToSub
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param toEmail [String]
       # @param asset [String]
       # @param amount [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#transfer-to-sub-account-of-same-master-for-sub-account
-      def sub_account_transfer_to_sub(toEmail:, asset:, amount:, **kwargs)
+      def sub_account_transfer_to_sub(timestamp = present_timestamp, toEmail:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('toEmail', toEmail)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/transfer/subToSub', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/transfer/subToSub', timestamp, params: kwargs.merge(
           toEmail: toEmail,
           asset: asset,
           amount: amount
@@ -393,16 +413,17 @@ module Binance
       #
       # POST /sapi/v1/sub-account/transfer/subToMaster
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param asset [String]
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#transfer-to-master-for-sub-account
-      def sub_account_transfer_to_master(asset:, amount:, **kwargs)
+      def sub_account_transfer_to_master(timestamp = present_timestamp, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/transfer/subToMaster', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/transfer/subToMaster', timestamp, params: kwargs.merge(
           asset: asset,
           amount: amount
         ))
@@ -412,6 +433,7 @@ module Binance
       #
       # GET /sapi/v1/sub-account/transfer/subUserHistory
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :asset
       # @option kwargs [Integer] :type 1: transfer in, 2: transfer out
@@ -420,8 +442,8 @@ module Binance
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#sub-account-transfer-history-for-sub-account
-      def sub_account_transfer_sub_account_history(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/transfer/subUserHistory', params: kwargs)
+      def sub_account_transfer_sub_account_history(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/transfer/subUserHistory', timestamp, params: kwargs)
       end
 
       # Universal Transfer (For Master Account)
@@ -431,6 +453,7 @@ module Binance
       # You need to enable "internal transfer" option for the api key which requests this endpoint.<br>
       # Transfer between futures accounts is not supported.
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param fromAccountType [String] "SPOT","USDT_FUTURE","COIN_FUTURE"
       # @param toAccountType [String] "SPOT","USDT_FUTURE","COIN_FUTURE"
       # @param asset [String]
@@ -440,13 +463,13 @@ module Binance
       # @option kwargs [String] :toEmail Transfer to master account by default if toEmail is not sent.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#universal-transfer-for-master-account
-      def universal_transfer(fromAccountType:, toAccountType:, asset:, amount:, **kwargs)
+      def universal_transfer(timestamp = present_timestamp, fromAccountType:, toAccountType:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('fromAccountType', fromAccountType)
         Binance::Utils::Validation.require_param('toAccountType', toAccountType)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/universalTransfer', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/universalTransfer', timestamp, params: kwargs.merge(
           fromAccountType: fromAccountType,
           toAccountType: toAccountType,
           asset: asset,
@@ -458,6 +481,7 @@ module Binance
       #
       # GET /sapi/v1/sub-account/universalTransfer
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :fromEmail
       # @option kwargs [String] :toEmail
@@ -467,24 +491,25 @@ module Binance
       # @option kwargs [Integer] :limit Default 500, Max 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-universal-transfer-history-for-master-account
-      def universal_transfer_history(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/sub-account/universalTransfer', params: kwargs)
+      def universal_transfer_history(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/sub-account/universalTransfer', timestamp, params: kwargs)
       end
 
       # Enable Leverage Token for Sub-account (For Master Account)
       #
       # POST /sapi/v1/sub-account/blvt/enable
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param enableBlvt [Boolean] Only true for now
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#enable-leverage-token-for-sub-account-for-master-account
-      def sub_account_enable_blvt(email:, enableBlvt:, **kwargs)
+      def sub_account_enable_blvt(timestamp = present_timestamp, email:, enableBlvt:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('enableBlvt', enableBlvt)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/blvt/enable', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/sub-account/blvt/enable', timestamp, params: kwargs.merge(
           email: email,
           enableBlvt: enableBlvt
         ))
@@ -494,18 +519,19 @@ module Binance
       #
       # POST /sapi/v1/managed-subaccount/deposit
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param toEmail [String]
       # @param asset [String]
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#deposit-assets-into-the-managed-sub-account-for-investor-master-account
-      def deposit_to_sub_account(toEmail:, asset:, amount:, **kwargs)
+      def deposit_to_sub_account(timestamp = present_timestamp, toEmail:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('toEmail', toEmail)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/managed-subaccount/deposit', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/managed-subaccount/deposit', timestamp, params: kwargs.merge(
           toEmail: toEmail,
           asset: asset,
           amount: amount
@@ -516,20 +542,22 @@ module Binance
       #
       # GET /sapi/v1/managed-subaccount/asset
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-managed-sub-account-asset-details-for-investor-master-account
-      def sub_account_asset_details(email:, **kwargs)
+      def sub_account_asset_details(timestamp = present_timestamp, email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
-        @session.sign_request(:get, '/sapi/v1/managed-subaccount/asset', params: kwargs.merge(email: email))
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/asset', timestamp, params: kwargs.merge(email: email))
       end
 
       # Withdrawl assets from the managed sub-account (For Investor Master Account)
       #
       # POST /sapi/v1/managed-subaccount/withdraw
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param fromEmail  [String]
       # @param asset [String]
       # @param amount [Float]
@@ -537,12 +565,12 @@ module Binance
       # @option kwargs [Integer] :transferDate
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#withdrawl-assets-from-the-managed-sub-account-for-investor-master-account
-      def withdraw_from_sub_account(fromEmail:, asset:, amount:, **kwargs)
+      def withdraw_from_sub_account(timestamp = present_timestamp, fromEmail:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('fromEmail', fromEmail)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/managed-subaccount/withdraw', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/managed-subaccount/withdraw', timestamp, params: kwargs.merge(
           fromEmail: fromEmail,
           asset: asset,
           amount: amount

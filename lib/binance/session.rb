@@ -26,8 +26,8 @@ module Binance
       process_request(limit_conn, method, path, params)
     end
 
-    def sign_request(method, path, params: {})
-      process_request(signed_conn, method, path, params)
+    def sign_request(method, path, timestamp, params: {})
+      process_request(signed_conn(timestamp), method, path, params)
     end
 
     private
@@ -74,10 +74,10 @@ module Binance
       end
     end
 
-    def signed_conn
+    def signed_conn(timestamp)
       build_connection do |conn|
         conn.headers['X-MBX-APIKEY'] = @auth.key
-        conn.use Timestamp
+        conn.use Timestamp, timestamp
         conn.use Signature, @auth.secret
       end
     end

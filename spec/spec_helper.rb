@@ -67,6 +67,11 @@ def stub_send_binance_request(verb, path)
   stub_request(verb, "https://api.binance.com#{path}")
 end
 
+def mocking_signature(params = {})
+  allow(OpenSSL::Digest).to receive(:new).and_return('')
+  allow(OpenSSL::HMAC).to receive(:hexdigest).with('', FAKE_SECRET, build_query(**params)).and_return(FAKE_SIGNATURE)
+end
+
 def mocking_signature_and_ts(params = {})
   allow(OpenSSL::Digest).to receive(:new).and_return('')
   allow(OpenSSL::HMAC).to receive(:hexdigest).with('', FAKE_SECRET, build_query(**params)).and_return(FAKE_SIGNATURE)

@@ -22,16 +22,17 @@ module Binance
       #
       # POST /sapi/v1/blvt/subscribe
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param tokenName [String]
       # @param cost [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#subscribe-blvt-user_data
-      def subscribe(tokenName:, cost:, **kwargs)
+      def subscribe(timestamp = present_timestamp, tokenName:, cost:, **kwargs)
         Binance::Utils::Validation.require_param('tokenName', tokenName)
         Binance::Utils::Validation.require_param('cost', cost)
 
-        @session.sign_request(:post, '/sapi/v1/blvt/subscribe', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/blvt/subscribe', timestamp, params: kwargs.merge(
           tokenName: tokenName,
           cost: cost
         ))
@@ -41,6 +42,7 @@ module Binance
       #
       # GET /sapi/v1/blvt/subscribe/record
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :tokenName
       # @option kwargs [Integer] :id
@@ -49,24 +51,25 @@ module Binance
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-subscription-record-user_data
-      def get_subscribe_record(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/blvt/subscribe/record', params: kwargs)
+      def get_subscribe_record(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/blvt/subscribe/record', timestamp, params: kwargs)
       end
 
       # Redeem BLVT (USER_DATA)
       #
       # POST /sapi/v1/blvt/redeem
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param tokenName [String]
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#redeem-blvt-user_data
-      def redeem(tokenName:, amount:, **kwargs)
+      def redeem(timestamp = present_timestamp, tokenName:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('tokenName', tokenName)
         Binance::Utils::Validation.require_param('amount', amount)
 
-        @session.sign_request(:post, '/sapi/v1/blvt/redeem', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v1/blvt/redeem', timestamp, params: kwargs.merge(
           tokenName: tokenName,
           amount: amount
         ))
@@ -76,6 +79,7 @@ module Binance
       #
       # GET /sapi/v1/blvt/redeem/record
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :tokenName
       # @option kwargs [Integer] :id
@@ -84,20 +88,21 @@ module Binance
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#query-redemption-record-user_data
-      def get_redeem_record(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/blvt/redeem/record', params: kwargs)
+      def get_redeem_record(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/blvt/redeem/record', timestamp, params: kwargs)
       end
 
       # Get BLVT User Limit Info (USER_DATA)
       #
       # GET /sapi/v1/blvt/userLimit
       #
+      # @param timestamp [String] Number of milliseconds since 1970-01-01 00:00:00 UTC
       # @param kwargs [Hash]
       # @option kwargs [String] :tokenName
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://binance-docs.github.io/apidocs/spot/en/#get-blvt-user-limit-info-user_data
-      def user_limit(**kwargs)
-        @session.sign_request(:get, '/sapi/v1/blvt/userLimit', params: kwargs)
+      def user_limit(timestamp = present_timestamp, **kwargs)
+        @session.sign_request(:get, '/sapi/v1/blvt/userLimit', timestamp, params: kwargs)
       end
     end
   end
