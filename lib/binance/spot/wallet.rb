@@ -311,6 +311,19 @@ module Binance
       def api_key_permission(**kwargs)
         @session.sign_request(:get, '/sapi/v1/account/apiRestrictions', params: kwargs)
       end
+
+      # User Asset (USER_DATA)
+      #
+      # POST /sapi/v3/asset/getUserAsset
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [String] :asset If asset is blank, then query all positive assets user have.
+      # @option kwargs [Boolean] :needBtcValuation
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#user-asset-user_data
+      def get_user_asset(**kwargs)
+        @session.sign_request(:post, '/sapi/v3/asset/getUserAsset', params: kwargs)
+      end
     end
   end
 end

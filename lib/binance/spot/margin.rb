@@ -725,6 +725,19 @@ module Binance
       def get_margin_order_usage(**kwargs)
         @session.sign_request(:get, '/sapi/v1/margin/rateLimit/order', params: kwargs)
       end
+
+      # Margin Dustlog (USER_DATA)
+      #
+      # GET /sapi/v1/margin/dribblet
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [String] :startTime
+      # @option kwargs [String] :endTime
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://binance-docs.github.io/apidocs/spot/en/#margin-dustlog-user_data
+      def get_margin_dust_log(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/margin/dribblet', params: kwargs)
+      end
     end
   end
 end

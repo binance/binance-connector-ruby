@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.0 - 2022-07-21
+
+### Add
+- New endpoint for Margin:
+  - `POST /sapi/v3/asset/getUserAsset` to get user assets.
+- New endpoint for Wallet:
+  - `GET /sapi/v1/margin/dribblet` to query the historical information of user's margin account small-value asset conversion BNB.
+
+
 ## 1.2.0 - 2022-07-15
 
 ### Add
