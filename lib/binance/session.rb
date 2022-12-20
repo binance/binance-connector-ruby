@@ -11,7 +11,7 @@ module Binance
 
     def initialize(options = {})
       @base_url = options[:base_url] || 'https://api.binance.com'
-      @auth = Authentication.new(options[:key], options[:secret])
+      @auth = Authentication.new(options[:key], options[:secret], options[:private_key], options[:private_key_pass_phrase])
       @logger = options[:logger]
       @show_weight_usage = options[:show_weight_usage] || false
       @show_header = options[:show_header] || false
@@ -78,7 +78,8 @@ module Binance
       build_connection do |conn|
         conn.headers['X-MBX-APIKEY'] = @auth.key
         conn.use Timestamp
-        conn.use Signature, @auth.secret
+        conn.use RSASignature, @auth if @auth.provide_private_key?
+        conn.use HMACSignature, @auth unless @auth.provide_private_key?
       end
     end
 
