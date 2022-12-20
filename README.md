@@ -86,6 +86,10 @@ It's recommended to pass in the `base_url` parameter, even in production as Bina
 - `https://api2.binance.com`
 - `https://api3.binance.com`
 
+### RSA Signature
+
+Binance support both HMAC and RSA signature. Please find the example at `examples/trade/account.rb` for how to sign in both solutions.
+
 ### RecvWindow
 
 From Binance API, recvWindow is available for all endpoints require signature. By default, it's 5000ms.

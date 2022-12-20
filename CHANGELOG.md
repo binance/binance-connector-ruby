@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0 - 2022-12-20
+### Added
+- Add RSA signature
+- Support Ruby 3.1
+
+### Changed
+- Drop support of Ruby 2.5
+
+
 ## 1.3.0 - 2022-07-21
 
 ### Add

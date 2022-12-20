@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    binance-connector-ruby (1.2.0)
+    binance-connector-ruby (1.4.0)
       faraday (~> 1.8)
       websocket-eventmachine-client (~> 1.3)
 
