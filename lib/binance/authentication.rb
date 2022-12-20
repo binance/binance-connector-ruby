@@ -8,7 +8,7 @@ module Binance
   class Authentication
     attr_accessor :key, :secret, :private_key, :private_key_pass_phrase
 
-    def initialize(key, secret, private_key=nil, private_key_pass_phrase=nil)
+    def initialize(key, secret, private_key = nil, private_key_pass_phrase = nil)
       @key = key
       @secret = secret
       @private_key = private_key
