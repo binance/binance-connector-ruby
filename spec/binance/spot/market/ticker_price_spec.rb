@@ -26,4 +26,12 @@ RSpec.describe Binance::Spot::Market, '#ticker_price' do
       expect(send_a_request(:get, path)).to have_been_made
     end
   end
+
+  context 'with symbols' do
+    let(:path) { '/api/v3/ticker/price?symbols=["BNBBUSD","BNBUSDT"]' }
+    it 'should return 2 symbols ticker prices' do
+      spot_client.ticker_price(symbols: %w[BNBBUSD BNBUSDT])
+      expect(send_a_request(:get, path)).to have_been_made
+    end
+  end
 end

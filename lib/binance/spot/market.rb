@@ -194,10 +194,17 @@ module Binance
       #
       # @param symbol [String] the symbol
       # @see https://binance-docs.github.io/apidocs/spot/en/#symbol-price-ticker
-      def ticker_price(symbol: nil)
+      def ticker_price(symbol: nil, symbols: nil)
+        params = { symbol: symbol }
+
+        if symbols
+          symbols = symbols.map { |s| "\"#{s}\"" }.join(',')
+          params = { symbols: "\[#{symbols}\]".upcase }
+        end
+
         @session.public_request(
           path: '/api/v3/ticker/price',
-          params: { symbol: symbol }
+          params: params
         )
       end
 
