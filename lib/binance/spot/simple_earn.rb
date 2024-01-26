@@ -13,7 +13,7 @@ module Binance
       # Fetch account status.
       #
       # @see https://binance-docs.github.io/apidocs/spot/en/#simple-account-user_data
-      def user_data
+      def simple_earn_account
         @session.public_request(path: '/sapi/v1/simple-earn/account')
       end
 
