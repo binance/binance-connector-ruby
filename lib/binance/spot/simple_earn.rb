@@ -5,7 +5,6 @@ module Binance
     # all wallet endpoints
     # @see https://binance-docs.github.io/apidocs/spot/en/#wallet-endpoints
     module SimpleEarn
-
       # All Coins' Information on 'simple earn' (USER_DATA)
       #
       # GET /sapi/v1/simple-earn/account'
