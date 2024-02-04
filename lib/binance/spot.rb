@@ -16,6 +16,7 @@ require 'binance/spot/margin'
 require 'binance/spot/market'
 require 'binance/spot/mining'
 require 'binance/spot/savings'
+require 'binance/spot/simple_earn'
 require 'binance/spot/staking'
 require 'binance/spot/stream'
 require 'binance/spot/subaccount'
@@ -53,6 +54,7 @@ module Binance
     include Binance::Spot::Market
     include Binance::Spot::Mining
     include Binance::Spot::Savings
+    include Binance::Spot::SimpleEarn
     include Binance::Spot::Staking
     include Binance::Spot::Stream
     include Binance::Spot::Subaccount
