@@ -32,6 +32,7 @@ module Binance
   # - Margin
   # - Market
   # - Mining
+  # - SimpleEarn
   # - Stream
   # - Subaccount
   # - Trade
