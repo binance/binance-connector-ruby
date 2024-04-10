@@ -28,7 +28,7 @@ Metrics/ParameterLists:
 Metrics/ModuleLength:
   Enabled: false
 
-Gemspec/DateAssignment:
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: true
 
 Style/SwapValues:

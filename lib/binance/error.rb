@@ -21,7 +21,7 @@ module Binance
   class RequiredParameterError < Error
     def initialize(param_name, param_value)
       super(
-          "ValidationFailed: #{param_name} is required, but provided value: #{param_value}"
+        "ValidationFailed: #{param_name} is required, but provided value: #{param_value}"
       )
     end
   end
