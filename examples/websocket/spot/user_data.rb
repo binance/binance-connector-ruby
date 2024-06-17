@@ -10,7 +10,7 @@ require_relative '../../common'
 logger = Common.setup_logger
 
 # on spot testnet
-client = Binance::Spot::WebSocket.new(base_url: 'wss://testnet.binance.vision')
+client = Binance::Spot::WebSocket.new(base_url: 'wss://stream.testnet.binance.vision')
 
 EM.run do
   onopen = proc { logger.info('connected to server') }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.1 - 2024-06-17
+
+### Changed
+- Updated dependencies and resolve github security issue
+
 ## 1.5.0 - 2024-04-10
 
 ### Added
