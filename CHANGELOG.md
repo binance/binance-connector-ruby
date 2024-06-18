@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.5.1 - 2024-06-17
+## 1.5.1 - 2024-06-18
 
 ### Changed
 - Updated dependencies and resolve github security issue
