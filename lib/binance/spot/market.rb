@@ -35,19 +35,20 @@ module Binance
       #
       # @option kwargs [string] :symbol
       # @option kwargs [string] :symbols
+      # @option kwargs [string] :permissions
       # @see https://binance-docs.github.io/apidocs/spot/en/#exchange-information
-      def exchange_info(symbol: nil, symbols: nil)
+      def exchange_info(symbol: nil, symbols: nil, permissions: nil)
         if symbols.is_a?(Array)
           symbols = symbols.map { |v| "%22#{v}%22" }.join(',')
           symbols = "%5B#{symbols}%5D"
         end
+        if permissions.is_a?(Array)
+          permissions = permissions.map { |v| "%22#{v}%22" }.join(',')
+          permissions = "%5B#{permissions}%5D"
+        end
         @session.public_request(
           path: '/api/v3/exchangeInfo',
-          params:
-            {
-              symbol: symbol,
-              symbols: symbols
-            }
+          params: { symbol: symbol, symbols: symbols, permissions: permissions }
         )
       end
 

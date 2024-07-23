@@ -44,4 +44,24 @@ RSpec.describe Binance::Spot::Market, '#exchangeInfo' do
       end
     end
   end
+
+  context 'with param permissions' do
+    context 'one permission' do
+      let(:permissions) { 'SPOT' }
+      let(:path) { '/api/v3/exchangeInfo?permissions=SPOT' }
+      it 'should return specific permission exchange Info' do
+        spot_client.exchange_info(permissions: permissions)
+        expect(send_a_request(:get, path)).to have_been_made
+      end
+    end
+
+    context 'two permission' do
+      let(:permissions) { %w[MARGIN LEVERAGED] }
+      let(:path) { '/api/v3/exchangeInfo?permissions=%5B%22MARGIN%22,%22LEVERAGED%22%5D' }
+      it 'should return specific permission exchange Info' do
+        spot_client.exchange_info(permissions: permissions)
+        expect(send_a_request(:get, path)).to have_been_made
+      end
+    end
+  end
 end
