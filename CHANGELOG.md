@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.2 - 2024-07-23
+
+### Changed
+- Updated dependencies and resolve github security issue
+- Added `permissions` parameter to `GET /api/v3/exchangeInfo`
+
 ## 1.5.1 - 2024-06-18
 
 ### Changed
