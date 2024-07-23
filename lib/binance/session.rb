@@ -11,6 +11,7 @@ module Binance
 
     def initialize(options = {})
       @base_url = options[:base_url] || 'https://api.binance.com'
+      @proxy_url = options[:proxy_url]
       @auth = Authentication.new(options[:key], options[:secret], options[:private_key], options[:private_key_pass_phrase])
       @logger = options[:logger]
       @show_weight_usage = options[:show_weight_usage] || false
@@ -84,7 +85,9 @@ module Binance
     end
 
     def build_connection
-      Faraday.new(url: @base_url) do |client|
+      params = { url: @base_url }
+      params.merge!(proxy: @proxy_url) if @proxy_url
+      Faraday.new(params) do |client|
         prepare_headers(client)
         client.options.timeout = @timeout
         client.options.params_encoder = Binance::Utils::Faraday::CustomParamsEncoder
