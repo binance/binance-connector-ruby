@@ -4,13 +4,13 @@ module Binance
   class Spot
     # Mining endpoints
     # The endpoints below allow to interact with Binance Pool.
-    # @see https://binance-docs.github.io/apidocs/spot/en/#mining-endpoints
+    # @see https://developers.binance.com/docs/mining/Introduction
     module Mining
       # Acquiring Algorithm (MARKET_DATA)
       #
       # GET /sapi/v1/mining/pub/algoList
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#acquiring-algorithm-market_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Acquiring-Algorithm
       def mining_algo_list
         @session.limit_request(path: '/sapi/v1/mining/pub/algoList')
       end
@@ -19,7 +19,7 @@ module Binance
       #
       # GET /sapi/v1/mining/pub/coinList
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#acquiring-coinname-market_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Acquiring-CoinName
       def mining_coin_list
         @session.limit_request(path: '/sapi/v1/mining/pub/coinList')
       end
@@ -33,7 +33,7 @@ module Binance
       # @param workerName [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#request-for-detail-miner-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Request-for-Detail-Miner-List
       def mining_worker(algo:, userName:, workerName:, **kwargs)
         Binance::Utils::Validation.require_param('algo', algo)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -58,7 +58,7 @@ module Binance
       # @option kwargs [String] :sortColumn
       # @option kwargs [String] :workerStatus
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#request-for-miner-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Request-for-Miner-List
       def mining_worker_list(algo:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('algo', algo)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -82,7 +82,7 @@ module Binance
       # @option kwargs [Integer] :pageIndex
       # @option kwargs [Integer] :pageSize
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#earnings-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Earnings-List
       def mining_revenue_list(algo:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('algo', algo)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -101,7 +101,7 @@ module Binance
       # @param userName [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#statistic-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Statistic-List
       def mining_statistics_list(algo:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('algo', algo)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -120,7 +120,7 @@ module Binance
       # @param userName [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#account-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Account-List
       def mining_account_list(algo:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('algo', algo)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -144,7 +144,7 @@ module Binance
       # @option kwargs [Integer] :pageIndex Page number, empty default first page, starting from 1
       # @option kwargs [Integer] :pageSize Number of pages, minimum 10, maximum 200
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#extra-bonus-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Extra-Bonus-List
       def mining_extra_bonus(algo:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('algo', algo)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -163,7 +163,7 @@ module Binance
       # @option kwargs [Integer] :pageIndex Page number, empty default first page, starting from 1
       # @option kwargs [Integer] :pageSize Number of pages, minimum 10, maximum 200
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#hashrate-resale-list-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Hashrate-Resale-List
       def mining_resale_list(**kwargs)
         @session.sign_request(:get, '/sapi/v1/mining/hash-transfer/config/details/list', params: kwargs)
       end
@@ -178,7 +178,7 @@ module Binance
       # @option kwargs [Integer] :pageIndex Page number, empty default first page, starting from 1
       # @option kwargs [Integer] :pageSize Number of pages, minimum 10, maximum 200
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#hashrate-resale-detail-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Hashrate-Resale-Detail
       def mining_resale_detail(configId:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('configId', configId)
         Binance::Utils::Validation.require_param('userName', userName)
@@ -201,7 +201,7 @@ module Binance
       # @param hashRate [Integer] Resale hashrate h/s must be transferred (BTC is greater than 500000000000 ETH is greater than 500000)
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#hashrate-resale-request-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Hashrate-Resale-Request
       def mining_resale_request(userName:, algo:, startDate:, endDate:, toPoolUser:, hashRate:, **kwargs)
         Binance::Utils::Validation.require_param('userName', userName)
         Binance::Utils::Validation.require_param('algo', algo)
@@ -228,7 +228,7 @@ module Binance
       # @param userName [String] Mining Account
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-hashrate-resale-configuration-user_data
+      # @see https://developers.binance.com/docs/mining/rest-api/Cancel-hashrate-resale-configuration
       def mining_resale_cancel(configId:, userName:, **kwargs)
         Binance::Utils::Validation.require_param('userName', userName)
         Binance::Utils::Validation.require_param('configId', configId)

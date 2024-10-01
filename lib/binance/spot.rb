@@ -5,11 +5,9 @@ require 'binance/authentication'
 require 'binance/utils/validation'
 require 'binance/utils/url'
 require 'binance/error'
-require 'binance/spot/blvt'
 require 'binance/spot/c2c'
 require 'binance/spot/convert'
 require 'binance/spot/fiat'
-require 'binance/spot/futures'
 require 'binance/spot/loan'
 require 'binance/spot/margin'
 require 'binance/spot/market'
@@ -37,13 +35,11 @@ module Binance
   # - Subaccount
   # - Trade
   # - Wallet
-  # @see https://binance-docs.github.io/apidocs/spot/en/
+  # @see https://developers.binance.com/en
   class Spot
-    include Binance::Spot::Blvt
     include Binance::Spot::C2C
     include Binance::Spot::Convert
     include Binance::Spot::Fiat
-    include Binance::Spot::Futures
     include Binance::Spot::Loan
     include Binance::Spot::Margin
     include Binance::Spot::Market

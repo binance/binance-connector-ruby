@@ -20,7 +20,7 @@ module Binance
       # Update Speed: Real-time
       #
       # @param symbol [String]
-      # @see https://binance-docs.github.io/apidocs/spot/en/#aggregate-trade-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#aggregate-trade-streams
       def agg_trade(symbol:, callbacks:)
         url = "#{@base_url}/ws/#{symbol.downcase}@aggTrade"
         create_connection(url, callbacks)
@@ -32,20 +32,20 @@ module Binance
       # Update Speed: Real-time
       #
       # @param symbol [String]
-      # @see https://binance-docs.github.io/apidocs/spot/en/#trade-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#trade-streams
       def trade(symbol:, callbacks:)
         url = "#{@base_url}/ws/#{symbol.downcase}@trade"
         create_connection(url, callbacks)
       end
 
-      # Kline/Candlestick Streams
+      # Kline/Candlestick Streams for UTC
       # The Kline/Candlestick Stream push updates to the current klines/candlestick every second.
       # Stream Name: <symbol>@kline_<interval>
       # Update Speed: 2000ms
       #
       # @param symbol [String]
       # @param interval [String] 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d, 3d, 1w, 1M
-      # @see https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#klinecandlestick-streams-for-utc
       def kline(symbol:, interval:, callbacks:)
         url = "#{@base_url}/ws/#{symbol.downcase}@kline_#{interval}"
         create_connection(url, callbacks)
@@ -57,7 +57,7 @@ module Binance
       # Update Speed: 1000ms
       #
       # @option symbol [String]
-      # @see https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-mini-ticker-stream
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#individual-symbol-mini-ticker-stream
       def mini_ticker(callbacks:, symbol: nil)
         url = if symbol.nil?
                 "#{@base_url}/ws/!miniTicker@arr"
@@ -73,7 +73,7 @@ module Binance
       # Update Speed: 1000ms
       #
       # @option symbol [String]
-      # @see https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-ticker-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#individual-symbol-ticker-streams
       def symbol_ticker(callbacks:, symbol: nil)
         url = if symbol.nil?
                 "#{@base_url}/ws/!ticker@arr"
@@ -89,7 +89,7 @@ module Binance
       # Update Speed: Real-time
       #
       # @option symbol [String]
-      # @see https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-book-ticker-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#individual-symbol-book-ticker-streams
       def book_ticker(callbacks:, symbol: nil)
         url = if symbol.nil?
                 "#{@base_url}/ws/!bookTicker"
@@ -107,7 +107,7 @@ module Binance
       # @param symbol [String]
       # @param levels [Integer] 5, 10, or 20.
       # @param speed [String] 1000ms or 100ms
-      # @see https://binance-docs.github.io/apidocs/spot/en/#partial-book-depth-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#partial-book-depth-streams
       def partial_book_depth(symbol:, levels:, speed:, callbacks:)
         url = "#{@base_url}/ws/#{symbol.downcase}@depth#{levels}@#{speed}"
         create_connection(url, callbacks)
@@ -120,7 +120,7 @@ module Binance
       #
       # @param symbol [String]
       # @param speed [String] 1000ms or 100ms
-      # @see https://binance-docs.github.io/apidocs/spot/en/#diff-depth-stream
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#diff-depth-stream
       def diff_book_depth(symbol:, speed:, callbacks:)
         url = "#{@base_url}/ws/#{symbol.downcase}@depth@#{speed}"
         create_connection(url, callbacks)
@@ -132,7 +132,7 @@ module Binance
       # Window Sizes: 1h,4h
       # Update Speed:  1000ms
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#individual-symbol-rolling-window-statistics-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#individual-symbol-rolling-window-statistics-streams
       def rolling_window_ticker(symbol:, windowSize:, callbacks:)
         url = "#{@base_url}/ws/#{symbol.downcase}@ticker_#{windowSize}"
         create_connection(url, callbacks)
@@ -144,7 +144,7 @@ module Binance
       # Window Sizes: 1h, 4h
       # Update Speed:  1000ms
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#all-market-rolling-window-statistics-streams
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#all-market-rolling-window-statistics-streams
       def rolling_window_ticker_all_symbols(windowSize:, callbacks:)
         url = "#{@base_url}/ws/!ticker_#{windowSize}@arr"
         create_connection(url, callbacks)

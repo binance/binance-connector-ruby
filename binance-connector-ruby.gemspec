@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['documentation_uri'] = 'https://binance-docs.github.io/apidocs/spot/en/'
+  spec.metadata['documentation_uri'] = 'https://developers.binance.com/en'
   spec.metadata['source_code_uri'] = 'https://github.com/binance/binance-connector-ruby'
 
   # Specify which files should be added to the gem when it is released.

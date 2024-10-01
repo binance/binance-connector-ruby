@@ -3,11 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe Binance::Spot::Subaccount, '#sub_account_toggle_ip_restriction' do
-  let(:path) { '/sapi/v1/sub-account/subAccountApi/ipRestriction' }
+  let(:path) { '/sapi/v2/sub-account/subAccountApi/ipRestriction' }
   let(:body) { fixture('response.json') }
   let(:status) { 200 }
   let(:sub_acct_api_key) { 'the_api_key' }
   let(:email) { 'alice@test.com' }
+  let(:status) { '1' }
 
   before do
     mocking_signature_and_ts(**params)
@@ -17,9 +18,9 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_toggle_ip_restriction' d
   context 'validation' do
     where(:params) do
       [
-        { email: '', subAccountApiKey: sub_acct_api_key, ipRestrict: true },
-        { email: email, subAccountApiKey: '', ipRestrict: true },
-        { email: email, subAccountApiKey: sub_acct_api_key, ipRestrict: '' }
+        { email: '', subAccountApiKey: sub_acct_api_key, status: status },
+        { email: email, subAccountApiKey: '', status: status },
+        { email: email, subAccountApiKey: sub_acct_api_key, status: '' }
       ]
     end
     with_them do
@@ -30,7 +31,7 @@ RSpec.describe Binance::Spot::Subaccount, '#sub_account_toggle_ip_restriction' d
   end
 
   context 'with params' do
-    let(:params) { { email: email, subAccountApiKey: sub_acct_api_key, ipRestrict: true } }
+    let(:params) { { email: email, subAccountApiKey: sub_acct_api_key, status: status } }
     it 'should toggle the ip ipRestriction on sub account' do
       spot_client_signed.sub_account_toggle_ip_restriction(**params)
       expect(send_a_request_with_signature(:post, path, params)).to have_been_made

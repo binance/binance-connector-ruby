@@ -8,7 +8,7 @@ module Binance
     # - cancel orders (spot and oco)
     # - account information
     # - my trades
-    # @see https://binance-docs.github.io/apidocs/spot/en/#spot-account-trade
+    # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api
     module Trade
       # TestNew Order
       #
@@ -29,7 +29,7 @@ module Binance
       # @option kwargs [Float] :icebergeQty
       # @option kwargs [String] :newOrderRespType Set the response JSON. ACK, RESULT, or FULL.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#test-new-order-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#test-new-order-trade
       def new_order_test(symbol:, side:, type:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
@@ -61,7 +61,7 @@ module Binance
       # @option kwargs [Float] :icebergeQty
       # @option kwargs [String] :newOrderRespType Set the response JSON. ACK, RESULT, or FULL.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#new-order-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#new-order-trade
       def new_order(symbol:, side:, type:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
@@ -84,7 +84,7 @@ module Binance
       # @option kwargs [String] :origClientOrderId
       # @option kwargs [String] :newClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-order-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#cancel-order-trade
       def cancel_order(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -98,7 +98,7 @@ module Binance
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-all-open-orders-on-a-symbol-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#cancel-all-open-orders-on-a-symbol-trade
       def cancel_open_orders(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -114,7 +114,7 @@ module Binance
       # @option kwargs [Integer] :orderId
       # @option kwargs [String] :origClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-order-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#query-order-user_data
       def get_order(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -128,7 +128,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol the symbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#current-open-orders-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#current-open-orders-user_data
       def open_orders(**kwargs)
         @session.sign_request(:get, '/api/v3/openOrders', params: kwargs)
       end
@@ -146,7 +146,7 @@ module Binance
       # @option kwargs [String] :endTime
       # @option kwargs [String] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#all-orders-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#all-orders-user_data
       def all_orders(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -174,7 +174,7 @@ module Binance
       # @option kwargs [Float] :stopLimitTimeInForce GTC/ FOK/ IOC
       # @option kwargs [String] :newOrderRespType
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#new-oco-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#new-oco---deprecated-trade
       def new_oco_order(symbol:, side:, quantity:, price:, stopPrice:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
@@ -201,7 +201,7 @@ module Binance
       # @option kwargs [String] :listClientOrderId
       # @option kwargs [String] :newClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-oco-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#cancel-order-list-trade
       def cancel_order_list(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -218,7 +218,7 @@ module Binance
       # @option kwargs [Integer] :orderListId
       # @option kwargs [String] :orgClientOrderId
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-oco-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#query-order-lists-user_data
       def order_list(**kwargs)
         @session.sign_request(:get, '/api/v3/orderList', params: kwargs)
       end
@@ -235,7 +235,7 @@ module Binance
       # @option kwargs [String] :endTime
       # @option kwargs [String] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-all-oco-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#query-all-order-lists-user_data
       def all_order_list(**kwargs)
         @session.sign_request(:get, '/api/v3/allOrderList', params: kwargs)
       end
@@ -246,7 +246,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-open-oco-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#query-open-order-lists-user_data
       def open_order_list(**kwargs)
         @session.sign_request(:get, '/api/v3/openOrderList', params: kwargs)
       end
@@ -257,7 +257,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#account-information-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#account-information-user_data
       def account(**kwargs)
         @session.sign_request(:get, '/api/v3/account', params: kwargs)
       end
@@ -274,7 +274,7 @@ module Binance
       # @option kwargs [Integer] :fromId TradeId to fetch from. Default gets most recent trades.
       # @option kwargs [Integer] :limit Default 500; max 1000.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#account-trade-list-user_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#account-trade-list-user_data
       def my_trades(symbol:, **kwargs)
         @session.sign_request(:get, '/api/v3/myTrades', params: kwargs.merge(symbol: symbol))
       end
@@ -285,7 +285,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-current-order-count-usage-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#query-current-order-count-usage-trade
       def get_order_rate_limit(**kwargs)
         @session.sign_request(:get, '/api/v3/rateLimit/order', params: kwargs)
       end
@@ -312,7 +312,7 @@ module Binance
       # @option kwargs [Float] :icebergQty
       # @option kwargs [String] :newOrderRespType
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#cancel-an-existing-order-and-send-a-new-order-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#cancel-an-existing-order-and-send-a-new-order-trade
       def cancel_replace(symbol:, side:, type:, cancelReplaceMode:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)
