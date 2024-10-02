@@ -9,13 +9,13 @@ module Binance
     # - trades
     # - orderbook
     # - etc
-    # @see https://binance-docs.github.io/apidocs/spot/en/#market-data-endpoints
+    # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#market-data-endpoints
     module Market
       # Test Connectivity
       #
       # GET /api/v3/ping
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#test-connectivity
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#test-connectivity
       def ping
         @session.public_request(path: '/api/v3/ping')
       end
@@ -24,7 +24,7 @@ module Binance
       #
       # GET /api/v3/time
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#check-server-time
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#check-server-time
       def time
         @session.public_request(path: '/api/v3/time')
       end
@@ -36,7 +36,7 @@ module Binance
       # @option kwargs [string] :symbol
       # @option kwargs [string] :symbols
       # @option kwargs [string] :permissions
-      # @see https://binance-docs.github.io/apidocs/spot/en/#exchange-information
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#exchange-information
       def exchange_info(symbol: nil, symbols: nil, permissions: nil)
         if symbols.is_a?(Array)
           symbols = symbols.map { |v| "%22#{v}%22" }.join(',')
@@ -59,7 +59,7 @@ module Binance
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :limit Default 100; max 1000. Valid limits:[5, 10, 20, 50, 100, 500, 1000, 5000]
-      # @see https://binance-docs.github.io/apidocs/spot/en/#order-book
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#order-book
       def depth(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -76,7 +76,7 @@ module Binance
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :limit  Default 500; max 1000.
-      # @see https://binance-docs.github.io/apidocs/spot/en/#recent-trades-list
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#recent-trades-list
       def trades(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -96,7 +96,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Integer] :limit Default 500; max 1000.
       # @option kwargs [Integer] :fromId Trade id to fetch from. Default gets most recent trades.
-      # @see https://binance-docs.github.io/apidocs/spot/en/#old-trade-lookup-market_data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#old-trade-lookup
       def historical_trades(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -118,7 +118,7 @@ module Binance
       # @option kwargs [Integer] :endTime Timestamp in ms to get aggregate trades until INCLUSIVE.
       # @option kwargs [Integer] :fromId Trade id to fetch from. Default gets most recent trades.
       # @option kwargs [Integer] :limit Default 500; max 1000.
-      # @see https://binance-docs.github.io/apidocs/spot/en/#compressed-aggregate-trades-list
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#compressedaggregate-trades-list
       def agg_trades(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -141,7 +141,7 @@ module Binance
       # @option kwargs [Integer] :startTime Timestamp in ms to get aggregate trades from INCLUSIVE.
       # @option kwargs [Integer] :endTime Timestamp in ms to get aggregate trades until INCLUSIVE.
       # @option kwargs [Integer] :limit Default 500; max 1000.
-      # @see https://binance-docs.github.io/apidocs/spot/en/#kline-candlestick-data
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#klinecandlestick-data
       def klines(symbol:, interval:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('interval', interval)
@@ -162,7 +162,7 @@ module Binance
       # GET /api/v3/avgPrice
       #
       # @param symbol [String] the symbol
-      # @see https://binance-docs.github.io/apidocs/spot/en/#current-average-price
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#current-average-price
       def avg_price(symbol:)
         Binance::Utils::Validation.require_param('symbol', symbol)
 
@@ -179,7 +179,7 @@ module Binance
       # GET /api/v3/ticker/24hr
       #
       # @param symbol [String] the symbol
-      # @see https://binance-docs.github.io/apidocs/spot/en/#24hr-ticker-price-change-statistics
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#24hr-ticker-price-change-statistics
       def ticker_24hr(symbol: nil)
         @session.public_request(
           path: '/api/v3/ticker/24hr',
@@ -194,7 +194,7 @@ module Binance
       # GET /api/v3/ticker/price
       #
       # @param symbol [String] the symbol
-      # @see https://binance-docs.github.io/apidocs/spot/en/#symbol-price-ticker
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#symbol-price-ticker
       def ticker_price(symbol: nil)
         @session.public_request(
           path: '/api/v3/ticker/price',
@@ -209,7 +209,7 @@ module Binance
       # GET /api/v3/ticker/bookTicker
       #
       # @param symbol [String] the symbol
-      # @see https://binance-docs.github.io/apidocs/spot/en/#symbol-order-book-ticker
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#symbol-order-book-ticker
       def book_ticker(symbol: nil)
         @session.public_request(
           path: '/api/v3/ticker/bookTicker',
@@ -224,7 +224,7 @@ module Binance
       # GET /api/v3/ticker/bookTicker
       #
       # @param symbol [String] the symbol
-      # @see https://binance-docs.github.io/apidocs/spot/en/#symbol-order-book-ticker
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api#symbol-order-book-ticker
       def ticker(symbol: nil, symbols: nil, windowSize: '1d')
         raise Binance::DuplicatedParametersError.new('symbol', 'symbols') unless symbols.nil? || symbol.nil?
 

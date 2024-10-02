@@ -3,7 +3,7 @@
 module Binance
   class Spot
     # User data stream endpoints
-    # @see https://binance-docs.github.io/apidocs/spot/en/#user-data-streams
+    # @see https://developers.binance.com/docs/binance-spot-api-docs/user-data-stream
     module Stream
       # Create a ListenKey (USER_STREAM)
       #

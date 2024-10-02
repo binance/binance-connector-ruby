@@ -9,4 +9,4 @@ require_relative '../../common'
 logger = Common.setup_logger
 
 client = Binance::Spot.new(key: '', secret: '')
-logger.info(client.sub_account_toggle_ip_restriction(email: 'alice@test.com', subAccountApiKey: 'xxxxxx', ipRestrict: true))
+logger.info(client.sub_account_toggle_ip_restriction(email: 'alice@test.com', subAccountApiKey: 'xxxxxx', status: '1'))

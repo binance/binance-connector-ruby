@@ -3,7 +3,7 @@
 module Binance
   class Spot
     # all wallet endpoints
-    # @see https://binance-docs.github.io/apidocs/spot/en/#wallet-endpoints
+    # @see https://developers.binance.com/docs/wallet/introduction
     module Wallet
       # System Status (System)
       #
@@ -11,7 +11,7 @@ module Binance
       #
       # Fetch system status.
       #
-      # @see https://binance-docs.github.io/apidocs/spot/en/#system-status-system
+      # @see https://developers.binance.com/docs/wallet/others/system-status
       def system_status
         @session.public_request(path: '/sapi/v1/system/status')
       end
@@ -24,7 +24,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#all-coins-39-information-user_data
+      # @see https://developers.binance.com/docs/wallet/capital/all-coins-info
       def coin_info(**kwargs)
         @session.sign_request(:get, '/sapi/v1/capital/config/getall', params: kwargs)
       end
@@ -39,7 +39,7 @@ module Binance
       # @option kwargs [Integer] :endTime
       # @option kwargs [Integer] :limit min 5, max 30, default 5
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#daily-account-snapshot-user_data
+      # @see https://developers.binance.com/docs/wallet/account/daily-account-snapshoot
       def account_snapshot(type:, **kwargs)
         Binance::Utils::Validation.require_param('type', type)
 
@@ -54,7 +54,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#disable-fast-withdraw-switch-user_data
+      # @see https://developers.binance.com/docs/wallet/account/disable-fast-withdraw-switch
       def disable_fast_withdraw(**kwargs)
         @session.sign_request(:post, '/sapi/v1/account/disableFastWithdrawSwitch', params: kwargs)
       end
@@ -65,7 +65,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#enable-fast-withdraw-switch-user_data
+      # @see https://developers.binance.com/docs/wallet/account/enable-fast-withdraw-switch
       def enable_fast_withdraw(**kwargs)
         @session.sign_request(:post, '/sapi/v1/account/enableFastWithdrawSwitch', params: kwargs)
       end
@@ -84,7 +84,7 @@ module Binance
       # @option kwargs [Boolean] :transactionFeeFlag
       # @option kwargs [String] :name
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#withdraw-sapi
+      # @see https://developers.binance.com/docs/wallet/capital/withdraw
       def withdraw(coin:, address:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('coin', coin)
         Binance::Utils::Validation.require_param('address', address)
@@ -109,7 +109,7 @@ module Binance
       # @option kwargs [Integer] :offest Default:0
       # @option kwargs [Integer] :limit Default:1000, Max:1000
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#deposit-history-supporting-network-user_data
+      # @see https://developers.binance.com/docs/wallet/capital/deposite-history
       def deposit_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/capital/deposit/hisrec', params: kwargs)
       end
@@ -127,7 +127,7 @@ module Binance
       # @option kwargs [Integer] :offest
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#withdraw-history-supporting-network-user_data
+      # @see https://developers.binance.com/docs/wallet/capital/withdraw-history
       def withdraw_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/capital/withdraw/history', params: kwargs)
       end
@@ -140,7 +140,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :network
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#withdraw-history-supporting-network-user_data
+      # @see https://developers.binance.com/docs/wallet/capital/withdraw-history
       def deposit_address(coin:, **kwargs)
         Binance::Utils::Validation.require_param('coin', coin)
 
@@ -157,7 +157,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#account-status-user_data
+      # @see https://developers.binance.com/docs/wallet/account/account-status
       def account_status(**kwargs)
         @session.sign_request(:get, '/sapi/v1/account/status', params: kwargs)
       end
@@ -170,7 +170,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#account-api-trading-status-user_data
+      # @see https://developers.binance.com/docs/wallet/account/account-api-trading-status
       def api_trading_status(**kwargs)
         @session.sign_request(:get, '/sapi/v1/account/apiTradingStatus', params: kwargs)
       end
@@ -183,7 +183,7 @@ module Binance
       # @option kwargs [Integer] :startTime
       # @option kwargs [Integer] :endTime
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#dustlog-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/dust-log
       def dust_log(**kwargs)
         @session.sign_request(:get, '/sapi/v1/asset/dribblet', params: kwargs)
       end
@@ -197,7 +197,7 @@ module Binance
       # @param asset [Array]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#dust-transfer-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/dust-transfer
       def dust_transfer(asset:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
 
@@ -216,7 +216,7 @@ module Binance
       # @option kwargs [Integer] :endTime
       # @option kwargs [Integer] :limit Default 20, max 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#asset-dividend-record-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/assets-divided-record
       def asset_devidend_record(**kwargs)
         @session.sign_request(:get, '/sapi/v1/asset/assetDividend', params: kwargs)
       end
@@ -228,7 +228,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :asset
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#asset-detail-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/asset-detail
       def asset_detail(**kwargs)
         @session.sign_request(:get, '/sapi/v1/asset/assetDetail', params: kwargs)
       end
@@ -240,7 +240,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :symbol
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#trade-fee-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/trade-fee
       def trade_fee(**kwargs)
         @session.sign_request(:get, '/sapi/v1/asset/tradeFee', params: kwargs)
       end
@@ -256,7 +256,7 @@ module Binance
       # @option kwargs [String] :fromSymbol must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN
       # @option kwargs [String] :toSymbol must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#user-universal-transfer-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/user-universal-transfer
       def user_universal_transfer(type:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('type', type)
         Binance::Utils::Validation.require_param('asset', asset)
@@ -282,7 +282,7 @@ module Binance
       # @option kwargs [String] :fromSymbol must be sent when type are ISOLATEDMARGIN_MARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN
       # @option kwargs [String] :toSymbol must be sent when type are MARGIN_ISOLATEDMARGIN and ISOLATEDMARGIN_ISOLATEDMARGIN
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-user-universal-transfer-history-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/query-user-universal-transfer
       def user_universal_transfer_history(type:, **kwargs)
         Binance::Utils::Validation.require_param('type', type)
         @session.sign_request(:get, '/sapi/v1/asset/transfer', params: kwargs.merge(type: type))
@@ -296,7 +296,7 @@ module Binance
       # @option kwargs [String] :asset
       # @option kwargs [String] :needBtcValuation true or false
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#funding-wallet-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/funding-wallet
       def funding_wallet(**kwargs)
         @session.sign_request(:post, '/sapi/v1/asset/get-funding-asset', params: kwargs)
       end
@@ -307,7 +307,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-api-key-permission-user_data
+      # @see https://developers.binance.com/docs/wallet/account/api-key-permission
       def api_key_permission(**kwargs)
         @session.sign_request(:get, '/sapi/v1/account/apiRestrictions', params: kwargs)
       end
@@ -320,7 +320,7 @@ module Binance
       # @option kwargs [String] :asset If asset is blank, then query all positive assets user have.
       # @option kwargs [Boolean] :needBtcValuation
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#user-asset-user_data
+      # @see https://developers.binance.com/docs/wallet/asset/user-assets
       def get_user_asset(**kwargs)
         @session.sign_request(:post, '/sapi/v3/asset/getUserAsset', params: kwargs)
       end

@@ -3,7 +3,7 @@
 module Binance
   class Spot
     # all sub-account endpoints
-    # @see https://binance-docs.github.io/apidocs/spot/en/#sub-account-endpoints
+    # @see https://developers.binance.com/docs/sub_account/Introduction
     module Subaccount
       # Create a Virtual Sub-account(For Master Account)
       #
@@ -15,7 +15,7 @@ module Binance
       # @param subAccountString [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#create-a-virtual-sub-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Create-a-Virtual-Sub-account
       def create_virtual_sub_account(subAccountString:, **kwargs)
         Binance::Utils::Validation.require_param('subAccountString', subAccountString)
 
@@ -34,7 +34,7 @@ module Binance
       # @option kwargs [Integer] :page
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-list-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Query-Sub-account-List
       def get_sub_account_list(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/list', params: kwargs)
       end
@@ -54,7 +54,7 @@ module Binance
       # @option kwargs [Integer] :page Default value: 1
       # @option kwargs [Integer] :limit Default value: 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-spot-asset-transfer-history-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Query-Sub-account-Spot-Asset-Transfer-History
       def get_sub_account_spot_transfer_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/sub/transfer/history', params: kwargs)
       end
@@ -71,7 +71,7 @@ module Binance
       # @option kwargs [Integer] :page Default value: 1
       # @option kwargs [Integer] :limit Default value: 50, Max value: 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-futures-asset-transfer-history-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Query-Sub-account-Futures-Asset-Transfer-History
       def get_sub_account_futures_transfer_history(email:, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
@@ -93,7 +93,7 @@ module Binance
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#sub-account-futures-asset-transfer-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Sub-account-Futures-Asset-Transfer
       def sub_account_futures_internal_transfer(fromEmail:, toEmail:, futuresType:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('fromEmail', fromEmail)
         Binance::Utils::Validation.require_param('toEmail', toEmail)
@@ -117,7 +117,7 @@ module Binance
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-assets-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Query-Sub-account-Assets-V3
       def get_sub_account_assets(email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
@@ -135,7 +135,7 @@ module Binance
       # @option kwargs [Integer] :page Default value: 1
       # @option kwargs [Integer] :size default 10, max 20
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-sub-account-spot-assets-summary-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Query-Sub-account-Spot-Assets-Summary
       def get_sub_account_spot_summary(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/spotSummary', params: kwargs)
       end
@@ -151,7 +151,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :network
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-deposit-address-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Get-Sub-account-Deposit-Address
       def sub_account_deposit_address(email:, coin:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('coin', coin)
@@ -177,7 +177,7 @@ module Binance
       # @option kwargs [String] :limit
       # @option kwargs [String] :offset
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-deposit-history-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Get-Sub-account-Deposit-History
       def sub_account_deposit_history(email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
@@ -193,7 +193,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :email
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-39-s-status-on-margin-futures-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Get-Sub-accounts-Status-on-Margin-Or-Futures
       def sub_account_status(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/status', params: kwargs)
       end
@@ -205,7 +205,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [String] :email
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-sub-account-39-s-status-on-margin-futures-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Enable-Margin-for-Sub-account
       def sub_account_enable_margin(email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
@@ -221,7 +221,7 @@ module Binance
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-detail-on-sub-account-39-s-margin-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Get-Detail-on-Sub-accounts-Margin-Account
       def sub_account_margin_account(email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
@@ -236,7 +236,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-summary-of-sub-account-39-s-margin-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Get-Summary-of-Sub-accounts-Margin-Account
       def sub_account_margin_account_summary(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/margin/accountSummary', params: kwargs)
       end
@@ -248,7 +248,7 @@ module Binance
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#enable-futures-for-sub-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Enable-Futures-for-Sub-account
       def sub_account_enable_futures(email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
@@ -265,7 +265,7 @@ module Binance
       # @param futuresType [Integer] 1:USDT Margined Futures, 2:COIN Margined Futures
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-detail-on-sub-account-39-s-futures-account-v2-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Get-Detail-on-Sub-accounts-Futures-Account-V2
       def sub_account_futures_account(email:, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
@@ -285,7 +285,7 @@ module Binance
       # @option kwargs [Integer] :page  default:1
       # @option kwargs [Integer] :limit default:10, max:20
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-summary-of-sub-account-39-s-futures-account-v2-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Get-Summary-of-Sub-accounts-Futures-Account-V2
       def sub_account_futures_account_summary(futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
 
@@ -302,7 +302,7 @@ module Binance
       # @param futuresType [Integer] 1:USDT Margined Futures, 2:COIN Margined Futures
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-futures-position-risk-of-sub-account-v2-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Get-Futures-Position-Risk-of-Sub-account-V2
       def sub_account_futures_position_risk(email:, futuresType:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('futuresType', futuresType)
@@ -326,7 +326,7 @@ module Binance
       #    4:transfer from subaccount's COIN-margined futures account to its spot account
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#futures-transfer-for-sub-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Futures-Transfer-for-Sub-account
       def sub_account_futures_transfer(email:, asset:, amount:, type:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('asset', asset)
@@ -352,7 +352,7 @@ module Binance
       #    2: transfer from subaccount's margin account to its spot account
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#margin-transfer-for-sub-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Margin-Transfer-for-Sub-account
       def sub_account_margin_transfer(email:, asset:, amount:, type:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('asset', asset)
@@ -376,7 +376,7 @@ module Binance
       # @param amount [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#transfer-to-sub-account-of-same-master-for-sub-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Transfer-to-Sub-account-of-Same-Master
       def sub_account_transfer_to_sub(toEmail:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('toEmail', toEmail)
         Binance::Utils::Validation.require_param('asset', asset)
@@ -397,7 +397,7 @@ module Binance
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#transfer-to-master-for-sub-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Transfer-to-Master
       def sub_account_transfer_to_master(asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('asset', asset)
         Binance::Utils::Validation.require_param('amount', amount)
@@ -419,7 +419,7 @@ module Binance
       # @option kwargs [Integer] :endTime
       # @option kwargs [Integer] :limit
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#sub-account-transfer-history-for-sub-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Sub-account-Transfer-History
       def sub_account_transfer_sub_account_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/transfer/subUserHistory', params: kwargs)
       end
@@ -439,7 +439,7 @@ module Binance
       # @option kwargs [String] :fromEmail Transfer from master account by default if fromEmail is not sent.
       # @option kwargs [String] :toEmail Transfer to master account by default if toEmail is not sent.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#universal-transfer-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Universal-Transfer
       def universal_transfer(fromAccountType:, toAccountType:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('fromAccountType', fromAccountType)
         Binance::Utils::Validation.require_param('toAccountType', toAccountType)
@@ -466,7 +466,7 @@ module Binance
       # @option kwargs [Integer] :page
       # @option kwargs [Integer] :limit Default 500, Max 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-universal-transfer-history-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Query-Universal-Transfer-History
       def universal_transfer_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/sub-account/universalTransfer', params: kwargs)
       end
@@ -479,7 +479,7 @@ module Binance
       # @param enableBlvt [Boolean] Only true for now
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#enable-leverage-token-for-sub-account-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/account-management/Enable-Leverage-Token-for-Sub-account
       def sub_account_enable_blvt(email:, enableBlvt:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('enableBlvt', enableBlvt)
@@ -499,7 +499,7 @@ module Binance
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#deposit-assets-into-the-managed-sub-account-for-investor-master-account
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Deposit-Assets-Into-The-Managed-Sub-account
       def deposit_to_sub_account(toEmail:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('toEmail', toEmail)
         Binance::Utils::Validation.require_param('asset', asset)
@@ -519,7 +519,7 @@ module Binance
       # @param email [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#query-managed-sub-account-asset-details-for-investor-master-account
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-account-Asset-Details
       def sub_account_asset_details(email:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
 
@@ -536,7 +536,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Integer] :transferDate
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#withdrawl-assets-from-the-managed-sub-account-for-investor-master-account
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Withdrawl-Assets-From-The-Managed-Sub-account
       def withdraw_from_sub_account(fromEmail:, asset:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('fromEmail', fromEmail)
         Binance::Utils::Validation.require_param('asset', asset)
@@ -551,43 +551,23 @@ module Binance
 
       # Enable or Disable IP Restriction for a Sub-account API Key (For Master Account)
       #
-      # POST /sapi/v1/sub-account/subAccountApi/ipRestriction
+      # POST /sapi/v2/sub-account/subAccountApi/ipRestriction
       #
       # @param email  [String]
       # @param subAccountApiKey [String]
-      # @param ipRestrict [Boolean]
+      # @param status [String]
+      # @option kwargs [String] :ipAddress Insert static IP in batch, separated by commas.
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#enable-or-disable-ip-restriction-for-a-sub-account-api-key-for-master-account
-      def sub_account_toggle_ip_restriction(email:, subAccountApiKey:, ipRestrict:, **kwargs)
+      # @see https://developers.binance.com/docs/sub_account/api-management/Add-IP-Restriction-for-Sub-Account-API-key
+      def sub_account_toggle_ip_restriction(email:, subAccountApiKey:, status:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
-        Binance::Utils::Validation.require_param('ipRestrict', ipRestrict)
+        Binance::Utils::Validation.require_param('status', status)
 
-        @session.sign_request(:post, '/sapi/v1/sub-account/subAccountApi/ipRestriction', params: kwargs.merge(
+        @session.sign_request(:post, '/sapi/v2/sub-account/subAccountApi/ipRestriction', params: kwargs.merge(
           email: email,
           subAccountApiKey: subAccountApiKey,
-          ipRestrict: ipRestrict
-        ))
-      end
-
-      # Add IP List for a Sub-account API Key (For Master Account)
-      #
-      # POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList
-      #
-      # @param email  [String]
-      # @param subAccountApiKey [String]
-      # @param ipAddress [String]
-      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#add-ip-list-for-a-sub-account-api-key-for-master-account
-      def sub_account_add_ip_list(email:, subAccountApiKey:, ipAddress:, **kwargs)
-        Binance::Utils::Validation.require_param('email', email)
-        Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
-        Binance::Utils::Validation.require_param('ipAddress', ipAddress)
-
-        @session.sign_request(:post, '/sapi/v1/sub-account/subAccountApi/ipRestriction/ipList', params: kwargs.merge(
-          email: email,
-          subAccountApiKey: subAccountApiKey,
-          ipAddress: ipAddress
+          status: status
         ))
       end
 
@@ -598,7 +578,7 @@ module Binance
       # @param email  [String]
       # @param subAccountApiKey [String]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-ip-restriction-for-a-sub-account-api-key-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/api-management/Get-IP-Restriction-for-a-Sub-account-API-Key
       def sub_account_ip_list(email:, subAccountApiKey:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)
@@ -617,7 +597,7 @@ module Binance
       # @param subAccountApiKey [String]
       # @param ipAddress [String]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-ip-restriction-for-a-sub-account-api-key-for-master-account
+      # @see https://developers.binance.com/docs/sub_account/api-management/Get-IP-Restriction-for-a-Sub-account-API-Key
       def sub_account_delete_ip_list(email:, subAccountApiKey:, ipAddress:, **kwargs)
         Binance::Utils::Validation.require_param('email', email)
         Binance::Utils::Validation.require_param('subAccountApiKey', subAccountApiKey)

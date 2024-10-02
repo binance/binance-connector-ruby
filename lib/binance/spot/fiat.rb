@@ -3,7 +3,7 @@
 module Binance
   class Spot
     # Fiat endpoints
-    # @see https://binance-docs.github.io/apidocs/spot/en/#fiat-endpoints
+    # @see https://developers.binance.com/docs/fiat/Introduction
     module Fiat
       # Get Fiat Deposit/Withdraw History (USER_DATA)
       #
@@ -16,7 +16,7 @@ module Binance
       # @option kwargs [Integer] :page default 1
       # @option kwargs [Integer] :rows default 100, max 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-fiat-deposit-withdraw-history-user_data
+      # @see https://developers.binance.com/docs/fiat/rest-api/Get-Fiat-Deposit-Withdraw-History
       def fiat_deposit_withdraw_history(transactionType:, **kwargs)
         Binance::Utils::Validation.require_param('transactionType', transactionType)
 
@@ -36,7 +36,7 @@ module Binance
       # @option kwargs [Integer] :page default 1
       # @option kwargs [Integer] :rows default 100, max 500
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-fiat-payments-history-user_data
+      # @see https://developers.binance.com/docs/fiat/rest-api/Get-Fiat-Payments-History
       def fiat_payment_history(transactionType:, **kwargs)
         Binance::Utils::Validation.require_param('transactionType', transactionType)
 

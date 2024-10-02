@@ -1,5 +1,57 @@
 # Changelog
 
+## 1.6.0 - 2024-10-02
+
+### Changed
+- Updated endpoint `/sapi/v1/sub-account/subAccountApi/ipRestriction` to `/sapi/v2/sub-account/subAccountApi/ipRestriction`
+- Update dependencies
+
+### Removed
+- Deprecated margin endpoints:
+  - `POST /sapi/v1/margin/transfer`
+  - `POST /sapi/v1/margin/isolated/transfer`
+  - `POST /sapi/v1/margin/loan`
+  - `POST /sapi/v1/margin/repay`
+  - `GET /sapi/v1/margin/isolated/transfer`
+  - `GET /sapi/v1/margin/asset`
+  - `GET /sapi/v1/margin/pair`
+  - `GET /sapi/v1/margin/isolated/pair`
+  - `GET /sapi/v1/margin/loan`
+  - `GET /sapi/v1/margin/repay`
+  - `GET /sapi/v1/margin/dribblet`
+  - `GET /sapi/v1/margin/dust`
+  - `POST /sapi/v1/margin/dust`
+
+- Deprecated SubAccount endpoint: `POST /sapi/v1/sub-account/subAccountApi/ipRestriction/ipList`
+
+- Deprecated Futures endpoints:
+  - `GET /sapi/v1/futures/loan/interestHistory`
+  - `GET /sapi/v1/futures/loan/collateralRepayResult`
+  - `POST /sapi/v1/futures/loan/collateralRepay`
+  - `GET /sapi/v1/futures/loan/collateralRepay`
+  - `GET /sapi/v1/futures/loan/collateralRepayLimit`
+  - `GET /sapi/v1/futures/loan/liquidationHistory`
+  - `GET /sapi/v1/futures/loan/adjustCollateral/history`
+  - `POST /sapi/v2/futures/loan/adjustCollateral`
+  - `GET /sapi/v2/futures/loan/calcMaxAdjustAmount`
+  - `GET /sapi/v2/futures/loan/calcAdjustLevel`
+  - `GET /sapi/v2/futures/loan/configs`
+  - `GET /sapi/v2/futures/loan/wallet`
+  - `GET /sapi/v1/futures/loan/repay/history`
+  - `POST /sapi/v1/futures/loan/repay`
+  - `GET /sapi/v1/futures/loan/borrow/history`
+  - `POST /sapi/v1/futures/loan/borrow`
+  - `GET /sapi/v1/futures/transfer`
+  - `POST /sapi/v1/futures/transfer`
+
+- BLVT endpoints:
+  - `GET /sapi/v1/blvt/tokenInfo`
+  - `POST /sapi/v1/blvt/subscribe`
+  - `GET /sapi/v1/blvt/subscribe/record`
+  - `POST /sapi/v1/blvt/redeem`
+  - `GET /sapi/v1/blvt/redeem/record`
+  - `GET /sapi/v1/blvt/userLimit`
+
 ## 1.5.2 - 2024-07-23
 
 ### Changed

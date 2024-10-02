@@ -3,7 +3,7 @@
 module Binance
   class Spot
     # C2C endpoints
-    # @see https://binance-docs.github.io/apidocs/spot/en/#c2c-endpoints
+    # @see https://developers.binance.com/docs/c2c/Introduction
     module C2C
       # Get C2C Trade History (USER_DATA)
       #
@@ -16,7 +16,7 @@ module Binance
       # @option kwargs [Integer] :rows
       # @option kwargs [Integer] :recvWindow
       # @option kwargs [Integer] :timestamp
-      # @see https://binance-docs.github.io/apidocs/spot/en/#get-c2c-trade-history-user_data
+      # @see https://developers.binance.com/docs/c2c/rest-api/Get-C2C-Trade-History
       def c2c_trade_history(tradeType:, **kwargs)
         Binance::Utils::Validation.require_param('tradeType', tradeType)
 
