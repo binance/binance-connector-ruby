@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.6.0 - 2024-10-01
+## 1.6.0 - 2024-10-02
 
 ### Changed
 - Updated endpoint `/sapi/v1/sub-account/subAccountApi/ipRestriction` to `/sapi/v2/sub-account/subAccountApi/ipRestriction`
