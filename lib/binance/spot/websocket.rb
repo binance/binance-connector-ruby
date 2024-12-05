@@ -99,6 +99,18 @@ module Binance
         create_connection(url, callbacks)
       end
 
+      # Average Price
+      # Average price streams push changes in the average price over a fixed time interval.
+      # Stream Name: <symbol>@avgPrice
+      # Update Speed: 1000ms
+      #
+      # @param symbol [String]
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams#average-price
+      def avg_price(symbol:, callbacks:)
+        url = "#{@base_url}/ws/#{symbol.downcase}@avgPrice"
+        create_connection(url, callbacks)
+      end
+
       # Partial Book Depth Streams
       # Top bids and asks, Valid are 5, 10, or 20.
       # Stream Name: <symbol>@depth<levels> OR <symbol>@depth<levels>@100ms.

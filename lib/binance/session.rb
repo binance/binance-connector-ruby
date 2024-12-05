@@ -33,7 +33,8 @@ module Binance
     private
 
     def process_request(conn, method, path, params)
-      response = conn.send(method, path_with_query(path, params.compact), nil)
+      compact = (params || {}).compact || {}
+      response = conn.send(method, path_with_query(path, compact), nil)
       extract_response(response)
     rescue Faraday::ClientError => e
       raise Binance::ClientError, e.response

@@ -124,6 +124,20 @@ module Binance
         @session.sign_request(:get, '/sapi/v3/sub-account/assets', params: kwargs.merge(email: email))
       end
 
+      # Query Sub-account Assets (For Master Account)(USER_DATA)
+      #
+      # GET /sapi/v4/sub-account/assets
+      #
+      # @param email [String]
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/sub_account/asset-management/Query-Sub-account-Assets-V4
+      def get_sub_account_assets_v4(email:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+
+        @session.sign_request(:get, '/sapi/v4/sub-account/assets', params: kwargs.merge(email: email))
+      end
+
       # Query Sub-account Spot Assets Summary (For Master Account)
       #
       # GET /sapi/v1/sub-account/spotSummary
@@ -210,6 +224,22 @@ module Binance
         Binance::Utils::Validation.require_param('email', email)
 
         @session.sign_request(:post, '/sapi/v1/sub-account/margin/enable', params: kwargs.merge(
+          email: email
+        ))
+      end
+
+      # Enable Options for Sub-account(For Master Account)(USER_DATA)
+      #
+      # POST /sapi/v1/sub-account/eoptions/enable
+      #
+      # @param email [String] Sub user email
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/sub_account/account-management/Enable-Options-for-Sub-account
+      def sub_account_enable_options(email:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+
+        @session.sign_request(:post, '/sapi/v1/sub-account/eoptions/enable', params: kwargs.merge(
           email: email
         ))
       end
@@ -310,6 +340,22 @@ module Binance
         @session.sign_request(:get, '/sapi/v2/sub-account/futures/positionRisk', params: kwargs.merge(
           email: email,
           futuresType: futuresType
+        ))
+      end
+
+      # Query Sub-account Transaction Statistics(For Master Account)(USER_DATA)
+      #
+      # GET /sapi/v1/sub-account/transaction-statistics
+      #
+      # @param email [String] Sub user email
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/sub_account/account-management/Query-Sub-account-Transaction-Statistics
+      def sub_account_transaction_statistics(email:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+
+        @session.sign_request(:get, '/sapi/v1/sub-account/transaction-statistics', params: kwargs.merge(
+          email: email
         ))
       end
 
@@ -526,6 +572,34 @@ module Binance
         @session.sign_request(:get, '/sapi/v1/managed-subaccount/asset', params: kwargs.merge(email: email))
       end
 
+      # Query Managed Sub-account Margin Asset Details(For Investor Master Account)(USER_DATA)
+      #
+      # GET /sapi/v1/managed-subaccount/marginAsset
+      #
+      # @param email [String]
+      # @param kwargs [Hash]
+      # @option kwargs [String] :accountType No input or input "MARGIN" to get Cross Margin account details. Input "ISOLATED_MARGIN" to get Isolated Margin account details.
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-account-Margin-Asset-Details
+      def sub_account_margin_asset_details(email:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/marginAsset', params: kwargs.merge(email: email))
+      end
+
+      # Query Managed Sub-account Futures Asset Details(For Investor Master Account)(USER_DATA)
+      #
+      # GET /sapi/v1/managed-subaccount/fetch-future-asset
+      #
+      # @param email [String]
+      # @param kwargs [Hash]
+      # @option kwargs [String] :accountType No input or input "USDT_FUTURE" to get UM Futures account details. Input "COIN_FUTURE" to get CM Futures account details.
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-account-Futures-Asset-Details
+      def sub_account_futures_asset_details(email:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/fetch-future-asset', params: kwargs.merge(email: email))
+      end
+
       # Withdrawl assets from the managed sub-account (For Investor Master Account)
       #
       # POST /sapi/v1/managed-subaccount/withdraw
@@ -547,6 +621,105 @@ module Binance
           asset: asset,
           amount: amount
         ))
+      end
+
+      # Query Managed Sub Account Transfer Log(For Trading Team Master Account)(USER_DATA)
+      #
+      # GET /sapi/v1/managed-subaccount/queryTransLogForTradeParent
+      #
+      # @param email [String] Managed Sub Account Email
+      # @param startTime [Integer]
+      # @param endTime [Integer]
+      # @param page [Integer]
+      # @param limit [Integer] Limit (Max: 500)
+      # @param kwargs [Hash]
+      # @option kwargs [String] :transfers Transfer Direction (FROM/TO)
+      # @option kwargs [String] :transferFunctionAccountType Transfer function account type (SPOT/MARGIN/ISOLATED_MARGIN/USDT_FUTURE/COIN_FUTURE)
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-Account-Transfer-Log-Trading-Team-Master
+      def sub_account_transfer_log(email:, startTime:, endTime:, page:, limit:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('startTime', startTime)
+        Binance::Utils::Validation.require_param('endTime', endTime)
+        Binance::Utils::Validation.require_param('page', page)
+        Binance::Utils::Validation.require_param('limit', limit)
+
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/queryTransLogForTradeParent', params: kwargs.merge(
+          email: email,
+          startTime: startTime,
+          endTime: endTime,
+          page: page,
+          limit: limit
+        ))
+      end
+
+      # Query Managed Sub Account Transfer Log (For Trading Team Sub Account)(USER_DATA)
+      #
+      # GET /sapi/v1/managed-subaccount/query-trans-log
+      #
+      # @param startTime [Integer]
+      # @param endTime [Integer]
+      # @param page [Integer]
+      # @param limit [Integer] Limit (Max: 500)
+      # @param kwargs [Hash]
+      # @option kwargs [String] :transfers Transfer Direction (FROM/TO)
+      # @option kwargs [String] :transferFunctionAccountType Transfer function account type (SPOT/MARGIN/ISOLATED_MARGIN/USDT_FUTURE/COIN_FUTURE)
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-Account-Transfer-Log-Trading-Team-Sub
+      def sub_account_transfer_log_sub_account(startTime:, endTime:, page:, limit:, **kwargs)
+        Binance::Utils::Validation.require_param('startTime', startTime)
+        Binance::Utils::Validation.require_param('endTime', endTime)
+        Binance::Utils::Validation.require_param('page', page)
+        Binance::Utils::Validation.require_param('limit', limit)
+
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/query-trans-log', params: kwargs.merge(
+          startTime: startTime,
+          endTime: endTime,
+          page: page,
+          limit: limit
+        ))
+      end
+
+      # Query Managed Sub Account Transfer Log (For Investor Master Account)(USER_DATA)
+      #
+      # GET /sapi/v1/managed-subaccount/queryTransLogForInvestor
+      #
+      # @param email [String] Managed Sub Account Email
+      # @param startTime [Integer]
+      # @param endTime [Integer]
+      # @param page [Integer]
+      # @param limit [Integer] Limit (Max: 500)
+      # @param kwargs [Hash]
+      # @option kwargs [String] :transfers Transfer Direction (FROM/TO)
+      # @option kwargs [String] :transferFunctionAccountType Transfer function account type (SPOT/MARGIN/ISOLATED_MARGIN/USDT_FUTURE/COIN_FUTURE)
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-Account-Transfer-Log-Investor
+      def sub_account_transfer_log_investor(email:, startTime:, endTime:, page:, limit:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('startTime', startTime)
+        Binance::Utils::Validation.require_param('endTime', endTime)
+        Binance::Utils::Validation.require_param('page', page)
+        Binance::Utils::Validation.require_param('limit', limit)
+
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/queryTransLogForInvestor', params: kwargs.merge(
+          email: email,
+          startTime: startTime,
+          endTime: endTime,
+          page: page,
+          limit: limit
+        ))
+      end
+
+      # Query Managed Sub-account List (For Investor)(USER_DATA)
+      #
+      # GET /sapi/v1/managed-subaccount/info
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [String] :email Status Managed sub-account email
+      # @option kwargs [Integer] :page Default: 1
+      # @option kwargs [Integer] :limit Default: 10, Max: 20
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/sub_account/managed-sub-account/Query-Managed-Sub-account-List
+      def sub_account_list(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/managed-subaccount/info', params: kwargs)
       end
 
       # Enable or Disable IP Restriction for a Sub-account API Key (For Master Account)
