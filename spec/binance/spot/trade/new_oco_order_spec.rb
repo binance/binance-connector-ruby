@@ -11,8 +11,8 @@ RSpec.describe Binance::Spot::Trade, '#new_oco_order' do
       symbol: 'BNBUSDT',
       side: 'BUY',
       quantity: 10,
-      price: 20,
-      stopPrice: 30
+      aboveType: 'LIMIT_MAKER',
+      belowType: 'LIMIT_MAKER'
     }
   end
 
@@ -24,11 +24,11 @@ RSpec.describe Binance::Spot::Trade, '#new_oco_order' do
   context 'validation' do
     where(:params) do
       [
-        { symbol: '', side: 'BUY', quantity: 10, price: 20, stopPrice: 30 },
-        { symbol: 'BNBUSDT', side: '', quantity: 10, price: 20, stopPrice: 30 },
-        { symbol: 'BNBUSDT', side: 'BUY', quantity: '', price: 20, stopPrice: 30 },
-        { symbol: 'BNBUSDT', side: 'BUY', quantity: 10, price: '', stopPrice: 30 },
-        { symbol: 'BNBUSDT', side: 'BUY', quantity: 10, price: 20, stopPrice: '' }
+        { symbol: '', side: 'BUY', quantity: 10, aboveType: 'LIMIT_MAKER', belowType: 'LIMIT_MAKER' },
+        { symbol: 'BNBUSDT', side: '', quantity: 10, aboveType: 'LIMIT_MAKER', belowType: 'LIMIT_MAKER' },
+        { symbol: 'BNBUSDT', side: 'BUY', quantity: '', aboveType: 'LIMIT_MAKER', belowType: 'LIMIT_MAKER' },
+        { symbol: 'BNBUSDT', side: 'BUY', quantity: 10, aboveType: '', belowType: 'LIMIT_MAKER' },
+        { symbol: 'BNBUSDT', side: 'BUY', quantity: 10, aboveType: 'LIMIT_MAKER', belowType: '' }
       ]
     end
     with_them do
@@ -51,15 +51,10 @@ RSpec.describe Binance::Spot::Trade, '#new_oco_order' do
         price: '1000',
         side: 'BUY',
         quantity: 1,
-        stopPrice: 30,
-        listClientOrderId: 'aaa',
-        limitClientOrderId: 'bbbb',
-        limitIcebergQty: 2,
-        stopClientOrderId: 'ccc',
-        stopLimitPrice: 35,
-        stopIcebergQty: 3,
-        stopLimitTimeInForce: 'GTC',
-        newOrderRespType: 'RESULT',
+        aboveType: 'LIMIT_MAKER',
+        belowType: 'LIMIT_MAKER',
+        abovePrice: 600,
+        belowPrice: 590,
         recvWindow: 50_000
       }
     end

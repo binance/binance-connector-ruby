@@ -1,5 +1,81 @@
 # Changelog
 
+## 1.7.0 -2024-12-05
+### Added
+- Convert endpoints:
+  - `GET /sapi/v1/convert/exchangeInfo`
+  - `GET /sapi/v1/convert/assetInfo`
+  - `POST /sapi/v1/convert/getQuote`
+  - `POST /sapi/v1/convert/acceptQuote`
+  - `GET /sapi/v1/convert/orderStatus`
+  - `POST /sapi/v1/convert/limit/placeOrder`
+  - `POST /sapi/v1/convert/limit/cancelOrder`
+  - `POST /sapi/v1/convert/limit/queryOpenOrders`
+
+- Loan endpoints:
+  - `GET /sapi/v2/loan/flexible/collateral/data`
+  - `GET /sapi/v2/loan/flexible/loanable/data`
+  - `POST /sapi/v2/loan/flexible/borrow`
+  - `POST /sapi/v2/loan/flexible/repay`
+  - `POST /sapi/v2/loan/flexible/adjust/ltv`
+  - `GET /sapi/v2/loan/flexible/ltv/adjustment/history`
+  - `GET /sapi/v2/loan/flexible/borrow/history`
+  - `GET /sapi/v2/loan/flexible/ongoing/orders`
+  - `GET /sapi/v2/loan/flexible/repay/history`
+  - `GET /sapi/v1/loan/borrow/history`
+  - `GET /sapi/v1/loan/ltv/adjustment/history`
+  - `GET /sapi/v1/loan/repay/history`
+
+- Margin endpoints:
+  - `POST /sapi/v1/margin/borrow-repay`
+  - `GET /sapi/v1/margin/borrow-repay`
+  - `GET /sapi/v1/margin/available-inventory`
+  - `GET /sapi/v1/margin/leverageBracket`
+  - `POST /sapi/v1/margin/manual-liquidation`
+
+- Market endpoints:
+  - `GET /api/v3/ticker/tradingDay`
+  - `GET /api/v3/uiKlines`
+
+- Simple Earn endpoints:
+  - `POST /sapi/v1/simple-earn/locked/setRedeemOption`
+
+- Sub Account endpoints:
+  - `GET /sapi/v4/sub-account/assets`
+  - `POST /sapi/v1/sub-account/eoptions/enable`
+  - `GET /sapi/v1/managed-subaccount/marginAsset`
+  - `GET /sapi/v1/sub-account/transaction-statistics`
+  - `GET /sapi/v1/managed-subaccount/fetch-future-asset`
+  - `GET /sapi/v1/managed-subaccount/queryTransLogForTradeParent`
+  - `GET /sapi/v1/managed-subaccount/query-trans-log`
+  - `GET /sapi/v1/managed-subaccount/queryTransLogForInvestor`
+  - `GET /sapi/v1/managed-subaccount/info`
+
+- Trade endpoint:
+  - `GET /api/v3/myPreventedMatches`
+  - `GET /api/v3/myAllocations`
+  - `GET /api/v3/account/commission`
+
+- Wallet endpoints:
+  - `GET /sapi/v1/spot/delist-schedule`
+  - `GET /sapi/v1/capital/deposit/address/list`
+  - `POST /sapi/v1/capital/deposit/credit-apply`
+  - `GET /sapi/v1/asset/wallet/balance`
+  - `POST /sapi/v1/asset/dust-btc`
+  - `GET /sapi/v1/asset/ledger-transfer/cloud-mining/queryByPage`
+  - `GET /sapi/v1/asset/custody/transfer-history`
+  - `GET /sapi/v1/account/info`
+
+- Websocket:
+  - `<symbol>@avgPrice`
+
+### Changed
+- Added new parameter `redeemTo` to endpoint `POST /sapi/v1/simple-earn/locked/subscribe`
+- Added new parameter `timeZone` to endpoint `GET /api/v3/klines`
+- Added new parameters `orderRateLimitExceededMode`, `strategyId`, `strategyType`, `selfTradePreventionMode` and `cancelRestrictions` to endpoint `POST /api/v3/order/cancelReplace`
+- Added new parameters `showPermissionSets` and `symbolStatus` to endpoint `GET /api/v3/exchangeInfo`
+- Replaced endpoint `POST /api/v3/order/oco` by `POST /api/v3/orderList/oco`
+
 ## 1.6.0 - 2024-10-02
 
 ### Changed

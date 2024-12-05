@@ -16,6 +16,17 @@ module Binance
         @session.public_request(path: '/sapi/v1/system/status')
       end
 
+      # Get symbols delist schedule for spot (MARKET_DATA)
+      #
+      # GET /sapi/v1/spot/delist-schedule
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/wallet/others/delist-schedule
+      def delist_schedule(**kwargs)
+        @session.public_request(path: '/sapi/v1/spot/delist-schedule', params: kwargs)
+      end
+
       # All Coins' Information (USER_DATA)
       #
       # GET /sapi/v1/capital/config/getall
@@ -149,6 +160,36 @@ module Binance
         ))
       end
 
+      # Fetch deposit address list with network (USER_DATA)
+      #
+      # GET /sapi/v1/capital/deposit/address/list
+      #
+      # @param coin [String] coin refers to the parent network address format that the address is using
+      # @param kwargs [Hash]
+      # @option kwargs [String] :network
+      # @see https://developers.binance.com/docs/wallet/capital/fetch-deposit-address-list-with-network
+      def deposit_address_list(coin:, **kwargs)
+        Binance::Utils::Validation.require_param('coin', coin)
+
+        @session.sign_request(:get, '/sapi/v1/capital/deposit/address/list', params: kwargs.merge(
+          coin: coin
+        ))
+      end
+
+      # One click arrival deposit apply (for expired address deposit) (USER_DATA)
+      #
+      # POST /sapi/v1/capital/deposit/credit-apply
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [String] :depositId Deposit record Id, priority use
+      # @option kwargs [String] :txId Deposit txId, used when depositId is not specified
+      # @option kwargs [String] :subAccountId Sub-accountId of Cloud user
+      # @option kwargs [String] :subUserId Sub-userId of parent user
+      # @see https://developers.binance.com/docs/wallet/capital/one-click-arrival-deposite-apply
+      def one_click_arrival_deposit_apply(**kwargs)
+        @session.sign_request(:post, '/sapi/v1/capital/deposit/credit-apply', params: kwargs)
+      end
+
       # Account Status (USER_DATA)
       #
       # GET /sapi/v1/account/status
@@ -233,6 +274,17 @@ module Binance
         @session.sign_request(:get, '/sapi/v1/asset/assetDetail', params: kwargs)
       end
 
+      # Query User Wallet Balance (USER_DATA)
+      #
+      # GET /sapi/v1/asset/wallet/balance
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/wallet/asset/query-user-wallet-balance
+      def wallet_balance(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/asset/wallet/balance', params: kwargs)
+      end
+
       # Trade Fee (USER_DATA)
       #
       # GET /sapi/v1/asset/tradeFee
@@ -288,6 +340,18 @@ module Binance
         @session.sign_request(:get, '/sapi/v1/asset/transfer', params: kwargs.merge(type: type))
       end
 
+      # Get Assets That Can Be Converted Into BNB (USER_DATA)
+      #
+      # POST /sapi/v1/asset/dust-btc
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [String] :accountType SPOT or MARGIN,default SPOT
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/wallet/asset/assets-can-convert-bnb
+      def get_assets_converted_into_bnb(**kwargs)
+        @session.sign_request(:post, '/sapi/v1/asset/dust-btc', params: kwargs)
+      end
+
       # Funding Wallet (USER_DATA)
       #
       # POST /sapi/v1/asset/get-funding-asset
@@ -299,6 +363,60 @@ module Binance
       # @see https://developers.binance.com/docs/wallet/asset/funding-wallet
       def funding_wallet(**kwargs)
         @session.sign_request(:post, '/sapi/v1/asset/get-funding-asset', params: kwargs)
+      end
+
+      # Get Cloud-Mining payment and refund history (USER_DATA)
+      #
+      # GET /sapi/v1/asset/ledger-transfer/cloud-mining/queryByPage
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :tranId
+      # @option kwargs [String] :clientTranId The unique flag
+      # @option kwargs [String] :asset If it is blank, we will query all assets
+      # @option kwargs [Integer] :startTime inclusive, unit: ms
+      # @option kwargs [Integer] :endTime exclusive, unit: ms
+      # @option kwargs [Integer] :current current page, default 1, the min value is 1
+      # @option kwargs [Integer] :size page size, default 10, the max value is 100
+      # @see https://developers.binance.com/docs/wallet/asset/cloud-mining-payment-and-refund-history
+      def cloud_mining_payment_and_refund_history(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/asset/ledger-transfer/cloud-mining/queryByPage', params: kwargs)
+      end
+
+      # Query User Delegation History (For Master Account)(USER_DATA)
+      #
+      # GET /sapi/v1/asset/custody/transfer-history
+      #
+      # @param email [String]
+      # @param startTime [Integer]
+      # @param endTime [Integer]
+      # @param kwargs [Hash]
+      # @option kwargs [String] :type Delegate/Undelegate
+      # @option kwargs [String] :asset
+      # @option kwargs [Integer] :current Default 1
+      # @option kwargs [Integer] :size default 10, max 100
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/wallet/asset/query-user-delegation
+      def user_delegation_history(email:, startTime:, endTime:, **kwargs)
+        Binance::Utils::Validation.require_param('email', email)
+        Binance::Utils::Validation.require_param('startTime', startTime)
+        Binance::Utils::Validation.require_param('endTime', endTime)
+
+        @session.sign_request(:get, '/sapi/v1/asset/custody/transfer-history', params: kwargs.merge(
+          email: email,
+          startTime: startTime,
+          endTime: endTime
+        ))
+      end
+
+      # Account info (USER_DATA)
+      #
+      # GET /sapi/v1/account/info
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/wallet/account
+      def account_info(**kwargs)
+        @session.sign_request(:get, '/sapi/v1/account/info', params: kwargs)
       end
 
       # Get API Key Permission (USER_DATA)

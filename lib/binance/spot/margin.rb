@@ -33,6 +33,27 @@ module Binance
         @session.limit_request(path: '/sapi/v1/margin/priceIndex', params: { symbol: symbol })
       end
 
+      # Query Margin Available Inventory(USER_DATA)
+      #
+      # GET /sapi/v1/margin/available-inventory
+      #
+      # @param type [String] MARGIN or ISOLATED
+      # @see https://developers.binance.com/docs/margin_trading/market-data/Query-margin-avaliable-inventory
+      def margin_available_inventory(type:)
+        Binance::Utils::Validation.require_param('type', type)
+
+        @session.sign_request(:get, '/sapi/v1/margin/available-inventory', params: { type: type })
+      end
+
+      # Query Liability Coin Leverage Bracket in Cross Margin Pro Mode(MARKET_DATA)
+      #
+      # GET /sapi/v1/margin/leverageBracket
+      #
+      # @see https://developers.binance.com/docs/margin_trading/market-data/Query-Liability-Coin-Leverage-Bracket-in-Cross-Margin-Pro-Mode
+      def margin_leverage_bracket
+        @session.limit_request(path: '/sapi/v1/margin/leverageBracket')
+      end
+
       # Margin Account New Order (TRADE)
       #
       # POST /sapi/v1/margin/order
@@ -136,6 +157,55 @@ module Binance
       # @see https://developers.binance.com/docs/margin_trading/borrow-and-repay/Get-Interest-History
       def margin_interest_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/margin/interestHistory', params: kwargs)
+      end
+
+      # Margin account borrow/repay (MARGIN)
+      #
+      # POST /sapi/v1/margin/borrow-repay
+      #
+      # @param asset [String]
+      # @param isIsolated [String] TRUE for Isolated Margin, FALSE for Cross Margin, Default FALSE
+      # @param symbol [String]
+      # @param amount [String]
+      # @param type [String] BORROW, REPAY
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/margin_trading/borrow-and-repay/Margin-Account-Borrow-Repay
+      def margin_borrow_repay(asset:, isIsolated:, symbol:, amount:, type:, **kwargs)
+        Binance::Utils::Validation.require_param('asset', asset)
+        Binance::Utils::Validation.require_param('isIsolated', isIsolated)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+        Binance::Utils::Validation.require_param('amount', amount)
+        Binance::Utils::Validation.require_param('type', type)
+
+        @session.sign_request(:post, '/sapi/v1/margin/borrow-repay', params: kwargs.merge(
+          asset: asset,
+          isIsolated: isIsolated,
+          symbol: symbol,
+          amount: amount,
+          type: type
+        ))
+      end
+
+      # Query borrow/repay records in Margin account (USER_DATA)
+      #
+      # GET /sapi/v1/margin/borrow-repay
+      #
+      # @param type [String] BORROW or REPAY
+      # @param kwargs [Hash]
+      # @option kwargs [String] :asset
+      # @option kwargs [String] :isIsolated
+      # @option kwargs [String] :txId
+      # @option kwargs [Integer] :startTime
+      # @option kwargs [Integer] :endTime
+      # @option kwargs [Integer] :current Currently querying page. Start from 1. Default:1
+      # @option kwargs [Integer] :size Default:10 Max:100
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/margin_trading/borrow-and-repay/Query-Borrow-Repay
+      def margin_borrow_repay_record(type:, **kwargs)
+        Binance::Utils::Validation.require_param('type', type)
+
+        @session.sign_request(:get, '/sapi/v1/margin/borrow-repay', params: kwargs.merge(type: type))
       end
 
       # Get Force Liquidation Record (USER_DATA)
@@ -335,6 +405,21 @@ module Binance
         Binance::Utils::Validation.require_param('symbol', symbol)
 
         @session.sign_request(:get, '/sapi/v1/margin/myTrades', params: kwargs.merge(symbol: symbol))
+      end
+
+      # Margin Manual Liquidation
+      #
+      # POST /sapi/v1/margin/manual-liquidation
+      #
+      # @param type [String] MARGIN or ISOLATED
+      # @param kwargs [Hash]
+      # @param kwargs [String] :symbol When type selects ISOLATED, symbol must be filled in
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/margin_trading/trade/Margin-Manual-Liquidation
+      def margin_manual_liquidation(type:, **kwargs)
+        Binance::Utils::Validation.require_param('type', type)
+
+        @session.sign_request(:post, '/sapi/v1/margin/manual-liquidation', params: kwargs.merge(type: type))
       end
 
       # Query Max Borrow (USER_DATA)

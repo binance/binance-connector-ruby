@@ -63,6 +63,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Boolean] :autoSubscribe true or false, default true
       # @option kwargs [String] :sourceAccount SPOT,FUND,ALL, default SPOT
+      # @option kwargs [String] :redeemTo SPOT,FLEXIBLE, default FLEXIBLE
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://developers.binance.com/docs/simple_earn/earn/Subscribe-Locked-Product
       def locked_subscribe(projectId:, amount:, **kwargs)
@@ -362,6 +363,25 @@ module Binance
         @session.sign_request(:get, '/sapi/v1/simple-earn/locked/subscriptionPreview', params: kwargs.merge(
           projectId: projectId,
           amount: amount
+        ))
+      end
+
+      # Set Locked Product Redeem Option (USER_DATA)
+      #
+      # POST /sapi/v1/simple-earn/locked/setRedeemOption
+      #
+      # @param positionId [String]
+      # @param redeemTo [String] SPOT or FLEXIBLE
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
+      # @see https://developers.binance.com/docs/simple_earn/earn/Set-Locked-Redeem-Option
+      def locked_redeem_option(positionId:, redeemTo:, **kwargs)
+        Binance::Utils::Validation.require_param('positionId', positionId)
+        Binance::Utils::Validation.require_param('redeemTo', redeemTo)
+
+        @session.sign_request(:post, '/sapi/v1/simple-earn/locked/setRedeemOption', params: kwargs.merge(
+          positionId: positionId,
+          redeemTo: redeemTo
         ))
       end
 

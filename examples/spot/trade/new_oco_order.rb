@@ -17,12 +17,12 @@ client = Binance::Spot.new(key: key, secret: secret, base_url: 'https://testnet.
 
 params = {
   symbol: 'BNBUSDT',
-  side: 'BUY',
-  quantity: 0.1,
-  price: 370,
-  stopPrice: 375,
-  stopLimitPrice: 374.8,
-  stopLimitTimeInForce: 'GTC'
+  side: 'SELL',
+  quantity: 1,
+  aboveType: 'LIMIT_MAKER',
+  belowType: 'LIMIT_MAKER',
+  abovePrice: 600,
+  belowPrice: 590
 }
 
 logger.info(client.new_oco_order(params))
