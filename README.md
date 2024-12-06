@@ -86,6 +86,14 @@ It's recommended to pass in the `base_url` parameter, even in production as Bina
 - `https://api2.binance.com`
 - `https://api3.binance.com`
 
+### Proxy
+
+If you need to use a proxy you can define `proxy_url`
+
+```
+client = Binance::Spot.new(base_url: 'https://api1.binance.com', proxy_url: 'http://myproxy.com')
+```
+
 ### RSA Signature
 
 Binance support both HMAC and RSA signature. Please find the example at `examples/trade/account.rb` for how to sign in both solutions.
