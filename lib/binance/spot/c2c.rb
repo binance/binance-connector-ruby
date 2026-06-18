@@ -16,7 +16,7 @@ module Binance
       # @option kwargs [Integer] :rows
       # @option kwargs [Integer] :recvWindow
       # @option kwargs [Integer] :timestamp
-      # @see https://developers.binance.com/docs/c2c/rest-api/Get-C2C-Trade-History
+      # @see https://developers.binance.com/docs/c2c/rest-api
       def c2c_trade_history(tradeType:, **kwargs)
         Binance::Utils::Validation.require_param('tradeType', tradeType)
 

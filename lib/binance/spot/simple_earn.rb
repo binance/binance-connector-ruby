@@ -14,7 +14,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Get-Simple-Earn-Flexible-Product-List
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account/Get-Simple-Earn-Flexible-Product-List
       def flexible_product_list(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/flexible/list', params: kwargs)
       end
@@ -28,7 +28,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Get-Simple-Earn-Locked-Product-List
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account/Get-Simple-Earn-Locked-Product-List
       def locked_product_list(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/locked/list', params: kwargs)
       end
@@ -43,7 +43,7 @@ module Binance
       # @option kwargs [Boolean] :autoSubscribe true or false, default true
       # @option kwargs [String] :sourceAccount SPOT,FUND,ALL, default SPOT
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Subscribe-Flexible-Product
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn
       def flexible_subscribe(productId:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('productId', productId)
         Binance::Utils::Validation.require_param('amount', amount)
@@ -65,7 +65,7 @@ module Binance
       # @option kwargs [String] :sourceAccount SPOT,FUND,ALL, default SPOT
       # @option kwargs [String] :redeemTo SPOT,FLEXIBLE, default FLEXIBLE
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Subscribe-Locked-Product
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Subscribe-Locked-Product
       def locked_subscribe(projectId:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('projectId', projectId)
         Binance::Utils::Validation.require_param('amount', amount)
@@ -86,7 +86,7 @@ module Binance
       # @option kwargs [Float] :amount if redeemAll is false, amount is mandatory
       # @option kwargs [String] :destAccount SPOT,FUND,ALL, default SPOT
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Redeem-Flexible-Product
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Redeem-Flexible-Product
       def flexible_redeem_product(productId:, **kwargs)
         Binance::Utils::Validation.require_param('productId', productId)
 
@@ -102,7 +102,7 @@ module Binance
       # @param positionId [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Redeem-Locked-Product
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Redeem-Locked-Product
       def locked_redeem_product(positionId:, **kwargs)
         Binance::Utils::Validation.require_param('positionId', positionId)
 
@@ -121,7 +121,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Get-Flexible-Product-Position
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account/Get-Flexible-Product-Position
       def flexible_product_position(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/flexible/position', params: kwargs)
       end
@@ -137,7 +137,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Get-Locked-Product-Position
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account/Get-Locked-Product-Position
       def locked_product_position(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/locked/position', params: kwargs)
       end
@@ -148,7 +148,7 @@ module Binance
       #
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Simple-Account
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account
       def simple_earn_account(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/account', params: kwargs)
       end
@@ -166,7 +166,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Flexible-Subscription-Record
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history
       def flexible_subscription_record(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/flexible/history/subscriptionRecord', params: kwargs)
       end
@@ -183,7 +183,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Locked-Subscription-Record
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Locked-Subscription-Record
       def locked_subscription_record(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/locked/history/subscriptionRecord', params: kwargs)
       end
@@ -201,7 +201,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Flexible-Redemption-Record
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Flexible-Redemption-Record
       def flexible_redemption_record(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/flexible/history/redemptionRecord', params: kwargs)
       end
@@ -219,7 +219,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Locked-Redemption-Record
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Locked-Redemption-Record
       def locked_redemption_record(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/locked/history/redemptionRecord', params: kwargs)
       end
@@ -237,7 +237,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Flexible-Rewards-History
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Flexible-Rewards-History
       def flexible_rewards_history(type:, **kwargs)
         Binance::Utils::Validation.require_param('type', type)
 
@@ -256,7 +256,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Locked-Rewards-History
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Locked-Rewards-History
       def locked_rewards_history(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/locked/history/rewardsRecord', params: kwargs)
       end
@@ -269,7 +269,7 @@ module Binance
       # @param autoSubscribe [Boolean] true or false
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Set-Flexible-Auto-Subscribe
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Set-Flexible-Auto-Subscribe
       def flexible_auto_subscribe(productId:, autoSubscribe:, **kwargs)
         Binance::Utils::Validation.require_param('productId', productId)
         Binance::Utils::Validation.require_param('autoSubscribe', autoSubscribe)
@@ -288,7 +288,7 @@ module Binance
       # @param autoSubscribe [Boolean] true or false
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Set-Locked-Auto-Subscribe
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Set-Locked-Auto-Subscribe
       def locked_auto_subscribe(positionId:, autoSubscribe:, **kwargs)
         Binance::Utils::Validation.require_param('positionId', positionId)
         Binance::Utils::Validation.require_param('autoSubscribe', autoSubscribe)
@@ -306,7 +306,7 @@ module Binance
       # @param productId [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Get-Flexible-Personal-Left-Quota
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account/Get-Flexible-Personal-Left-Quota
       def flexible_personal_left_quota(productId:, **kwargs)
         Binance::Utils::Validation.require_param('productId', productId)
 
@@ -320,7 +320,7 @@ module Binance
       # @param projectId [String]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/account/Get-Locked-Personal-Left-Quota
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/account/Get-Locked-Personal-Left-Quota
       def locked_personal_left_quota(projectId:, **kwargs)
         Binance::Utils::Validation.require_param('projectId', projectId)
 
@@ -335,7 +335,7 @@ module Binance
       # @param amount [Float]
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Get-Flexible-Subscription-Preview
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Get-Flexible-Subscription-Preview
       def flexible_subscription_preview(productId:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('productId', productId)
         Binance::Utils::Validation.require_param('amount', amount)
@@ -355,7 +355,7 @@ module Binance
       # @param kwargs [Hash]
       # @option kwargs [Boolean] :autoSubscribe true or false, default true
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Get-Locked-Subscription-Preview
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Get-Locked-Subscription-Preview
       def locked_subscription_preview(projectId:, amount:, **kwargs)
         Binance::Utils::Validation.require_param('projectId', projectId)
         Binance::Utils::Validation.require_param('amount', amount)
@@ -374,7 +374,7 @@ module Binance
       # @param redeemTo [String] SPOT or FLEXIBLE
       # @param kwargs [Hash]
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/earn/Set-Locked-Redeem-Option
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/earn/Set-Locked-Redeem-Option
       def locked_redeem_option(positionId:, redeemTo:, **kwargs)
         Binance::Utils::Validation.require_param('positionId', positionId)
         Binance::Utils::Validation.require_param('redeemTo', redeemTo)
@@ -396,7 +396,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Rate-History
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Rate-History
       def rate_history(productId:, **kwargs)
         Binance::Utils::Validation.require_param('productId', productId)
 
@@ -414,7 +414,7 @@ module Binance
       # @option kwargs [Integer] :current Currently querying the page. Start from 1. Default:1
       # @option kwargs [Integer] :size Default:10, Max:100
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/simple_earn/history/Get-Collateral-Record
+      # @see https://developers.binance.com/docs/simple_earn/flexible-locked/history/Get-Collateral-Record
       def collateral_record(**kwargs)
         @session.sign_request(:get, '/sapi/v1/simple-earn/flexible/history/collateralRecord', params: kwargs)
       end

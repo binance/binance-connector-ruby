@@ -1,5 +1,32 @@
 # Changelog
 
+## 1.8.0 - 2026-06-18
+### Added
+- Market endpoints:
+  - `GET /api/v3/executionRules`
+  - `GET /api/v3/referencePrice`
+  - `GET /api/v3/referencePrice/calculation`
+  - `GET /api/v3/historicalBlockTrades`
+
+- Trade endpoints:
+  - `GET /api/v3/order/amendments`
+  - `GET /api/v3/myFilters`
+  - `PUT /api/v3/order/amend/keepPriority`
+  - `POST /api/v3/orderList/oco`
+  - `POST /api/v3/orderList/oto`
+  - `POST /api/v3/orderList/otoco`
+  - `POST /api/v3/orderList/opo`
+  - `POST /api/v3/orderList/opoco`
+
+### Changed
+- Added new parameter `symbolStatus` to endpoints:
+  - `GET /api/v3/depth`
+  - `GET /api/v3/ticker/price`
+  - `GET /api/v3/ticker/bookTicker`
+  - `GET /api/v3/ticker/24hr`
+  - `GET /api/v3/ticker/tradingDay`
+  - `GET /api/v3/ticker`
+
 ## 1.7.1 - 2025-01-13
 ### Changed
 - Updated documentation links.

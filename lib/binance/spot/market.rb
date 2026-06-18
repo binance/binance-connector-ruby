@@ -9,7 +9,7 @@ module Binance
     # - trades
     # - orderbook
     # - etc
-    # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/public-api-endpoints#market-data-endpoints
+    # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints
     module Market
       # Test Connectivity
       #
@@ -54,6 +54,26 @@ module Binance
         )
       end
 
+      # Query Execution Rules
+      #
+      # GET /api/v3/executionRules
+      #
+      # @param kwargs [Hash]
+      # @option kwargs [string] :symbol
+      # @option kwargs [string] :symbols
+      # @option kwargs [string] :symbolStatus Supported values: TRADING, HALT, BREAK
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/general-endpoints#query-execution-rules
+      def execution_rules(**kwargs)
+        if kwargs[:symbols].is_a?(Array)
+          kwargs[:symbols] = kwargs[:symbols].map { |v| "%22#{v}%22" }.join(',')
+          kwargs[:symbols] = "%5B#{kwargs[:symbols]}%5D"
+        end
+        @session.public_request(
+          path: '/api/v3/executionRules',
+          params: kwargs
+        )
+      end
+
       # Order Book
       #
       # GET /api/v3/depth
@@ -61,6 +81,7 @@ module Binance
       # @param symbol [String] the symbol
       # @param kwargs [Hash]
       # @option kwargs [Integer] :limit Default 100; max 1000. Valid limits:[5, 10, 20, 50, 100, 500, 1000, 5000]
+      # @option kwargs [String] :symbolStatus Valid values: TRADING, HALT, BREAK
       # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#order-book
       def depth(symbol:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
@@ -209,11 +230,16 @@ module Binance
       # GET /api/v3/ticker/24hr
       #
       # @param symbol [String] the symbol
+      # @param kwargs [Hash]
+      # @option kwargs [String] :symbol Either symbol or symbols must be provided
+      # @option kwargs [String] :symbols
+      # @option kwargs [String] :type Default: FULL Supported values: FULL or MINI
+      # @option kwargs [String] :symbolStatus Valid values: TRADING, HALT, BREAK
       # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#24hr-ticker-price-change-statistics
-      def ticker_24hr(symbol: nil)
+      def ticker_24hr(symbol: nil, **kwargs)
         @session.public_request(
           path: '/api/v3/ticker/24hr',
-          params: { symbol: symbol }
+          params: kwargs.merge(symbol: symbol)
         )
       end
 
@@ -228,6 +254,7 @@ module Binance
       # @option kwargs [string] :symbols
       # @option kwargs [String] :timeZone Default: 0 (UTC)
       # @option kwargs [String] :type Supported values: FULL or MINI. Default: FULL
+      # @option kwargs [String] :symbolStatus Valid values: TRADING, HALT, BREAK
       # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#trading-day-ticker
       def ticker_trading_day(symbol: nil, symbols: nil, **kwargs)
         raise Binance::DuplicatedParametersError.new('symbol', 'symbols') unless symbols.nil? || symbol.nil?
@@ -253,11 +280,13 @@ module Binance
       # GET /api/v3/ticker/price
       #
       # @param symbol [String] the symbol
+      # @param kwargs [Hash]
+      # @option kwargs [String] :symbolStatus Valid values: TRADING, HALT, BREAK
       # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#symbol-price-ticker
-      def ticker_price(symbol: nil)
+      def ticker_price(symbol: nil, **kwargs)
         @session.public_request(
           path: '/api/v3/ticker/price',
-          params: { symbol: symbol }
+          params: kwargs.merge(symbol: symbol)
         )
       end
 
@@ -268,11 +297,13 @@ module Binance
       # GET /api/v3/ticker/bookTicker
       #
       # @param symbol [String] the symbol
+      # @param kwargs [Hash]
+      # @option kwargs [String] :symbolStatus Valid values: TRADING, HALT, BREAK
       # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#symbol-order-book-ticker
-      def book_ticker(symbol: nil)
+      def book_ticker(symbol: nil, **kwargs)
         @session.public_request(
           path: '/api/v3/ticker/bookTicker',
-          params: { symbol: symbol }
+          params: kwargs.merge(symbol: symbol)
         )
       end
 
@@ -283,7 +314,10 @@ module Binance
       # GET /api/v3/ticker
       #
       # @param symbol [String] the symbol
-      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#rolling-window-price-change-statistics
+      # @param kwargs [Hash]
+      # @option kwargs [String] :windowSize Default: 1d
+      # @option kwargs [String] :symbolStatus Valid values: TRADING, HALT, BREAK
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#symbol-order-book-ticker
       def ticker(symbol: nil, symbols: nil, windowSize: '1d')
         raise Binance::DuplicatedParametersError.new('symbol', 'symbols') unless symbols.nil? || symbol.nil?
 
@@ -299,6 +333,56 @@ module Binance
         @session.public_request(
           path: '/api/v3/ticker',
           params: params
+        )
+      end
+
+      # Query Reference Price
+      #
+      # GET /api/v3/referencePrice
+      #
+      # @param symbol [String] the symbol
+      # see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#query-reference-price
+      def reference_price(symbol:)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+
+        @session.public_request(
+          path: '/api/v3/referencePrice',
+          params: { symbol: symbol }
+        )
+      end
+
+      # Query Reference Price Calculation
+      #
+      # GET /api/v3/referencePrice/calculation
+      #
+      # @param symbol [String] the symbol
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :symbolStatus Supported values: TRADING, HALT, BREAK
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#query-reference-price-calculation
+      def reference_price_calculation(symbol:, **kwargs)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+
+        @session.public_request(
+          path: '/api/v3/referencePrice/calculation',
+          params: { symbol: symbol }.merge(kwargs)
+        )
+      end
+
+      # Historical Block Trades
+      #
+      # GET /api/v3/historicalBlockTrades
+      #
+      # @param symbol [String] the symbol
+      # @param kwargs [Hash]
+      # @option kwargs [Integer] :limit Default 500; max 1000.
+      # @option kwargs [Integer] :fromId
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints#historical-block-trades
+      def historical_block_trades(symbol:, **kwargs)
+        Binance::Utils::Validation.require_param('symbol', symbol)
+
+        @session.public_request(
+          path: '/api/v3/historicalBlockTrades',
+          params: { symbol: symbol }.merge(kwargs)
         )
       end
     end
