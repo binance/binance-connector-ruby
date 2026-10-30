@@ -28,4 +28,4 @@ params = {
   pendingPrice: 1.0
 }
 
-logger.info(client.new_opo_order_list(params))
+logger.info(client.new_opo_order_list(**params))

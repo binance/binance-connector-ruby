@@ -261,7 +261,7 @@ module Binance
 
         if symbols
           symbols = symbols.map { |s| "\"#{s}\"" }.join(',')
-          symbols = { symbols: "\[#{symbols}\]".upcase }
+          symbols = "\[#{symbols}\]".upcase
         end
 
         @session.public_request(

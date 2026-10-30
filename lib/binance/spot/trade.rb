@@ -169,9 +169,10 @@ module Binance
 
       # New OCO (TRADE)
       #
-      # POST /api/v3/order/oco
+      # POST /api/v3/orderList/oco
       #
-      # Send in a new OCO
+      # Send in a new OCO. Same as {#new_oco_order_list}.
+      # The deprecated POST /api/v3/order/oco endpoint is no longer used.
       #
       # @param symbol [String] the symbol
       # @param side [String]
@@ -182,23 +183,23 @@ module Binance
       # @option kwargs [String] :listClientOrderId
       # @option kwargs [String] :aboveClientOrderId Arbitrary unique ID among open orders for the above order. Automatically generated if not sent
       # @option kwargs [Integer] :aboveIcebergQty Note that this can only be used if aboveTimeInForce is GTC
-      # @option kwargs [Float] :abovePrice
-      # @option kwargs [Float] :aboveStopPriceCan be used if aboveType is STOP_LOSS or STOP_LOSS_LIMIT. Either aboveStopPrice or aboveTrailingDelta or both, must be specified.
+      # @option kwargs [Float] :abovePrice Can be used if aboveType is STOP_LOSS_LIMIT, LIMIT_MAKER or TAKE_PROFIT_LIMIT to specify the limit price.
+      # @option kwargs [Float] :aboveStopPrice Can be used if aboveType is STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT or TAKE_PROFIT_LIMIT. Either this, aboveTrailingDelta or both must be sent
       # @option kwargs [Integer] :aboveTrailingDelta
-      # @option kwargs [Float] :aboveTimeInForce Required if the aboveType is STOP_LOSS_LIMIT.
+      # @option kwargs [String] :aboveTimeInForce Required if aboveType is STOP_LOSS_LIMIT or TAKE_PROFIT_LIMIT
       # @option kwargs [Integer] :aboveStrategyId Arbitrary numeric value identifying the above order within an order strategy.
       # @option kwargs [Integer] :aboveStrategyType Arbitrary numeric value identifying the above order strategy. Values smaller than 1000000 are reserved and cannot be used.
       # @option kwargs [String] :belowClientOrderId Arbitrary unique ID among open orders for the below order. Automatically generated if not sent
       # @option kwargs [Integer] :belowIcebergQty Note that this can only be used if belowTimeInForce is GTC
-      # @option kwargs [Float] :belowPrice Can be used if belowType is STOP_LOSS_LIMIT or LIMIT_MAKER to specify the limit price.
-      # @option kwargs [Float] :belowStopPrice Can be used if belowType is STOP_LOSS or STOP_LOSS_LIMIT. Either belowStopPrice or belowTrailingDelta or both, must be specified.
+      # @option kwargs [Float] :belowPrice Can be used if belowType is STOP_LOSS_LIMIT, LIMIT_MAKER or TAKE_PROFIT_LIMIT to specify the limit price.
+      # @option kwargs [Float] :belowStopPrice Can be used if belowType is STOP_LOSS, STOP_LOSS_LIMIT, TAKE_PROFIT or TAKE_PROFIT_LIMIT. Either this, belowTrailingDelta or both must be sent
       # @option kwargs [Integer] :belowTrailingDelta
-      # @option kwargs [String] :belowTimeInForce Required if the belowType is STOP_LOSS_LIMIT
+      # @option kwargs [String] :belowTimeInForce Required if belowType is STOP_LOSS_LIMIT or TAKE_PROFIT_LIMIT
       # @option kwargs [Integer] :belowStrategyId Arbitrary numeric value identifying the below order within an order strategy
-      # @option kwargs [String] :belowStrategyType Arbitrary numeric value identifying the below order strategy. Values smaller than 1000000 are reserved and cannot be used.
+      # @option kwargs [Integer] :belowStrategyType Arbitrary numeric value identifying the below order strategy. Values smaller than 1000000 are reserved and cannot be used.
+      # @option kwargs [String] :selfTradePreventionMode
       # @option kwargs [String] :newOrderRespType
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/trading-endpoints#new-order-list---oco-trade
       # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/trading-endpoints#new-order-list---oco-trade
       def new_oco_order(symbol:, side:, quantity:, aboveType:, belowType:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
@@ -207,7 +208,7 @@ module Binance
         Binance::Utils::Validation.require_param('aboveType', aboveType)
         Binance::Utils::Validation.require_param('belowType', belowType)
 
-        @session.sign_request(:post, '/api/v3/order/oco', params: kwargs.merge(
+        @session.sign_request(:post, '/api/v3/orderList/oco', params: kwargs.merge(
           symbol: symbol,
           side: side,
           quantity: quantity,
@@ -485,7 +486,7 @@ module Binance
       # @option kwargs [Float] :abovePrice
       # @option kwargs [Float] :aboveStopPrice
       # @option kwargs [Integer] :aboveTrailingDelta
-      # @option kwargs [Integer] :aboveTimeInForce
+      # @option kwargs [String] :aboveTimeInForce
       # @option kwargs [Integer] :aboveStrategyId
       # @option kwargs [Integer] :aboveStrategyType
       # @option kwargs [Integer] :abovePegPriceType
@@ -496,16 +497,16 @@ module Binance
       # @option kwargs [Float] :belowPrice
       # @option kwargs [Float] :belowStopPrice
       # @option kwargs [Integer] :belowTrailingDelta
-      # @option kwargs [Integer] :belowTimeInForce
+      # @option kwargs [String] :belowTimeInForce
       # @option kwargs [Integer] :belowStrategyId
       # @option kwargs [Integer] :belowStrategyType
       # @option kwargs [Integer] :belowPegPriceType
       # @option kwargs [Integer] :belowPegOffsetType
       # @option kwargs [Integer] :belowPegOffsetValue
-      # @option kwargs [Integer] :selfTradePreventionMode
+      # @option kwargs [String] :selfTradePreventionMode
       # @option kwargs [String] :newOrderRespType
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
-      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/trading-endpoints#order-amend-keep-priority-trade
+      # @see https://developers.binance.com/docs/binance-spot-api-docs/rest-api/trading-endpoints#new-order-list---oco-trade
       def new_oco_order_list(symbol:, side:, quantity:, aboveType:, belowType:, **kwargs)
         Binance::Utils::Validation.require_param('symbol', symbol)
         Binance::Utils::Validation.require_param('side', side)

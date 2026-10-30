@@ -20,9 +20,11 @@ params = {
   side: 'SELL',
   quantity: 1,
   aboveType: 'LIMIT_MAKER',
-  belowType: 'LIMIT_MAKER',
-  abovePrice: 600,
-  belowPrice: 590
+  abovePrice: 610,
+  belowType: 'STOP_LOSS_LIMIT',
+  belowStopPrice: 590,
+  belowPrice: 589,
+  belowTimeInForce: 'GTC'
 }
 
-logger.info(client.new_oco_order(params))
+logger.info(client.new_oco_order(**params))
