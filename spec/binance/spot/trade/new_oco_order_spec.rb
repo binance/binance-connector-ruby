@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Binance::Spot::Trade, '#new_oco_order' do
-  let(:path) { '/api/v3/order/oco' }
+  let(:path) { '/api/v3/orderList/oco' }
   let(:body) { fixture('response.json') }
   let(:status) { 200 }
   let(:params) do

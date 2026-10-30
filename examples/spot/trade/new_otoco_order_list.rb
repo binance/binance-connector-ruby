@@ -26,4 +26,4 @@ params = {
   pendingAboveType: 'STOP_LOSS_LIMIT'
 }
 
-logger.info(client.new_otoco_order_list(params))
+logger.info(client.new_otoco_order_list(**params))

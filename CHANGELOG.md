@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.9.0 - 2026-10-30
+### Added
+- Dual Investment endpoints:
+  - `GET /sapi/v1/dci/product/list`
+  - `GET /sapi/v1/dci/product/positions`
+
+### Changed
+- Bumped `faraday` to `1.10.6` and `json` to `2.21.2` to address security advisories.
+
+### Fixed
+- `new_oco_order` now sends requests to `POST /api/v3/orderList/oco` instead of the deprecated `POST /api/v3/order/oco`, matching its `aboveType`/`belowType` parameters (#28).
+- Fixed OCO examples parameters and order list examples to pass parameters as keyword arguments.
+- `ticker_trading_day` sent the `symbols` parameter as a nested hash, which Binance rejected.
+- `delist_schedule` now sends the API key, which `GET /sapi/v1/spot/delist-schedule` requires.
+- Renamed 60 spec files missing the `_spec.rb` suffix so they run with the test suite, and fixed the failing ones.
+
 ## 1.8.0 - 2026-06-18
 ### Added
 - Market endpoints:

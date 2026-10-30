@@ -25,4 +25,4 @@ params = {
   pendingAboveType: 'STOP_LOSS_LIMIT'
 }
 
-logger.info(client.new_opoco_order_list(params))
+logger.info(client.new_opoco_order_list(**params))

@@ -24,7 +24,7 @@ module Binance
       # @option kwargs [Integer] :recvWindow The value cannot be greater than 60000
       # @see https://developers.binance.com/docs/wallet/others/delist-schedule
       def delist_schedule(**kwargs)
-        @session.public_request(path: '/sapi/v1/spot/delist-schedule', params: kwargs)
+        @session.limit_request(path: '/sapi/v1/spot/delist-schedule', params: kwargs)
       end
 
       # All Coins' Information (USER_DATA)

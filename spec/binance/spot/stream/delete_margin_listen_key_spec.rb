@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Binance::Spot::Trade, '#delete_margin_listen_key' do
+RSpec.describe Binance::Spot::Stream, '#delete_margin_listen_key' do
   let(:path) { '/sapi/v1/userDataStream' }
   let(:body) { fixture('response.json') }
   let(:status) { 200 }

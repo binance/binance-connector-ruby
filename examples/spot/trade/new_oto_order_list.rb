@@ -26,4 +26,4 @@ params = {
   pendingQuantity: 1.0
 }
 
-logger.info(client.new_oto_order_list(params))
+logger.info(client.new_oto_order_list(**params))

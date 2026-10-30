@@ -18,9 +18,13 @@ client = Binance::Spot.new(key: key, secret: secret, base_url: 'https://testnet.
 params = {
   symbol: 'BNBUSDT',
   side: 'SELL',
-  quantity: 10,
-  aboveType: 'STOP_LOSS_LIMIT',
-  belowType: 'STOP_LOSS'
+  quantity: 1,
+  aboveType: 'LIMIT_MAKER',
+  abovePrice: 610,
+  belowType: 'STOP_LOSS_LIMIT',
+  belowStopPrice: 590,
+  belowPrice: 589,
+  belowTimeInForce: 'GTC'
 }
 
-logger.info(client.new_oco_order_list(params))
+logger.info(client.new_oco_order_list(**params))

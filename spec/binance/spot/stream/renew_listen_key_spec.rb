@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-RSpec.describe Binance::Spot::Trade, '#renew_listen_key' do
+RSpec.describe Binance::Spot::Stream, '#renew_listen_key' do
   let(:path) { '/api/v3/userDataStream' }
   let(:body) { fixture('response.json') }
   let(:status) { 200 }
